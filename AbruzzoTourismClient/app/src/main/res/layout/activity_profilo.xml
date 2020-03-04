@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="univaq.aq.it.abruzzotourism.ProfiloActivity">
+
+    <FrameLayout
+        android:id="@+id/container2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            app:itemIconTint="@android:color/background_light"
+            app:itemTextColor="@android:color/background_light"
+            app:menu="@menu/bottom_navigation_menu">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="165dp"
+                        android:layout_marginTop="50dp"
+                        app:srcCompat="@mipmap/ic_launcher" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="107dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Nome E Cognome"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/floatingActionButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="35dp"
+                        android:layout_marginTop="60dp"
+                        android:backgroundTint="@android:color/background_light"
+                        android:clickable="true"
+                        android:tint="@color/colorPrimary"
+                        app:backgroundTint="@color/colorPrimary"
+                        app:borderWidth="2dp"
+                        app:srcCompat="@drawable/registropren" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Registro Prenotazioni"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:id="@+id/divider2"
+                        android:layout_width="115dp"
+                        android:layout_height="2dp"
+                        android:layout_marginLeft="7dp"
+                        android:background="@color/colorPrimary"
+                        android:visibility="invisible" />
+
+                    <fragment
+                        android:id="@+id/fragment_prenotazioni"
+                        android:name="univaq.aq.it.abruzzotourism.RegistroPrenotazioniFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="650dp"
+                        android:layout_margin="8dp"
+                        android:nestedScrollingEnabled="true"
+                        tools:layout="@layout/fragment_prenotazioni_list" />
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

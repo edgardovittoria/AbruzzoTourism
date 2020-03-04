@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="univaq.aq.it.abruzzotourism.RiepilogoPrenotazioneActivity">
+
+    <FrameLayout
+        android:id="@+id/container2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            app:itemIconTint="@android:color/background_light"
+            app:itemTextColor="@android:color/background_light"
+            app:menu="@menu/bottom_navigation_menu" >
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="613dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageViewRiepilogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="205dp"
+                        android:layout_margin="8dp"
+                        android:scaleType="fitXY" />
+
+                    <TextView
+                        android:id="@+id/tv_nome_attivita_riepilogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/divider3"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="?android:attr/listDivider"
+                        android:backgroundTint="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:id="@+id/tv_numeroPersone_riepilogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp" />
+
+                    <View
+                        android:id="@+id/divider4"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="?android:attr/listDivider"
+                        android:backgroundTint="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:id="@+id/tv_data_riepilogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp" />
+
+                    <View
+                        android:id="@+id/divider5"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="?android:attr/listDivider"
+                        android:backgroundTint="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:id="@+id/tv_costoTot_riepilogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_margin="8dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp" />
+
+                    <View
+                        android:id="@+id/divider6"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="?android:attr/listDivider"
+                        android:backgroundTint="@color/colorPrimaryDark" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btn_annulla3"
+                            android:layout_width="118dp"
+                            android:layout_height="66dp"
+                            android:layout_margin="8dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/colorAccent"
+                            android:text="Annulla"
+                            android:textColor="@android:color/background_light" />
+
+                        <Button
+                            android:id="@+id/btn_confermaPrenotazione"
+                            android:layout_width="118dp"
+                            android:layout_height="66dp"
+                            android:layout_margin="8dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:text="Conferma"
+                            android:textColor="@android:color/background_light" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+        </ScrollView>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

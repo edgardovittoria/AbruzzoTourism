@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/Sportiva"
+        android:title="Attività Sportiva"/>
+    <item
+        android:id="@+id/Culturale"
+        android:title="Attività Culturale"/>
+    <item
+        android:id="@+id/FloraFauna"
+        android:title="Attività Flora e Fauna"/>
+</menu>
