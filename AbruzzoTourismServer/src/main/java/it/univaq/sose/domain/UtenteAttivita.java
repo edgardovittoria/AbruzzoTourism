@@ -40,9 +40,6 @@ public class UtenteAttivita {
 	@XmlElement(namespace = "http://service.sose.univaq.it/")
 	private String password;
 	
-	@OneToMany
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
-	private List<Prenotazione> prenotazioni;
 
 	public int getIDUtenteAttivita() {
 		return IDUtenteAttivita;
@@ -77,13 +74,7 @@ public class UtenteAttivita {
 		this.password = password;
 	}
 
-	public List<Prenotazione> getPrenotazioni() {
-		return prenotazioni;
-	}
-
-	public void setPrenotazioni(List<Prenotazione> prenotazioni) {
-		this.prenotazioni = prenotazioni;
-	}
+	
 	
 	
 
