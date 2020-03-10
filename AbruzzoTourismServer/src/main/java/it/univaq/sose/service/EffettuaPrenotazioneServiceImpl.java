@@ -98,6 +98,16 @@ public class EffettuaPrenotazioneServiceImpl implements EffettuaPrenotazioneServ
 	public boolean registrazioneUtenteAttivita(UtenteAttivita utenteAttivita) {
 		return utenteAttivitaRepository.addUtenteAttivita(utenteAttivita);
 	}
+
+	@Override
+	public boolean creaAttivita(Attivita attivita) {
+		try {
+			return attivitaRepository.addAttivita(attivita);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
 	
 	

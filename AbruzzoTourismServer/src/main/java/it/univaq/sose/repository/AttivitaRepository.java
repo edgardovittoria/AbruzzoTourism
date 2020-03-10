@@ -19,17 +19,19 @@ public class AttivitaRepository {
 
 	private EntityManager em = emf.createEntityManager();
 	
-	public void addAttivita(Attivita attivita) {
+	public boolean addAttivita(Attivita attivita) {
 
 		try {
 			this.em.getTransaction().begin();
 			this.em.persist(attivita);
 			this.em.getTransaction().commit();
+			return true;
 		} catch (Exception e) {
 			if (this.em.getTransaction() != null) {
 				this.em.getTransaction().rollback();
 			}
 			e.printStackTrace();
+			return false;
 		}
 
 	}

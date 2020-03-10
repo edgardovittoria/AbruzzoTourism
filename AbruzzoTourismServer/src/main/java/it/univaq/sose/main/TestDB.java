@@ -32,7 +32,7 @@ public class TestDB {
 		
 		
 		
-		File file = new File("/home/edgardo/Immagini/museogeopaleontologico.jpeg");
+		File file = new File("/home/edgardo/Immagini/Torrentismo.jpg");
 		
 		byte[] bArray = readFileToByteArray(file);
 		String image = Base64.getEncoder().encodeToString(bArray);
@@ -41,14 +41,14 @@ public class TestDB {
 		
         
         
-        /*Attivita attivita = new Attivita();
+        Attivita attivita = new Attivita();
 		attivita.setCostoPerPersona(35);
 		attivita.setNomeAttivita("Torrentismo");
 		attivita.setDescrizione("Torrentismo Descrizione");
 		attivita.setNumMaxPartecipanti(15);
 		attivita.setImage(image);
 		attivita.setTipologia(TipologiaAttivita.Sportiva);
-		attivitaRepository.addAttivita(attivita);*/
+		attivitaRepository.addAttivita(attivita);
 		
 		/*Attivita attivita1 = Culturale.getInstance();
 		attivita1.setCostoPerPersona(12);

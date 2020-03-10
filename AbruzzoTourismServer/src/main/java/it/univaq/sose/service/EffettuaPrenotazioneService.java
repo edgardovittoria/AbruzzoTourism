@@ -143,4 +143,18 @@ public interface EffettuaPrenotazioneService {
 					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = UtenteAttivita.class))) }) 
 			@WebParam(name = "utenteAttivita", targetNamespace = "http://service.sose.univaq.it/") UtenteAttivita utenteAttivita);
 	
+	@Operation(description = "metodo utilizzato per salvare nel db l'attività che l'utente ha intenzione di inserire tra le attività disponibili", responses = {
+			@ApiResponse(description = "TRUE se il salvataggio è stato effettuato, FALSE altrimenti", content = {
+					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Boolean.class))),
+					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Boolean.class))) }) })
+	@WebMethod
+	@POST
+	@Path("/creaAttivita")
+	public boolean creaAttivita(
+			@RequestBody(description = "Ogetto di tipo attivita", required = true, content = {
+					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))),
+					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))) }) 
+			@WebParam(name = "prenotazione", targetNamespace = "http://service.sose.univaq.it/") Attivita attivita);
+
+	
 }
