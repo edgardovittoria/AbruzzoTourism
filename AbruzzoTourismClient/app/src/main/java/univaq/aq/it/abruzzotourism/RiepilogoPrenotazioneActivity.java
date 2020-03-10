@@ -209,7 +209,7 @@ public class RiepilogoPrenotazioneActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(SoapObject result){
-            String prenotazione_avvenuta = "La ta prenotazione è stata effettuata con successo!!! Puoi visionare le prenotazioni effettuate nel registro prenotazioni.";
+            String prenotazione_avvenuta = "La tua prenotazione è stata effettuata con successo!!! Puoi visionare le prenotazioni effettuate nel registro prenotazioni.";
             AlertDialog alertDialog = new AlertDialog.Builder(RiepilogoPrenotazioneActivity.this).create();
             alertDialog.setTitle("PREANOTAZIONE AVVENUTA");
             alertDialog.setMessage(prenotazione_avvenuta);

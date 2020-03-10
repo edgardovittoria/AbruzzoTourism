@@ -16,16 +16,18 @@ public class Attivita implements KvmSerializable, Parcelable {
     private float CostoPerPersona;
     private int NumMaxPartecipanti;
     private String image;
+    private String tipologia;
 
     public Attivita(){}
 
-    public Attivita(int IDAttivita, String nomeAttivita, String descrizione, float CostoPerPersona, int numMaxPartecipanti, String image){
+    public Attivita(int IDAttivita, String nomeAttivita, String descrizione, float CostoPerPersona, int numMaxPartecipanti, String image, String tipologia){
         this.IDAttivita = IDAttivita;
         this.nomeAttivita = nomeAttivita;
         this.descrizione = descrizione;
         this.CostoPerPersona = CostoPerPersona;
         this.NumMaxPartecipanti = numMaxPartecipanti;
         this.image = image;
+        this.tipologia = tipologia;
     }
 
     protected Attivita(Parcel in) {
@@ -35,6 +37,7 @@ public class Attivita implements KvmSerializable, Parcelable {
         CostoPerPersona = in.readFloat();
         NumMaxPartecipanti = in.readInt();
         image = in.readString();
+        tipologia = in.readString();
     }
 
     public static final Creator<Attivita> CREATOR = new Creator<Attivita>() {
@@ -97,6 +100,14 @@ public class Attivita implements KvmSerializable, Parcelable {
         this.image = image;
     }
 
+    public String getTipologia() {
+        return tipologia;
+    }
+
+    public void setTipologia(String tipologia) {
+        this.tipologia = tipologia;
+    }
+
     @Override
     public Object getProperty(int index) {
         switch (index)
@@ -107,6 +118,7 @@ public class Attivita implements KvmSerializable, Parcelable {
             case 3: return CostoPerPersona;
             case 4: return NumMaxPartecipanti;
             case 5: return image;
+            case 6: return tipologia;
 
         }
         return null;
@@ -114,7 +126,7 @@ public class Attivita implements KvmSerializable, Parcelable {
 
     @Override
     public int getPropertyCount() {
-        return 6;
+        return 7;
     }
 
     @Override
@@ -138,6 +150,9 @@ public class Attivita implements KvmSerializable, Parcelable {
                 break;
             case 5:
                 image = value.toString();
+                break;
+            case 6:
+                tipologia = value.toString();
                 break;
             default:
                 break;
@@ -171,6 +186,10 @@ public class Attivita implements KvmSerializable, Parcelable {
                 info.type = PropertyInfo.STRING_CLASS;
                 info.name = "image";
                 break;
+            case 6:
+                info.type = PropertyInfo.STRING_CLASS;
+                info.name = "tipologia";
+                break;
             default:
                 break;
         }
@@ -189,5 +208,6 @@ public class Attivita implements KvmSerializable, Parcelable {
         dest.writeFloat(CostoPerPersona);
         dest.writeInt(NumMaxPartecipanti);
         dest.writeString(image);
+        dest.writeString(tipologia);
     }
 }

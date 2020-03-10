@@ -139,8 +139,9 @@ public class MainActivity extends AppCompatActivity {
                     float costo = Float.parseFloat(soapObjects.get(i).getProperty("CostoPerPersona").toString());
                     int numMaxPar = Integer.parseInt(soapObjects.get(i).getProperty("NumMaxPartecipanti").toString());
                     String image = soapObjects.get(i).getProperty("image").toString();
+                    String tipologia = soapObjects.get(i).getProperty("tipologia").toString();
 
-                    Attivita att = new Attivita(ID, nome, descrizione, costo, numMaxPar, image);
+                    Attivita att = new Attivita(ID, nome, descrizione, costo, numMaxPar, image, tipologia);
                     attivita.add(att);
 
                 }
