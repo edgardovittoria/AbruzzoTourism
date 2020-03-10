@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism;
+package univaq.aq.it.abruzzotourism.Activities.ProfiloTurista;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +17,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import univaq.aq.it.abruzzotourism.MainActivity;
+import univaq.aq.it.abruzzotourism.R;
+import univaq.aq.it.abruzzotourism.Activities.Prenotazione.SearchActivity;
 
 public class ProfiloActivity extends AppCompatActivity {
 

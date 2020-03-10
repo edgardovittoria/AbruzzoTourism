@@ -11,5 +11,5 @@
     android:fadeScrollbars="true"
     android:nestedScrollingEnabled="true"
     app:layoutManager="LinearLayoutManager"
-    tools:context="univaq.aq.it.abruzzotourism.RegistroPrenotazioniFragment"
+    tools:context="univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.RegistroPrenotazioniFragment"
     tools:listitem="@layout/fragment_prenotazioni" />

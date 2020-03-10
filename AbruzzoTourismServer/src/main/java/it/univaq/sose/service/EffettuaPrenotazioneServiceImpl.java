@@ -108,6 +108,16 @@ public class EffettuaPrenotazioneServiceImpl implements EffettuaPrenotazioneServ
 			return false;
 		}
 	}
+
+	@Override
+	public List<Prenotazione> getPrenotazioniByUtenteAttivita(String nomeAttivita) {
+		return prenotazioneRepository.getPrenotazioniByUtenteAttivita(nomeAttivita);
+	}
+
+	@Override
+	public String getImageAttivitaByName(String nomeAttivita) {
+		return attivitaRepository.getImageByName(nomeAttivita);
+	}
 }
 	
 	

@@ -1,17 +1,12 @@
-package univaq.aq.it.abruzzotourism;
+package univaq.aq.it.abruzzotourism.Activities.Prenotazione;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,69 +16,40 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cz.msebera.android.httpclient.Header;
+import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity;
+import univaq.aq.it.abruzzotourism.Adapter.AttivitaListAdapter;
+import univaq.aq.it.abruzzotourism.MainActivity;
+import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
 
-public class DettagliAttivitaActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
+    private AttivitaListAdapter list_adapter;
+    private ListView lv_attivita;
+    private UserDetails user = new UserDetails();
+    private Activity searchActivity = this;
     Context context = this;
-    UserDetails user = new UserDetails();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dettagli_attivita);
+        setContentView(R.layout.activity_search);
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        user = getIntent().getParcelableExtra("user");
-
+        this.user = getIntent().getParcelableExtra("user");
+        fetchAttivita(getIntent().getStringExtra("tipologia"));
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        final Attivita att = getIntent().getParcelableExtra("attivita");
-
-        RESTClient.get("/getImage/" + att.getIDAttivita(), null, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                att.setImage(new String(responseBody));
-                ImageView iv= findViewById(R.id.im_DettagliAttivita);
-                byte[] image = Base64.decode(att.getImage(), 0);
-                Bitmap image1 = BitmapFactory.decodeByteArray(image,0,image.length);
-                iv.setImageBitmap(image1);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-            }
-        });
-
-
-
-        TextView tv = findViewById(R.id.tv_nomeAttivitaDettaglio);
-        tv.setText(att.getNomeAttivita());
-        TextView tv2 = findViewById(R.id.tv_descrizioneAttivitaDettaglio);
-        tv2.setText(att.getDescrizione());
-        TextView tv3 = findViewById(R.id.costoPersona);
-        tv3.setText("Il costo per persona è : "+att.getCostoPerPersona()+"€");
-
-        Button btn = findViewById(R.id.btn_prenota);
-        btn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(context, PrenotaActivity.class);
-                att.setImage("");
-                i.putExtra("attivita", att);
-                i.putExtra("user", user);
-                context.startActivity(i);
-            }
-        });
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -131,7 +97,7 @@ public class DettagliAttivitaActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_profilo:
                     Intent in = new Intent(context, ProfiloActivity.class);
-                    in.putExtra("user", user);
+                    in.putExtra("user", getIntent().getParcelableExtra("user"));
                     context.startActivity(in);
                     return true;
 
@@ -139,6 +105,47 @@ public class DettagliAttivitaActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    public void fetchAttivita(final String tipologia){
+        RESTClient.get("/Attivita/" + tipologia, null, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                try {
+                    List<Attivita> attivita = new ArrayList<Attivita>();
+                    String response = new String(responseBody);
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        Attivita att = new Attivita();
+                        att.setNomeAttivita(jsonArray.getJSONObject(i).getString("nomeAttivita"));
+                        att.setDescrizione(jsonArray.getJSONObject(i).getString("descrizione"));
+                        att.setIDAttivita(jsonArray.getJSONObject(i).getInt("idattività"));
+                        att.setCostoPerPersona(Float.parseFloat(jsonArray.getJSONObject(i).getString("costoPerPersona")));
+                        att.setNumMaxPartecipanti(jsonArray.getJSONObject(i).getInt("numMaxPartecipanti"));
+                        att.setImage(jsonArray.getJSONObject(i).getString("image"));
+                        attivita.add(att);
+                    }
+                    if(!attivita.isEmpty()){
+                        list_adapter = new AttivitaListAdapter(searchActivity, attivita, user);
+                        lv_attivita = (ListView) findViewById(R.id.lv_attivita_search);
+                        lv_attivita.setAdapter(list_adapter);
+                    }else {
+                        Toast.makeText(searchActivity, "Non sono state trovate attivita relative alla categoria : "+tipologia+"!!!", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(searchActivity, "ERRORE!!! Riprovare", Toast.LENGTH_LONG).show();
+            }
+
+        });
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -148,6 +155,4 @@ public class DettagliAttivitaActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
-

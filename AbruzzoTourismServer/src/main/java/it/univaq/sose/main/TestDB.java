@@ -39,9 +39,9 @@ public class TestDB {
 		//System.out.println(image);
 		
 		
+        System.out.println(prenotazioneRepository.getPrenotazioniByUtenteAttivita("Torrentismo").get(0).getDataDiPrenotazione());
         
-        
-        Attivita attivita = new Attivita();
+        /*Attivita attivita = new Attivita();
 		attivita.setCostoPerPersona(35);
 		attivita.setNomeAttivita("Torrentismo");
 		attivita.setDescrizione("Torrentismo Descrizione");

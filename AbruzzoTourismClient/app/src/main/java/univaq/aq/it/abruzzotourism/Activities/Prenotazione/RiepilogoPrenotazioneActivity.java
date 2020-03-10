@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism;
+package univaq.aq.it.abruzzotourism.Activities.Prenotazione;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,6 +30,9 @@ import org.ksoap2.serialization.SoapObject;
 import java.util.Calendar;
 
 import cz.msebera.android.httpclient.Header;
+import univaq.aq.it.abruzzotourism.MainActivity;
+import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity;
+import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.Prenotazione;
 import univaq.aq.it.abruzzotourism.domain.Turista;

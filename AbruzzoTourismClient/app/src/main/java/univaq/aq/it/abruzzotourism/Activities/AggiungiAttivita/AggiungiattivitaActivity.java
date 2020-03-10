@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism;
+package univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,6 +27,8 @@ import com.loopj.android.http.RequestParams;
 import java.io.ByteArrayOutputStream;
 
 import cz.msebera.android.httpclient.Header;
+import univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.ProfiloAttivita.ProfiloAttivitaActivity;
+import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UtenteAttivita;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
@@ -37,13 +39,18 @@ public class AggiungiattivitaActivity extends AppCompatActivity implements Adapt
     String[] values = {"Sportiva", "Culturale", "FloraEFauna"};
     String tipologia = "";
     Context context = this;
+    static UtenteAttivita utenteAttivita = new UtenteAttivita();
+
+    public static UtenteAttivita getUtenteattivita(){
+        return utenteAttivita;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aggiungiattivita);
 
-        final UtenteAttivita utenteAttivita = getIntent().getParcelableExtra("user");
+        utenteAttivita = getIntent().getParcelableExtra("user");
 
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
         Spinner spin = (Spinner) findViewById(R.id.spinner3);
@@ -125,7 +132,7 @@ public class AggiungiattivitaActivity extends AppCompatActivity implements Adapt
                         else{
 
                             String registrazione_fallita = "REGISTRAZIONE FALLITA";
-                            Toast.makeText(context, response, registrazione_fallita.length()).show();
+                            Toast.makeText(context, registrazione_fallita, registrazione_fallita.length()).show();
                         }
                     }
 
@@ -140,6 +147,7 @@ public class AggiungiattivitaActivity extends AppCompatActivity implements Adapt
             }
         });
     }
+
 
     private void pickFromGallery(){
         //Create an Intent with action as ACTION_PICK

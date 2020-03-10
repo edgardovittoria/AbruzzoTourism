@@ -22,10 +22,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import univaq.aq.it.abruzzotourism.MainActivity;
-import univaq.aq.it.abruzzotourism.ProfiloAttivitaActivity;
+import univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.ProfiloAttivita.ProfiloAttivitaActivity;
 import univaq.aq.it.abruzzotourism.R;
-import univaq.aq.it.abruzzotourism.SigninActivity;
-import univaq.aq.it.abruzzotourism.SigninAttivitaActivity;
+import univaq.aq.it.abruzzotourism.Activities.Signin.SigninActivity;
+import univaq.aq.it.abruzzotourism.Activities.Signin.SigninAttivitaActivity;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
 
 public class LoginActivity extends AppCompatActivity {

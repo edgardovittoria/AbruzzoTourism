@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import univaq.aq.it.abruzzotourism.DettagliAttivitaActivity;
+import univaq.aq.it.abruzzotourism.Activities.Prenotazione.DettagliAttivitaActivity;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;

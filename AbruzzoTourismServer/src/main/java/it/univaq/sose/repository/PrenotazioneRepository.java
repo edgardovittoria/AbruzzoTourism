@@ -41,4 +41,9 @@ public class PrenotazioneRepository {
 		List<Prenotazione> prenotazioni = (List<Prenotazione>) this.em.createQuery("select p from Prenotazione p where TuristaPrenotante.IDTurista="+IDTurista).getResultList();
 		return prenotazioni;
 	}
+	
+	public List<Prenotazione> getPrenotazioniByUtenteAttivita(String nomeAttivita){
+		List<Prenotazione> prenotazioni = this.em.createQuery("select p from Prenotazione p where Attivita.nomeAttivita LIKE :nomeAttivita").setParameter("nomeAttivita", nomeAttivita).getResultList();
+		return prenotazioni;
+	}
 }

@@ -121,6 +121,15 @@ public interface EffettuaPrenotazioneService {
 	@Path("/getImage/{ID}")
 	public String getImageAttivita(@PathParam("ID") int ID);
 	
+	@Operation(description = "metodo utilizzato per recuperare un immagine relativa ad una determinata attività", responses = {
+			@ApiResponse(description = "Immagine codificata in Base64", content = {
+					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = String.class))),
+					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = String.class))) }) })
+	@WebMethod
+	@GET
+	@Path("/getImageByName/{nomeAttivita}")
+	public String getImageAttivitaByName(@PathParam("nomeAttivita") String nomeAttivita);
+	
 	@Operation(description = "metodo utilizzato per recuperare le prenotazioni relative ad un determinato turista", responses = {
 			@ApiResponse(description = "Lista di Prenotazioni", content = {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Prenotazione.class))),
@@ -156,5 +165,14 @@ public interface EffettuaPrenotazioneService {
 					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))) }) 
 			@WebParam(name = "prenotazione", targetNamespace = "http://service.sose.univaq.it/") Attivita attivita);
 
+	
+	@Operation(description = "metodo utilizzato per recuperare le prenotazioni relative ad una determinata Attività", responses = {
+			@ApiResponse(description = "Lista di Prenotazioni", content = {
+					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Prenotazione.class))),
+					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Prenotazione.class))) }) })
+	@GET
+	@Path("/getPrenotazioniByUtenteAttivita/{nomeAttivita}")
+	public List<Prenotazione> getPrenotazioniByUtenteAttivita(
+			@WebParam(name = "nomeAttivita", targetNamespace = "http://service.sose.univaq.it/")@PathParam("nomeAttivita") String nomeAttivita);
 	
 }

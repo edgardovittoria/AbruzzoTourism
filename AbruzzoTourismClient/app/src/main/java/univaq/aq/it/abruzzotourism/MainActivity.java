@@ -21,6 +21,8 @@ import org.ksoap2.serialization.SoapObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import univaq.aq.it.abruzzotourism.Activities.Prenotazione.SearchActivity;
+import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity;
 import univaq.aq.it.abruzzotourism.Adapter.AttivitaListAdapter;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;

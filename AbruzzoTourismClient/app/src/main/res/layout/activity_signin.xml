@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="univaq.aq.it.abruzzotourism.SigninActivity">
+    tools:context="univaq.aq.it.abruzzotourism.Activities.Signin.SigninActivity">
 
     <EditText
         android:id="@+id/nome_signin"

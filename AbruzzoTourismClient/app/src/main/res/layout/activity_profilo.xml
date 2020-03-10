@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="univaq.aq.it.abruzzotourism.ProfiloActivity">
+    tools:context="univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity">
 
     <FrameLayout
         android:id="@+id/container2"
@@ -92,7 +92,7 @@
 
                     <fragment
                         android:id="@+id/fragment_prenotazioni"
-                        android:name="univaq.aq.it.abruzzotourism.RegistroPrenotazioniFragment"
+                        android:name="univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.RegistroPrenotazioniFragment"
                         android:layout_width="match_parent"
                         android:layout_height="650dp"
                         android:layout_margin="8dp"

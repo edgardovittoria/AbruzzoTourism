@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism;
+package univaq.aq.it.abruzzotourism.Activities.ProfiloTurista;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -22,6 +22,8 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import univaq.aq.it.abruzzotourism.Adapter.MyPrenotazioniRecyclerViewAdapter;
+import univaq.aq.it.abruzzotourism.MainActivity;
+import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.Prenotazione;
 import univaq.aq.it.abruzzotourism.domain.Turista;

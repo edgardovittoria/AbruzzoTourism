@@ -60,4 +60,9 @@ public class AttivitaRepository {
 		String imageString = (String) this.em.createQuery("SELECT a.image FROM Attivita a WHERE IDAttività="+ID).getResultList().get(0);
 		return imageString;
 	}
+	
+	public String getImageByName(String nomeAttivita) {
+		String imageString = (String) this.em.createQuery("SELECT a.image FROM Attivita a WHERE nomeAttivita LIKE :nomeAttivita").setParameter("nomeAttivita", nomeAttivita).getResultList().get(0);
+		return imageString;
+	}
 }

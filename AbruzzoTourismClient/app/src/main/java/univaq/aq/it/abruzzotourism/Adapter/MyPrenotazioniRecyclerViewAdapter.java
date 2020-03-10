@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import univaq.aq.it.abruzzotourism.R;
-import univaq.aq.it.abruzzotourism.RegistroPrenotazioniFragment.OnListFragmentInteractionListener;
+import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.RegistroPrenotazioniFragment.OnListFragmentInteractionListener;
 import univaq.aq.it.abruzzotourism.dummy.DummyItem;
 
 /**

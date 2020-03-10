@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism;
+package univaq.aq.it.abruzzotourism.Activities.Signin;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +19,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import cz.msebera.android.httpclient.Header;
+import univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.AggiungiattivitaActivity;
+import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.UtenteAttivita;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
 

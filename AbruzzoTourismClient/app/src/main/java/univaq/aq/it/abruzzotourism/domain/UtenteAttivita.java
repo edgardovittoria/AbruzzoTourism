@@ -15,6 +15,8 @@ public class UtenteAttivita implements KvmSerializable, Parcelable {
     private String nomeUtenteAttivita;
     private String password;
 
+    public UtenteAttivita(){};
+
     public  UtenteAttivita(String email, String nomeUtenteAttivita, String password){
         this.email = email;
         this.nomeUtenteAttivita = nomeUtenteAttivita;

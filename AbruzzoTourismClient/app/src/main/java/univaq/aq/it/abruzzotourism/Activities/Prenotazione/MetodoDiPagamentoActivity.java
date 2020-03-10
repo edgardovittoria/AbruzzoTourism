@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism;
+package univaq.aq.it.abruzzotourism.Activities.Prenotazione;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -6,12 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,53 +17,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import univaq.aq.it.abruzzotourism.domain.Attivita;
+import univaq.aq.it.abruzzotourism.MainActivity;
+import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity;
+import univaq.aq.it.abruzzotourism.R;
 
-public class PrenotaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class MetodoDiPagamentoActivity extends AppCompatActivity {
 
-    Integer[] values = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
-    int numPersone = 1;
-    int annoSelezionato;
-    int meseSelezionato;
-    int giornoSelezioato;
-    String oraSelezionata;
     Context context = this;
-    Attivita attivita = new Attivita();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_prenota);
+        setContentView(R.layout.activity_metodo_di_pagamento);
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
 
-        this.attivita = getIntent().getParcelableExtra("attivita");
-
-        //Getting the instance of Spinner and applying OnItemSelectedListener on it
-        Spinner spin = (Spinner) findViewById(R.id.spinner);
-        spin.setOnItemSelectedListener(this);
-
-        //Creating the ArrayAdapter instance having the bank name list
-        ArrayAdapter aa = new ArrayAdapter(this,R.layout.spinner_item,values);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Setting the ArrayAdapter data on the Spinner
-        spin.setAdapter(aa);
-
-        Spinner spin2 = (Spinner) findViewById(R.id.spinner2);
-        spin2.setOnItemSelectedListener(this);
-
-        String[] ore = new String[]{"8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00"};
-
-        ArrayAdapter aa2 = new ArrayAdapter(this, R.layout.spinner_item, ore);
-        aa2.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        spin2.setAdapter(aa2);
-
-        TextView tv = findViewById(R.id.costo_totale);
-        tv.setText("il costo totale è : "+ getIntent().getFloatExtra("costo",0)+"€");
-        Button btn_annulla = findViewById(R.id.button_annulla1);
+        Button btn_annulla = findViewById(R.id.button_annulla2);
         btn_annulla.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -75,31 +44,23 @@ public class PrenotaActivity extends AppCompatActivity implements AdapterView.On
             }
         });
 
-        final CalendarView calendarView = findViewById(R.id.calendarView);
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                annoSelezionato = year;
-                meseSelezionato = month;
-                giornoSelezioato = dayOfMonth;
-            }
-        });
-
-
-        Button btn_procedi = findViewById(R.id.btn_procedi1);
+        final RadioGroup btn_pagamento = findViewById(R.id.radio_group);
+        Button btn_procedi = findViewById(R.id.btn_procedi2);
         btn_procedi.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
-
-                    Intent i = new Intent(context, MetodoDiPagamentoActivity.class);
-                    i.putExtra("attivita", attivita);
+                RadioButton radioButton = findViewById(btn_pagamento.getCheckedRadioButtonId());
+                if(radioButton.getText().equals("Pagamento in sede")){
+                    Intent i = new Intent(context, RiepilogoPrenotazioneActivity.class);
+                    i.putExtra("attivita", getIntent().getParcelableExtra("attivita"));
                     i.putExtra("user", getIntent().getParcelableExtra("user"));
-                    i.putExtra("costoTotale", attivita.getCostoPerPersona()*numPersone);
-                    i.putExtra("data", giornoSelezioato+"/"+meseSelezionato+"/"+annoSelezionato+"-"+oraSelezionata);
-
+                    i.putExtra("costoTotale", getIntent().getFloatExtra("costoTotale",0));
+                    i.putExtra("data", getIntent().getStringExtra("data"));
                     context.startActivity(i);
+                }
+                else{
+
+                }
             }
         });
     }
@@ -157,36 +118,4 @@ public class PrenotaActivity extends AppCompatActivity implements AdapterView.On
             return false;
         }
     };
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        if(id == android.R.id.home){
-            this.finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    //Performing action onItemSelected and onNothing selected
-    @Override
-    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-        Spinner spinner = (Spinner) arg0;
-
-        if(spinner.getId() == R.id.spinner){
-            numPersone = position + 1;
-            TextView tv = findViewById(R.id.costo_totale);
-            tv.setText("il costo totale è : "+ attivita.getCostoPerPersona()*numPersone+"€");
-        }else{
-            oraSelezionata = (String) arg0.getItemAtPosition(position);
-        }
-
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> arg0) {}
-
-
-
 }

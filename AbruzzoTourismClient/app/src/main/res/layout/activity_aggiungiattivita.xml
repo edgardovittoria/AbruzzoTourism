@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="univaq.aq.it.abruzzotourism.AggiungiattivitaActivity">
+    tools:context="univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.AggiungiattivitaActivity">
 
     <ImageView
         android:id="@+id/img_take"
         android:layout_width="0dp"
         android:layout_height="95dp"
         android:layout_marginTop="4dp"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +20,8 @@
 
     <Button
         android:id="@+id/btn_carica_immagine"
-        android:layout_width="126dp"
-        android:layout_height="66dp"
+        android:layout_width="191dp"
+        android:layout_height="39dp"
         android:layout_marginTop="20dp"
         android:text="Carica immagine"
         app:layout_constraintEnd_toEndOf="parent"
@@ -132,8 +132,8 @@
 
     <Button
         android:id="@+id/btn_crea_attivita"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="118dp"
+        android:layout_height="63dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="Crea Attività"
         android:textColor="@color/design_default_color_background"
