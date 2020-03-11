@@ -34,6 +34,9 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //Log.i("email", userLocalStore.getLoggedInUser().getEmail());
+        //Log.i("tipologia", userLocalStore.getLoggedInUser().getTipologia());
+
         final EditText usernameEditText = findViewById(R.id.email);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);

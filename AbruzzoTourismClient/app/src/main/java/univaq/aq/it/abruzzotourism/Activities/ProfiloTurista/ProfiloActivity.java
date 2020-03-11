@@ -21,15 +21,20 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import univaq.aq.it.abruzzotourism.MainActivity;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.Activities.Prenotazione.SearchActivity;
+import univaq.aq.it.abruzzotourism.login.Login;
+import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 
 public class ProfiloActivity extends AppCompatActivity {
 
     Context context = this;
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profilo);
+
+        userLocalStore = new UserLocalStore(context);
 
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -53,6 +58,17 @@ public class ProfiloActivity extends AppCompatActivity {
 
                 }
 
+            }
+        });
+
+        FloatingActionButton floatingActionButtonLogout = findViewById(R.id.floatingActionButtonLogout);
+        floatingActionButtonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userLocalStore.setUserLoggedIn(false);
+                userLocalStore.clearUserData();
+                Intent i = new Intent(context, Login.class);
+                context.startActivity(i);
             }
         });
 

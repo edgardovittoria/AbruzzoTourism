@@ -9,6 +9,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.xml.bind.DatatypeConverter;
 
 import org.apache.tomcat.util.security.MD5Encoder;
@@ -17,9 +20,11 @@ import it.univaq.sose.domain.Attivita;
 import it.univaq.sose.domain.Prenotazione;
 import it.univaq.sose.domain.TipologiaAttivita;
 import it.univaq.sose.domain.Turista;
+import it.univaq.sose.domain.UtenteAttivita;
 import it.univaq.sose.repository.AttivitaRepository;
 import it.univaq.sose.repository.PrenotazioneRepository;
 import it.univaq.sose.repository.TuristaRepository;
+import it.univaq.sose.repository.UtenteAttivitaRepository;
 import sun.security.provider.MD5;
 
 public class TestDB {
@@ -29,7 +34,9 @@ public class TestDB {
 		PrenotazioneRepository prenotazioneRepository = new PrenotazioneRepository();
 		TuristaRepository turistaRepository = new TuristaRepository();
 		AttivitaRepository attivitaRepository = new AttivitaRepository();
-		
+		UtenteAttivitaRepository utenteAttivitaRepository = new UtenteAttivitaRepository();
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("AbruzzoTourism");
+		EntityManager em = emf.createEntityManager();
 		
 		
 		File file = new File("/home/edgardo/Immagini/Torrentismo.jpg");
@@ -37,9 +44,21 @@ public class TestDB {
 		byte[] bArray = readFileToByteArray(file);
 		String image = Base64.getEncoder().encodeToString(bArray);
 		//System.out.println(image);
+		UtenteAttivita utenteAttivita = new UtenteAttivita();
+		try {
+			 utenteAttivita = (UtenteAttivita) em.createQuery("select u from UtenteAttivita u  where email LIKE :email").setParameter("email", "volo1@gmail.com").getResultList().get(0);
+
+		} catch (Exception e) {
+			
+			utenteAttivita.setEmail("pippo");
+		}
 		
+		/*utenteAttivita.setIDUtenteAttivita(9);
+		utenteAttivita.setEmail("volo@gmail.com");
+		utenteAttivita.setPassword("fGoYCzaJagqMAnh+6vsOTA==");
+		utenteAttivita.setNomeUtenteAttivita("Volo del Falco");*/
 		
-        System.out.println(attivitaRepository.getImageByEmail("museo@gmail.com"));
+        System.out.println(utenteAttivita.getEmail());
         
         /*Attivita attivita = new Attivita();
 		attivita.setCostoPerPersona(35);

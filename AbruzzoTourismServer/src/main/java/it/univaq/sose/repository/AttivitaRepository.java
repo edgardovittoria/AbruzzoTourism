@@ -57,7 +57,7 @@ public class AttivitaRepository {
 		}
 	
 	public List<Attivita> getAttivitaHome(){
-		List<Attivita> attivita = this.em.createQuery("SELECT a FROM Attivita a").setMaxResults(10).getResultList();
+		List<Attivita> attivita = this.em.createQuery("SELECT a FROM Attivita a").setMaxResults(100).getResultList();
 		return attivita;
 	}
 	

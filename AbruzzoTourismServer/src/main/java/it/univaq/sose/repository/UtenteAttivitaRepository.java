@@ -41,12 +41,17 @@ public class UtenteAttivitaRepository {
 	}
 	
 	public boolean loginUtenteAttivita(UtenteAttivita utenteAttivita) {
-		UtenteAttivita utenteAttivitaresult = (UtenteAttivita) this.em.createQuery("select u from UtenteAttivita u  where email LIKE :email").setParameter("email", utenteAttivita.getEmail()).getResultList().get(0);
-		if(utenteAttivita.getPassword().equals(utenteAttivitaresult.getPassword())) {
-			return true;
-		}else {
+		try {
+			UtenteAttivita utenteAttivitaresult = (UtenteAttivita) this.em.createQuery("select u from UtenteAttivita u  where email LIKE :email").setParameter("email", utenteAttivita.getEmail()).getResultList().get(0);
+			if(utenteAttivita.getPassword().equals(utenteAttivitaresult.getPassword())) {
+				return true;
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
 			return false;
 		}
+				
 	}
 	
 }

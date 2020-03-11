@@ -21,15 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.AggiungiattivitaActivity;
 import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.RegistroPrenotazioniFragment;
 import univaq.aq.it.abruzzotourism.Adapter.MyPrenotazioniRecyclerViewAdapter;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.Prenotazione;
-import univaq.aq.it.abruzzotourism.domain.UtenteAttivita;
+import univaq.aq.it.abruzzotourism.domain.UserDetails;
 import univaq.aq.it.abruzzotourism.dummy.DummyItem;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
+import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 
 public class RegistroPrenotazioniProfiloAttivitaFragment extends Fragment {
 
@@ -38,11 +38,8 @@ public class RegistroPrenotazioniProfiloAttivitaFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private RegistroPrenotazioniProfiloAttivitaFragment.OnListFragmentInteractionListener mListener;
-    UtenteAttivita utenteAttivita = AggiungiattivitaActivity.getUtenteattivita();
-    /*
-    * il problema sta nel fatto che devo prendere l'utente da due attivitàdiverse
-    * perche posso arrivare sia da aggiungi attività che dal login
-    * */
+
+    UserLocalStore userLocalStore;
 
 
     /**
@@ -80,6 +77,7 @@ public class RegistroPrenotazioniProfiloAttivitaFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
+            userLocalStore = new UserLocalStore(context);
             final RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -87,7 +85,8 @@ public class RegistroPrenotazioniProfiloAttivitaFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            RESTClient.get("/getPrenotazioniByUtenteAttivita/"+utenteAttivita.getEmail(), null, new AsyncHttpResponseHandler() {
+            UserDetails userDetails = userLocalStore.getLoggedInUser();
+            RESTClient.get("/getPrenotazioniByUtenteAttivita/"+userDetails.getEmail(), null, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                     try {

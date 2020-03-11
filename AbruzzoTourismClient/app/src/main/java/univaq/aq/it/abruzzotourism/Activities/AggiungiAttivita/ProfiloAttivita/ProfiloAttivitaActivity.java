@@ -1,9 +1,11 @@
 package univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.ProfiloAttivita;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
@@ -36,6 +38,8 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
     Context context = this;
     UserLocalStore userLocalStore;
 
+    private static final int GALLERY_REQUEST_CODE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,71 +49,45 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
 
         final UserDetails userDetails = userLocalStore.getLoggedInUser();
 
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("email", userDetails.getEmail());
+        requestParams.put("password", userDetails.getPassword());
+        requestParams.setUseJsonStreamer(true);
+        requestParams.setElapsedFieldInJsonStreamer(null);
 
-        RESTClient.get("/AttivitaByEmail/" + userDetails.getEmail(), null, new AsyncHttpResponseHandler() {
+        RESTClient.post("/loginUtenteAttivita", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    //recupero l'ggetto json ricevuto come risposta
-                    JSONObject jsonObject = new JSONObject(new String(responseBody));
-                    //creo l'attività grazie all'oggetto json
-                    final Attivita attivita = new Attivita();
-                    attivita.setIDAttivita(jsonObject.getInt("idattività"));
-                    attivita.setNomeAttivita(jsonObject.getString("nomeAttivita"));
-                    attivita.setTipologia(jsonObject.getString("tipologia"));
-                    attivita.setDescrizione(jsonObject.getString("descrizione"));
-                    attivita.setNumMaxPartecipanti(jsonObject.getInt("numMaxPartecipanti"));
-                    attivita.setCostoPerPersona(Float.parseFloat(jsonObject.get("costoPerPersona").toString()));
-                    attivita.setImage(jsonObject.getString("image"));
-
-
-                    RequestParams requestParams = new RequestParams();
-                    requestParams.put("email", userDetails.getEmail());
-                    requestParams.put("password", userDetails.getPassword());
-                    requestParams.setUseJsonStreamer(true);
-                    requestParams.setElapsedFieldInJsonStreamer(null);
-
-                    RESTClient.post("/loginUtenteAttivita", requestParams, new AsyncHttpResponseHandler() {
+                String result = new String(responseBody);
+                if (result.equals("true")){
+                    /*se il login va a buon fine allora viene fatta la chiamata rest per recuperare l'attività
+                    * che ci servirà per settare tutti i parametri riguardant l'interfaccia(Immagine e NomeAttivita)*/
+                    RESTClient.get("/AttivitaByEmail/" + userDetails.getEmail(), null, new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                            String result = new String(responseBody);
-                            if (result.equals("true")){
-
+                            try {
+                                //recupero l'ggetto json ricevuto come risposta
+                                JSONObject jsonObject = new JSONObject(new String(responseBody));
+                                //creo l'attività grazie all'oggetto json
+                                final Attivita attivita = new Attivita();
+                                attivita.setIDAttivita(jsonObject.getInt("idattività"));
+                                attivita.setNomeAttivita(jsonObject.getString("nomeAttivita"));
+                                attivita.setTipologia(jsonObject.getString("tipologia"));
+                                attivita.setDescrizione(jsonObject.getString("descrizione"));
+                                attivita.setNumMaxPartecipanti(jsonObject.getInt("numMaxPartecipanti"));
+                                attivita.setCostoPerPersona(Float.parseFloat(jsonObject.get("costoPerPersona").toString()));
+                                attivita.setImage(jsonObject.getString("image"));
+                                //viene settata l'immagine
                                 byte[] imagebyte = Base64.decode(attivita.getImage(), 0);
                                 Bitmap imagebitmap = BitmapFactory.decodeByteArray(imagebyte,0,imagebyte.length);
                                 ImageView image = findViewById(R.id.img_profilo_attivita);
                                 image.setImageBitmap(imagebitmap);
-
+                                //viene settato il nomeAttivita
                                 TextView nome_attivita = findViewById(R.id.tv_nome_profilo_attivita);
                                 nome_attivita.setText(attivita.getNomeAttivita());
 
-                                FragmentManager fm = getSupportFragmentManager();
-                                final Fragment fragment = fm.findFragmentById(R.id.fragment_profilo_attivita);
-                                hideFrangment(fragment);
-
-                                final View divider = findViewById(R.id.divider14);
-
-                                FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton_profilo_attivita);
-                                floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if(fragment.isHidden()){
-                                            showFrangment(fragment);
-                                            divider.setVisibility(View.VISIBLE);
-                                        }else {
-                                            hideFrangment(fragment);
-                                            divider.setVisibility(View.INVISIBLE);
-
-                                        }
-
-                                    }
-                                });
-                            }else{
-
-                                String errore = "Email o Password ERRATI!!!Riprovare.";
-                                Toast.makeText(context, errore, errore.length()).show();
-                                Intent i = new Intent(context, Login.class);
-                                context.startActivity(i);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
                         }
 
@@ -118,15 +96,60 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
                             Toast.makeText(context, error.getMessage(), error.getMessage().length()).show();
                         }
                     });
+                }else{
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    String errore = "Email o Password ERRATI!!!Riprovare.";
+                    Toast.makeText(context, errore, errore.length()).show();
+                    Intent i = new Intent(context, Login.class);
+                    context.startActivity(i);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Toast.makeText(context, error.getMessage(), error.getMessage().length()).show();
+            }
+        });
+
+        ImageView imageView = findViewById(R.id.img_profilo_attivita);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickFromGallery();
+            }
+        });
+
+
+        FragmentManager fm = getSupportFragmentManager();
+        final Fragment fragment = fm.findFragmentById(R.id.fragment_profilo_attivita);
+        hideFrangment(fragment);
+
+        final View divider = findViewById(R.id.divider14);
+
+        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton_profilo_attivita);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(fragment.isHidden()){
+                    showFrangment(fragment);
+                    divider.setVisibility(View.VISIBLE);
+                }else {
+                    hideFrangment(fragment);
+                    divider.setVisibility(View.INVISIBLE);
+
+                }
+
+            }
+        });
+
+        FloatingActionButton floatingActionButtonLogout = findViewById(R.id.floatingActionButtonLogoutAttivita);
+        floatingActionButtonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userLocalStore.setUserLoggedIn(false);
+                userLocalStore.clearUserData();
+                Intent i = new Intent(context, Login.class);
+                context.startActivity(i);
             }
         });
 
@@ -152,6 +175,33 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
         fragmentTransaction.show(fragment);
         // save the changes
         fragmentTransaction.commit();
+    }
+
+    private void pickFromGallery(){
+        //Create an Intent with action as ACTION_PICK
+        Intent intent=new Intent(Intent.ACTION_PICK);
+        // Sets the type as image/*. This ensures only components of type image are selected
+        intent.setType("image/*");
+        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
+        String[] mimeTypes = {"image/jpeg", "image/png", "image/jpg"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+        // Launching the Intent
+        startActivityForResult(intent, GALLERY_REQUEST_CODE);
+    }
+
+    //@Override
+    public void onActivityResult(int requestCode,int resultCode,Intent data) {
+        // Result code is RESULT_OK only if the user selects an Image
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK)
+            switch (requestCode) {
+                case GALLERY_REQUEST_CODE:
+                    //data.getData returns the content URI for the selected Image
+                    Uri selectedImage = data.getData();
+                    ImageView image = findViewById(R.id.img_take);
+                    image.setImageURI(selectedImage);
+                    break;
+            }
     }
 
 }

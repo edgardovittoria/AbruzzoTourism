@@ -59,36 +59,78 @@
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/floatingActionButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:layout_marginTop="60dp"
-                        android:backgroundTint="@android:color/background_light"
-                        android:clickable="true"
-                        android:tint="@color/colorPrimary"
-                        app:backgroundTint="@color/colorPrimary"
-                        app:borderWidth="2dp"
-                        app:srcCompat="@drawable/registropren" />
-
-                    <TextView
-                        android:id="@+id/textView4"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="7dp"
-                        android:layout_marginTop="5dp"
-                        android:text="Registro Prenotazioni"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="12sp" />
+                        android:layout_marginTop="50dp"
+                        android:orientation="horizontal">
 
-                    <View
-                        android:id="@+id/divider2"
-                        android:layout_width="115dp"
-                        android:layout_height="2dp"
-                        android:layout_marginLeft="7dp"
-                        android:background="@color/colorPrimary"
-                        android:visibility="invisible" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                android:id="@+id/floatingActionButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="35dp"
+                                android:layout_marginTop="0dp"
+                                android:backgroundTint="@android:color/background_light"
+                                android:clickable="true"
+                                android:tint="@color/colorPrimary"
+                                app:backgroundTint="@color/colorPrimary"
+                                app:borderWidth="2dp"
+                                app:srcCompat="@drawable/registropren" />
+
+                            <TextView
+                                android:id="@+id/textView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:layout_marginTop="5dp"
+                                android:text="Registro Prenotazioni"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="12sp" />
+
+                            <View
+                                android:id="@+id/divider2"
+                                android:layout_width="115dp"
+                                android:layout_height="2dp"
+                                android:layout_marginLeft="7dp"
+                                android:background="@color/colorPrimary"
+                                android:visibility="invisible" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                android:id="@+id/floatingActionButtonLogout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/design_default_color_background"
+                                android:clickable="true"
+                                android:tint="@color/colorAccent"
+                                app:backgroundTint="@color/colorAccent"
+                                app:borderWidth="2dp"
+                                app:srcCompat="@drawable/logout" />
+
+                            <TextView
+                                android:id="@+id/textView8"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="Logout"
+                                android:textColor="@color/colorAccent"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                     <fragment
                         android:id="@+id/fragment_prenotazioni"
