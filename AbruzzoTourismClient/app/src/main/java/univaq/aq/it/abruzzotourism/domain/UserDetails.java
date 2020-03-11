@@ -6,17 +6,20 @@ import android.os.Parcelable;
 public class UserDetails implements Parcelable {
     private String email;
     private String password;
+    private String tipologia;
 
     public  UserDetails(){}
 
-    public UserDetails(String email, String password) {
+    public UserDetails(String email, String password, String tipologia) {
         this.email = email;
         this.password = password;
+        this.tipologia = tipologia;
     }
 
     protected UserDetails(Parcel in) {
         email = in.readString();
         password = in.readString();
+        tipologia = in.readString();
     }
 
     public static final Creator<UserDetails> CREATOR = new Creator<UserDetails>() {
@@ -48,6 +51,14 @@ public class UserDetails implements Parcelable {
         this.password = password;
     }
 
+    public String getTipologia() {
+        return tipologia;
+    }
+
+    public void setTipologia(String tipologia) {
+        this.tipologia = tipologia;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -57,5 +68,6 @@ public class UserDetails implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(email);
         dest.writeString(password);
+        dest.writeString(tipologia);
     }
 }

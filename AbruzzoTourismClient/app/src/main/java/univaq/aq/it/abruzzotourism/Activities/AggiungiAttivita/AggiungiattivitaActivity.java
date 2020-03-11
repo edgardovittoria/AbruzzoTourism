@@ -32,6 +32,7 @@ import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UtenteAttivita;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
+import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 
 public class AggiungiattivitaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -39,6 +40,7 @@ public class AggiungiattivitaActivity extends AppCompatActivity implements Adapt
     String[] values = {"Sportiva", "Culturale", "FloraEFauna"};
     String tipologia = "";
     Context context = this;
+    UserLocalStore userLocalStore;
     static UtenteAttivita utenteAttivita = new UtenteAttivita();
 
     public static UtenteAttivita getUtenteattivita(){
@@ -49,6 +51,8 @@ public class AggiungiattivitaActivity extends AppCompatActivity implements Adapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aggiungiattivita);
+
+        userLocalStore = new UserLocalStore(context);
 
         utenteAttivita = getIntent().getParcelableExtra("user");
 
@@ -123,7 +127,7 @@ public class AggiungiattivitaActivity extends AppCompatActivity implements Adapt
                                         public void onClick(DialogInterface dialog, int which) {
                                             dialog.dismiss();
                                             Intent i = new Intent(context, ProfiloAttivitaActivity.class);
-                                            i.putExtra("user", utenteAttivita);
+                                            //i.putExtra("user", utenteAttivita);
                                             context.startActivity(i);
                                             finish();
                                         }

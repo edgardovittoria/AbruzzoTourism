@@ -51,6 +51,11 @@ public class AttivitaRepository {
 	return attivita;
 	}
 	
+	public Attivita getAttivitaEmail(String email) {
+		Attivita attivita = (Attivita) this.em.createQuery("select a from Attivita a where utenteAttivita.email LIKE :email").setParameter("email", email).getResultList().get(0);
+		return attivita;
+		}
+	
 	public List<Attivita> getAttivitaHome(){
 		List<Attivita> attivita = this.em.createQuery("SELECT a FROM Attivita a").setMaxResults(10).getResultList();
 		return attivita;

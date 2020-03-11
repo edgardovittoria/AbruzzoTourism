@@ -26,8 +26,9 @@ import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity;
 import univaq.aq.it.abruzzotourism.Adapter.AttivitaListAdapter;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
-import univaq.aq.it.abruzzotourism.ui.login.LoginActivity;
+import univaq.aq.it.abruzzotourism.login.Login;
 import univaq.aq.it.abruzzotourism.utility.SOAPClient;
+import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     MainActivity mainActivity = this;
     static UserDetails user = new UserDetails();
     Context context = this;
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        this.user = getIntent().getParcelableExtra("user");
+        userLocalStore = new UserLocalStore(context);
+        this.user = userLocalStore.getLoggedInUser();
+        //this.user = getIntent().getParcelableExtra("user");
         fillHomeWS task = new fillHomeWS();
         task.execute(this.user);
 
@@ -70,17 +74,17 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             if(which == 0){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                i.putExtra("user", user);
+                                //i.putExtra("user", user);
                                 i.putExtra("tipologia", "Sportiva");
                                 context.startActivity(i);
                             }else if(which == 1){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                i.putExtra("user", user);
+                                //i.putExtra("user", user);
                                 i.putExtra("tipologia", "Culturale");
                                 context.startActivity(i);
                             }else if(which == 2){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                i.putExtra("user", user);
+                                //i.putExtra("user", user);
                                 i.putExtra("tipologia", "FloraEFauna");
                                 context.startActivity(i);
                             }else{
@@ -94,12 +98,12 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_home:
                     Intent i = new Intent(context, MainActivity.class);
-                    i.putExtra("user", user);
+                    //i.putExtra("user", user);
                     context.startActivity(i);
                     return true;
                 case R.id.navigation_profilo:
                     Intent in = new Intent(context, ProfiloActivity.class);
-                    in.putExtra("user", user);
+                    //in.putExtra("user", user);
                     context.startActivity(in);
                     return true;
 
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(SoapObject result){
             if(result == null){
                 Toast.makeText(getApplicationContext(), "Email o Password ERRATI!!! ", Toast.LENGTH_LONG).show();
-                Intent i = new Intent(context, LoginActivity.class);
+                Intent i = new Intent(context, Login.class);
                 context.startActivity(i);
             }
             else{

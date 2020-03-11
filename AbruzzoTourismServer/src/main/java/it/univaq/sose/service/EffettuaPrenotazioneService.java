@@ -37,6 +37,16 @@ import it.univaq.sose.domain.UtenteAttivita;
 @InInterceptors(interceptors = "it.univaq.sose.main.WSSecurityInterceptor")
 public interface EffettuaPrenotazioneService {
 
+	@Operation(description = "metodo utilizzato per recuperare un oggetto di tipo Attivita relativo alla mail dell'utente che ha creato l'attività", responses = {
+			@ApiResponse(description = "Oggetto di tipo Attivita", content = {
+					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))),
+					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))) }) })
+	@WebMethod
+	@GET
+	@Path("/AttivitaByEmail/{email}")
+	public Attivita getAttivitaByEmail(
+			@WebParam(name = "email", targetNamespace = "http://service.sose.univaq.it/") @PathParam("email") String email);
+	
 	@Operation(description = "metodo utilizzato per recuperare un oggetto di tipo Attivita che ha un deterimanto Id", responses = {
 			@ApiResponse(description = "Oggetto di tipo Attivita", content = {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))),

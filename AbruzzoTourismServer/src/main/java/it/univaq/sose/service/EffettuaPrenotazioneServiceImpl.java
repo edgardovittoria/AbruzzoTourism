@@ -125,6 +125,11 @@ public class EffettuaPrenotazioneServiceImpl implements EffettuaPrenotazioneServ
 	public boolean login(UtenteAttivita utenteAttivita) {
 		return utenteAttivitaRepository.loginUtenteAttivita(utenteAttivita);
 	}
+
+	@Override
+	public Attivita getAttivitaByEmail(String email) {
+		return attivitaRepository.getAttivitaEmail(email);
+	}
 }
 	
 	

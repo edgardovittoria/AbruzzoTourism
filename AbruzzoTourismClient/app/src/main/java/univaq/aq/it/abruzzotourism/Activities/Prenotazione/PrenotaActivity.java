@@ -24,6 +24,7 @@ import univaq.aq.it.abruzzotourism.MainActivity;
 import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
+import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 
 public class PrenotaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
@@ -34,6 +35,7 @@ public class PrenotaActivity extends AppCompatActivity implements AdapterView.On
     int giornoSelezioato;
     String oraSelezionata;
     Context context = this;
+    UserLocalStore userLocalStore;
     Attivita attivita = new Attivita();
 
 
@@ -44,7 +46,7 @@ public class PrenotaActivity extends AppCompatActivity implements AdapterView.On
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-
+        userLocalStore = new UserLocalStore(context);
 
         this.attivita = getIntent().getParcelableExtra("attivita");
 
@@ -98,7 +100,7 @@ public class PrenotaActivity extends AppCompatActivity implements AdapterView.On
 
                     Intent i = new Intent(context, MetodoDiPagamentoActivity.class);
                     i.putExtra("attivita", attivita);
-                    i.putExtra("user", getIntent().getParcelableExtra("user"));
+                    //i.putExtra("user", getIntent().getParcelableExtra("user"));
                     i.putExtra("costoTotale", attivita.getCostoPerPersona()*numPersone);
                     i.putExtra("data", giornoSelezioato+"/"+meseSelezionato+"/"+annoSelezionato+"-"+oraSelezionata);
 
@@ -123,17 +125,17 @@ public class PrenotaActivity extends AppCompatActivity implements AdapterView.On
                         public void onClick(DialogInterface dialog, int which) {
                             if(which == 0){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                i.putExtra("user", getIntent().getParcelableExtra("user"));
+                                //i.putExtra("user", getIntent().getParcelableExtra("user"));
                                 i.putExtra("tipologia", "Sportiva");
                                 context.startActivity(i);
                             }else if(which == 1){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                i.putExtra("user", getIntent().getParcelableExtra("user"));
+                                //i.putExtra("user", getIntent().getParcelableExtra("user"));
                                 i.putExtra("tipologia", "Culturale");
                                 context.startActivity(i);
                             }else if(which == 2){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                i.putExtra("user", getIntent().getParcelableExtra("user"));
+                                //i.putExtra("user", getIntent().getParcelableExtra("user"));
                                 i.putExtra("tipologia", "FloraEFauna");
                                 context.startActivity(i);
                             }else{
@@ -147,12 +149,12 @@ public class PrenotaActivity extends AppCompatActivity implements AdapterView.On
                     return true;
                 case R.id.navigation_home:
                     Intent i = new Intent(context, MainActivity.class);
-                    i.putExtra("user", getIntent().getParcelableExtra("user"));
+                    //i.putExtra("user", getIntent().getParcelableExtra("user"));
                     context.startActivity(i);
                     return true;
                 case R.id.navigation_profilo:
                     Intent in = new Intent(context, ProfiloActivity.class);
-                    in.putExtra("user", getIntent().getParcelableExtra("user"));
+                    //in.putExtra("user", getIntent().getParcelableExtra("user"));
                     context.startActivity(in);
                     return true;
 

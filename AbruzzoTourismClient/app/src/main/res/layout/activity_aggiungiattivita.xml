@@ -54,8 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:ems="10"
-            android:inputType="number"
-            android:text="@string/costo_attivita_signin" />
+            android:hint="costo per persona"
+            android:inputType="number" />
 
         <View
             android:id="@+id/divider11"
@@ -79,8 +79,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:ems="10"
-            android:inputType="number"
-            android:text="@string/numMaxPersone_attivita_signin" />
+            android:hint="numero massimo di partecipanti"
+            android:inputType="number" />
 
         <View
             android:id="@+id/divider12"

@@ -21,17 +21,22 @@ import java.security.NoSuchAlgorithmException;
 import cz.msebera.android.httpclient.Header;
 import univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.AggiungiattivitaActivity;
 import univaq.aq.it.abruzzotourism.R;
+import univaq.aq.it.abruzzotourism.domain.UserDetails;
 import univaq.aq.it.abruzzotourism.domain.UtenteAttivita;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
+import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 
 public class SigninAttivitaActivity extends AppCompatActivity {
 
     Context context = this;
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin_attivita);
+
+        userLocalStore = new UserLocalStore(context);
 
         Button btn_signin_attivita = findViewById(R.id.attivita_signin);
         final EditText email = findViewById(R.id.attivita_email_signin);
@@ -43,7 +48,6 @@ public class SigninAttivitaActivity extends AppCompatActivity {
             btn_signin_attivita.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
 
                     try {
                         final String passwordMD5 = Base64.encodeToString(md.digest(password.getText().toString().getBytes("UTF-8")),0);
@@ -68,6 +72,10 @@ public class SigninAttivitaActivity extends AppCompatActivity {
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                                 Toast.makeText(getApplicationContext(), "registrazione Avvenuta!!!", Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(context, AggiungiattivitaActivity.class);
+
+                                UserDetails userDetails = new UserDetails(utenteAttivita.getEmail(),utenteAttivita.getPassword(),"Attivita");
+                                userLocalStore.storeUserData(userDetails);
+                                userLocalStore.setUserLoggedIn(true);
                                 i.putExtra("user", utenteAttivita);
                                 context.startActivity(i);
                             }

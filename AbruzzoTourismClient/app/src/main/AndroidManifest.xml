@@ -3,7 +3,7 @@
     package="univaq.aq.it.abruzzotourism">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,14 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.AggiungiAttivita.AggiungiattivitaActivity"></activity>
+        <activity android:name=".Activities.AggiungiAttivita.AggiungiattivitaActivity" />
         <activity android:name=".Activities.AggiungiAttivita.ProfiloAttivita.ProfiloAttivitaActivity" />
         <activity android:name=".Activities.Signin.SigninAttivitaActivity" />
         <activity android:name=".Activities.ProfiloTurista.ProfiloActivity" />
         <activity android:name=".Activities.Prenotazione.SearchActivity" />
         <activity android:name=".Activities.Signin.SigninActivity" />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".login.Login"
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

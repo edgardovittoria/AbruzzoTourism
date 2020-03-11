@@ -28,11 +28,13 @@ import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
+import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 
 public class DettagliAttivitaActivity extends AppCompatActivity {
 
     Context context = this;
     UserDetails user = new UserDetails();
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,9 @@ public class DettagliAttivitaActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        user = getIntent().getParcelableExtra("user");
+        userLocalStore = new UserLocalStore(context);
+        user = userLocalStore.getLoggedInUser();
+        //user = getIntent().getParcelableExtra("user");
 
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -82,7 +86,7 @@ public class DettagliAttivitaActivity extends AppCompatActivity {
                 Intent i = new Intent(context, PrenotaActivity.class);
                 att.setImage("");
                 i.putExtra("attivita", att);
-                i.putExtra("user", user);
+                //i.putExtra("user", user);
                 context.startActivity(i);
             }
         });
@@ -105,17 +109,17 @@ public class DettagliAttivitaActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             if(which == 0){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                i.putExtra("user", user);
+                                //i.putExtra("user", user);
                                 i.putExtra("tipologia", "Sportiva");
                                 context.startActivity(i);
                             }else if(which == 1){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                i.putExtra("user", user);
+                                //i.putExtra("user", user);
                                 i.putExtra("tipologia", "Culturale");
                                 context.startActivity(i);
                             }else if(which == 2){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                i.putExtra("user", user);
+                                //i.putExtra("user", user);
                                 i.putExtra("tipologia", "FloraEFauna");
                                 context.startActivity(i);
                             }else{
@@ -129,12 +133,12 @@ public class DettagliAttivitaActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_home:
                     Intent i = new Intent(context, MainActivity.class);
-                    i.putExtra("user", user);
+                    //i.putExtra("user", user);
                     context.startActivity(i);
                     return true;
                 case R.id.navigation_profilo:
                     Intent in = new Intent(context, ProfiloActivity.class);
-                    in.putExtra("user", user);
+                    //in.putExtra("user", user);
                     context.startActivity(in);
                     return true;
 

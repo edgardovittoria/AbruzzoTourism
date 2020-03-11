@@ -27,10 +27,13 @@ import univaq.aq.it.abruzzotourism.domain.Prenotazione;
 import univaq.aq.it.abruzzotourism.domain.Turista;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
+import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 
 public class SigninActivity extends AppCompatActivity {
 
     Context context = this;
+    UserLocalStore userLocalStore;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class SigninActivity extends AppCompatActivity {
         final EditText email_signin = findViewById(R.id.email_signin);
         final EditText password_signin = findViewById(R.id.password_signin);
         final EditText data_nascita = findViewById(R.id.data_nascita_signin);
+
+        userLocalStore = new UserLocalStore(context);
 
         try {
             final MessageDigest md = MessageDigest.getInstance("MD5");
@@ -78,8 +83,12 @@ public class SigninActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                                 Intent i = new Intent(context, MainActivity.class);
-                                UserDetails user = new UserDetails(turista.getEmail(), password_signin.getText().toString());
-                                i.putExtra("user", user);
+                                UserDetails user = new UserDetails(turista.getEmail(), password_signin.getText().toString(), "Turista");
+                                //i.putExtra("user", user);
+
+                                userLocalStore.storeUserData(user);
+                                userLocalStore.setUserLoggedIn(true);
+
                                 context.startActivity(i);
                             }
 
