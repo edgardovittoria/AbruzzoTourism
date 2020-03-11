@@ -42,12 +42,7 @@ public class Prenotazione {
 	@JoinColumn(name = "attivita")
 	@XmlElement(namespace = "http://service.sose.univaq.it/")
 	private Attivita Attivita;
-	
-	@ManyToOne
-	@JoinColumn(name = "utenteAttivita")
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
-	private UtenteAttivita utenteAttivita;
-	
+		
 	@Column
 	@XmlElement(namespace = "http://service.sose.univaq.it/")
 	private int numPartecipanti;

@@ -15,6 +15,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -66,6 +67,10 @@ public class Attivita implements Serializable{
 	@Enumerated(EnumType.STRING)
 	@XmlElement(namespace = "http://service.sose.univaq.it/")
 	private TipologiaAttivita tipologia;
+	
+	@OneToOne
+	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	private UtenteAttivita utenteAttivita;
 	
 	
 
@@ -145,6 +150,16 @@ public class Attivita implements Serializable{
 	public void setTipologia(TipologiaAttivita tipologia) {
 		this.tipologia = tipologia;
 	}
+
+	public UtenteAttivita getUtenteAttivita() {
+		return utenteAttivita;
+	}
+
+	public void setUtenteAttivita(UtenteAttivita utenteAttivita) {
+		this.utenteAttivita = utenteAttivita;
+	}
+	
+	
 	
 	
 	

@@ -100,8 +100,10 @@ public class EffettuaPrenotazioneServiceImpl implements EffettuaPrenotazioneServ
 	}
 
 	@Override
-	public boolean creaAttivita(Attivita attivita) {
+	public boolean creaAttivita(Attivita attivita, String emailUtenteAttivita) {
 		try {
+			UtenteAttivita utenteAttivita = utenteAttivitaRepository.getUtenteAttivitaFromEmail(emailUtenteAttivita);
+			attivita.setUtenteAttivita(utenteAttivita);
 			return attivitaRepository.addAttivita(attivita);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -110,13 +112,18 @@ public class EffettuaPrenotazioneServiceImpl implements EffettuaPrenotazioneServ
 	}
 
 	@Override
-	public List<Prenotazione> getPrenotazioniByUtenteAttivita(String nomeAttivita) {
-		return prenotazioneRepository.getPrenotazioniByUtenteAttivita(nomeAttivita);
+	public List<Prenotazione> getPrenotazioniByUtenteAttivita(String email) {
+		return prenotazioneRepository.getPrenotazioniByUtenteAttivita(email);
 	}
 
 	@Override
-	public String getImageAttivitaByName(String nomeAttivita) {
-		return attivitaRepository.getImageByName(nomeAttivita);
+	public String getImageAttivitaByEmail(String email) {
+		return attivitaRepository.getImageByEmail(email);
+	}
+
+	@Override
+	public boolean login(UtenteAttivita utenteAttivita) {
+		return utenteAttivitaRepository.loginUtenteAttivita(utenteAttivita);
 	}
 }
 	

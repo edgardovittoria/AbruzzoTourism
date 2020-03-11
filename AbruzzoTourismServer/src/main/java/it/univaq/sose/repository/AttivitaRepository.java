@@ -61,8 +61,9 @@ public class AttivitaRepository {
 		return imageString;
 	}
 	
-	public String getImageByName(String nomeAttivita) {
-		String imageString = (String) this.em.createQuery("SELECT a.image FROM Attivita a WHERE nomeAttivita LIKE :nomeAttivita").setParameter("nomeAttivita", nomeAttivita).getResultList().get(0);
+	public String getImageByEmail(String email) {
+		System.out.print(email);
+		String imageString = (String) this.em.createQuery("SELECT a.image FROM Attivita a WHERE utenteAttivita.email LIKE :email").setParameter("email", email).getResultList().get(0);
 		return imageString;
 	}
 }

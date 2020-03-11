@@ -39,7 +39,7 @@ public class TestDB {
 		//System.out.println(image);
 		
 		
-        System.out.println(prenotazioneRepository.getPrenotazioniByUtenteAttivita("Torrentismo").get(0).getDataDiPrenotazione());
+        System.out.println(attivitaRepository.getImageByEmail("museo@gmail.com"));
         
         /*Attivita attivita = new Attivita();
 		attivita.setCostoPerPersona(35);

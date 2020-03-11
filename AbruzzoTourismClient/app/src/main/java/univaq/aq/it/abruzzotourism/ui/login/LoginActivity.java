@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -21,12 +22,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import univaq.aq.it.abruzzotourism.MainActivity;
 import univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.ProfiloAttivita.ProfiloAttivitaActivity;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.Activities.Signin.SigninActivity;
 import univaq.aq.it.abruzzotourism.Activities.Signin.SigninAttivitaActivity;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
+import univaq.aq.it.abruzzotourism.domain.UtenteAttivita;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -55,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 loginButton.setEnabled(loginFormState.isDataValid());
+                loginAttivitaButton.setEnabled(loginFormState.isDataValid());
                 if (loginFormState.getUsernameError() != null) {
                     usernameEditText.setError(getString(loginFormState.getUsernameError()));
                 }
@@ -137,10 +144,23 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
 
-                UserDetails userDetails = new UserDetails(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+                UtenteAttivita utenteAttivita = new UtenteAttivita();
+                utenteAttivita.setEmail(usernameEditText.getText().toString());
+
+                try {
+                    MessageDigest md = MessageDigest.getInstance("MD5");
+                    String passwordMD5 = Base64.encodeToString(md.digest(passwordEditText.getText().toString().getBytes("UTF-8")),0);
+                    utenteAttivita.setPassword(passwordMD5.substring(0,24));
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+
 
                 Intent i = new Intent(context, ProfiloAttivitaActivity.class);
-                i.putExtra("user", userDetails);
+                i.putExtra("user", utenteAttivita);
                 context.startActivity(i);
             }
         });

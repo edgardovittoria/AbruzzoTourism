@@ -1,5 +1,6 @@
 package it.univaq.sose.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -21,8 +22,13 @@ import org.opensaml.saml2.metadata.EmailAddress;
 @Table(name = "utenteAttivita")
 @XmlRootElement(name = "utenteAttivita")
 @XmlAccessorType(XmlAccessType.NONE)
-public class UtenteAttivita {
+public class UtenteAttivita implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlElement(namespace = "http://service.sose.univaq.it/")

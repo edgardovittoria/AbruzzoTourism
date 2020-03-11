@@ -86,8 +86,7 @@ public interface EffettuaPrenotazioneService {
 	public boolean confermaPrenotazione(
 			@RequestBody(description = "Ogetto di tipo prenotazione", required = true, content = {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Prenotazione.class))),
-					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Prenotazione.class))) }) 
-			@WebParam(name = "prenotazione", targetNamespace = "http://service.sose.univaq.it/") Prenotazione prenotazione);
+					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Prenotazione.class))) }) @WebParam(name = "prenotazione", targetNamespace = "http://service.sose.univaq.it/") Prenotazione prenotazione);
 
 	@Operation(description = "metodo utilizzato per recuperare un oggetto di tipo Turista che ha una deterimanta email", responses = {
 			@ApiResponse(description = "Oggetto di tipo Turista", content = {
@@ -98,7 +97,7 @@ public interface EffettuaPrenotazioneService {
 	@Path("/TuristaByEmail/{email}")
 	public Turista getTuristaByEmail(
 			@WebParam(name = "email", targetNamespace = "http://service.sose.univaq.it/") @PathParam("email") String email);
-	
+
 	@Operation(description = "metodo utilizzato per registrare un oggetto di tipo Turista", responses = {
 			@ApiResponse(description = "true se la registrazione va a buon fine, false altrimenti", content = {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Turista.class))),
@@ -109,9 +108,8 @@ public interface EffettuaPrenotazioneService {
 	public boolean registrazioneTurista(
 			@RequestBody(description = "Ogetto di tipo turista", required = true, content = {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Turista.class))),
-					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Turista.class))) }) 
-			@WebParam(name = "turista", targetNamespace = "http://service.sose.univaq.it/") Turista turista);
-	
+					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Turista.class))) }) @WebParam(name = "turista", targetNamespace = "http://service.sose.univaq.it/") Turista turista);
+
 	@Operation(description = "metodo utilizzato per recuperare un immagine relativa ad una determinata attività", responses = {
 			@ApiResponse(description = "Immagine codificata in Base64", content = {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = String.class))),
@@ -120,16 +118,16 @@ public interface EffettuaPrenotazioneService {
 	@GET
 	@Path("/getImage/{ID}")
 	public String getImageAttivita(@PathParam("ID") int ID);
-	
+
 	@Operation(description = "metodo utilizzato per recuperare un immagine relativa ad una determinata attività", responses = {
 			@ApiResponse(description = "Immagine codificata in Base64", content = {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = String.class))),
 					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = String.class))) }) })
 	@WebMethod
 	@GET
-	@Path("/getImageByName/{nomeAttivita}")
-	public String getImageAttivitaByName(@PathParam("nomeAttivita") String nomeAttivita);
-	
+	@Path("/getImageByEmail/{email}")
+	public String getImageAttivitaByEmail(@PathParam("email") String email);
+
 	@Operation(description = "metodo utilizzato per recuperare le prenotazioni relative ad un determinato turista", responses = {
 			@ApiResponse(description = "Lista di Prenotazioni", content = {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Prenotazione.class))),
@@ -137,8 +135,8 @@ public interface EffettuaPrenotazioneService {
 	@GET
 	@Path("/getPrenotazioniByIdTurista/{IDTurista}")
 	public List<Prenotazione> getPrenotazioniByIdTurista(
-			@WebParam(name = "IDTurista", targetNamespace = "http://service.sose.univaq.it/")@PathParam("IDTurista") int IDTurista);
-	
+			@WebParam(name = "IDTurista", targetNamespace = "http://service.sose.univaq.it/") @PathParam("IDTurista") int IDTurista);
+
 	@Operation(description = "metodo utilizzato per registrare un oggetto di tipo UtenteAttivita", responses = {
 			@ApiResponse(description = "true se la registrazione va a buon fine, false altrimenti", content = {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = UtenteAttivita.class))),
@@ -149,30 +147,36 @@ public interface EffettuaPrenotazioneService {
 	public boolean registrazioneUtenteAttivita(
 			@RequestBody(description = "Ogetto di tipo UtenteAttivita", required = true, content = {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = UtenteAttivita.class))),
-					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = UtenteAttivita.class))) }) 
-			@WebParam(name = "utenteAttivita", targetNamespace = "http://service.sose.univaq.it/") UtenteAttivita utenteAttivita);
-	
+					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = UtenteAttivita.class))) }) @WebParam(name = "utenteAttivita", targetNamespace = "http://service.sose.univaq.it/") UtenteAttivita utenteAttivita);
+
 	@Operation(description = "metodo utilizzato per salvare nel db l'attività che l'utente ha intenzione di inserire tra le attività disponibili", responses = {
 			@ApiResponse(description = "TRUE se il salvataggio è stato effettuato, FALSE altrimenti", content = {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Boolean.class))),
 					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Boolean.class))) }) })
 	@WebMethod
 	@POST
-	@Path("/creaAttivita")
-	public boolean creaAttivita(
-			@RequestBody(description = "Ogetto di tipo attivita", required = true, content = {
-					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))),
-					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))) }) 
-			@WebParam(name = "prenotazione", targetNamespace = "http://service.sose.univaq.it/") Attivita attivita);
+	@Path("/creaAttivita/{emailUtenteAttivita}")
+	public boolean creaAttivita(@RequestBody(description = "Ogetto di tipo attivita", required = true, content = {
+			@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))),
+			@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))) }) @WebParam(name = "attivita", targetNamespace = "http://service.sose.univaq.it/") Attivita attivita,
+			@PathParam("emailUtenteAttivita") String emailUtenteAttivita);
 
-	
 	@Operation(description = "metodo utilizzato per recuperare le prenotazioni relative ad una determinata Attività", responses = {
 			@ApiResponse(description = "Lista di Prenotazioni", content = {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Prenotazione.class))),
 					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Prenotazione.class))) }) })
 	@GET
-	@Path("/getPrenotazioniByUtenteAttivita/{nomeAttivita}")
+	@Path("/getPrenotazioniByUtenteAttivita/{email}")
 	public List<Prenotazione> getPrenotazioniByUtenteAttivita(
-			@WebParam(name = "nomeAttivita", targetNamespace = "http://service.sose.univaq.it/")@PathParam("nomeAttivita") String nomeAttivita);
-	
+			@WebParam(name = "email", targetNamespace = "http://service.sose.univaq.it/") @PathParam("email") String email);
+
+	@Operation(description = "metodo utilizzato per effettuare il login da parte dell'utenteAttivita", responses = {
+			@ApiResponse(description = "TRUE se l'utente è registrato, FALSE altrimenti", content = {
+					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Boolean.class))),
+					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Boolean.class))) }) })
+	@POST
+	@Path("/loginUtenteAttivita")
+	public boolean login(@RequestBody(description = "Ogetto di tipo UtenteAttivita", required = true, content = {
+			@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = UtenteAttivita.class))),
+			@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = UtenteAttivita.class))) }) @WebParam(name = "utenteAttivita", targetNamespace = "http://service.sose.univaq.it/") UtenteAttivita utenteAttivita);
 }

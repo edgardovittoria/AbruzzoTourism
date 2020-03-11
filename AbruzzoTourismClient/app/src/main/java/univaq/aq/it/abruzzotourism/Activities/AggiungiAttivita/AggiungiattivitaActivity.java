@@ -52,6 +52,7 @@ public class AggiungiattivitaActivity extends AppCompatActivity implements Adapt
 
         utenteAttivita = getIntent().getParcelableExtra("user");
 
+
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
         Spinner spin = (Spinner) findViewById(R.id.spinner3);
         spin.setOnItemSelectedListener(this);
@@ -108,7 +109,7 @@ public class AggiungiattivitaActivity extends AppCompatActivity implements Adapt
                 requestParams.setElapsedFieldInJsonStreamer(null);
 
                 //invocazione del metodo REST creaAttivita
-                RESTClient.post("/creaAttivita", requestParams, new AsyncHttpResponseHandler() {
+                RESTClient.post("/creaAttivita/"+utenteAttivita.getEmail(), requestParams, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         String response = new String(responseBody);

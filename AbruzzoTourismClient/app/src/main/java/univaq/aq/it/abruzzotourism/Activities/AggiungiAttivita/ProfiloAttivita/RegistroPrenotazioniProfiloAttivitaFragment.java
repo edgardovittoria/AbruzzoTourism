@@ -39,6 +39,10 @@ public class RegistroPrenotazioniProfiloAttivitaFragment extends Fragment {
     private int mColumnCount = 1;
     private RegistroPrenotazioniProfiloAttivitaFragment.OnListFragmentInteractionListener mListener;
     UtenteAttivita utenteAttivita = AggiungiattivitaActivity.getUtenteattivita();
+    /*
+    * il problema sta nel fatto che devo prendere l'utente da due attivitàdiverse
+    * perche posso arrivare sia da aggiungi attività che dal login
+    * */
 
 
     /**
@@ -65,6 +69,7 @@ public class RegistroPrenotazioniProfiloAttivitaFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
+
     }
 
     @Override
@@ -82,7 +87,7 @@ public class RegistroPrenotazioniProfiloAttivitaFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            RESTClient.get("/getPrenotazioniByUtenteAttivita/"+utenteAttivita.getNomeUtenteAttivita(), null, new AsyncHttpResponseHandler() {
+            RESTClient.get("/getPrenotazioniByUtenteAttivita/"+utenteAttivita.getEmail(), null, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                     try {

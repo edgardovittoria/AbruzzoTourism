@@ -1,10 +1,12 @@
 package univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.ProfiloAttivita;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,10 +19,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import cz.msebera.android.httpclient.Header;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.UtenteAttivita;
+import univaq.aq.it.abruzzotourism.ui.login.LoginActivity;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
 
 public class ProfiloAttivitaActivity extends AppCompatActivity {
@@ -32,41 +36,71 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profilo_attivita);
 
-        UtenteAttivita utenteAttivita = getIntent().getParcelableExtra("user");
+        final UtenteAttivita utenteAttivita = getIntent().getParcelableExtra("user");
 
-        TextView nome_attivita = findViewById(R.id.tv_nome_profilo_attivita);
-        nome_attivita.setText(utenteAttivita.getNomeUtenteAttivita());
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("email", utenteAttivita.getEmail());
+        requestParams.put("password", utenteAttivita.getPassword());
 
-        FragmentManager fm = getSupportFragmentManager();
-        final Fragment fragment = fm.findFragmentById(R.id.fragment_profilo_attivita);
-        hideFrangment(fragment);
 
-        final View divider = findViewById(R.id.divider14);
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton_profilo_attivita);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(fragment.isHidden()){
-                    showFrangment(fragment);
-                    divider.setVisibility(View.VISIBLE);
-                }else {
-                    hideFrangment(fragment);
-                    divider.setVisibility(View.INVISIBLE);
 
-                }
 
-            }
-        });
+        requestParams.setUseJsonStreamer(true);
+        requestParams.setElapsedFieldInJsonStreamer(null);
 
-        RESTClient.get("/getImageByName/" + utenteAttivita.getNomeUtenteAttivita(), null, new AsyncHttpResponseHandler() {
+        RESTClient.post("/loginUtenteAttivita", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                byte[] imagebyte = Base64.decode(new String(responseBody), 0);
-                Bitmap imagebitmap = BitmapFactory.decodeByteArray(imagebyte,0,imagebyte.length);
-                ImageView image = findViewById(R.id.img_profilo_attivita);
-                image.setImageBitmap(imagebitmap);
+                String result = new String(responseBody);
+                if(result.equals("true")){
 
+                    TextView nome_attivita = findViewById(R.id.tv_nome_profilo_attivita);
+                    nome_attivita.setText(utenteAttivita.getNomeUtenteAttivita());
+
+                    FragmentManager fm = getSupportFragmentManager();
+                    final Fragment fragment = fm.findFragmentById(R.id.fragment_profilo_attivita);
+                    hideFrangment(fragment);
+
+                    final View divider = findViewById(R.id.divider14);
+
+                    FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton_profilo_attivita);
+                    floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(fragment.isHidden()){
+                                showFrangment(fragment);
+                                divider.setVisibility(View.VISIBLE);
+                            }else {
+                                hideFrangment(fragment);
+                                divider.setVisibility(View.INVISIBLE);
+
+                            }
+
+                        }
+                    });
+
+                    RESTClient.get("/getImageByEmail/" + utenteAttivita.getEmail(), null, new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            byte[] imagebyte = Base64.decode(new String(responseBody), 0);
+                            Bitmap imagebitmap = BitmapFactory.decodeByteArray(imagebyte,0,imagebyte.length);
+                            ImageView image = findViewById(R.id.img_profilo_attivita);
+                            image.setImageBitmap(imagebitmap);
+
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                            Toast.makeText(context, error.getMessage(), error.getMessage().length()).show();
+                        }
+                    });
+                }else{
+                    String errore = "Email o Password ERRATI!!!Riprovare.";
+                    Toast.makeText(context, errore, errore.length()).show();
+                    Intent i = new Intent(context, LoginActivity.class);
+                    context.startActivity(i);
+                }
             }
 
             @Override
@@ -74,6 +108,8 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
                 Toast.makeText(context, error.getMessage(), error.getMessage().length()).show();
             }
         });
+
+
 
 
     }
