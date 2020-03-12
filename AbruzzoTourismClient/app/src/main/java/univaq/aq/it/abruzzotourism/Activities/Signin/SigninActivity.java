@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
@@ -50,18 +49,19 @@ public class SigninActivity extends AppCompatActivity {
 
         try {
             final MessageDigest md = MessageDigest.getInstance("MD5");
+
             btn_signin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
-                    try {
-                        final String passwordMD5 = Base64.encodeToString(md.digest(password_signin.getText().toString().getBytes("UTF-8")),0);
+                        byte[] passwordbyte = md.digest(password_signin.getText().toString().getBytes());
+                        Log.i("password0", password_signin.getText().toString());
+                        String passwordEncoded = Base64.encodeToString(passwordbyte, 0);
 
                         final Turista turista = new Turista();
                         turista.setNome(nome_cognome.getText().toString());
                         turista.setEmail(email_signin.getText().toString());
-                        turista.setPassword(passwordMD5.substring(0,24));
+                        turista.setPassword(passwordEncoded.substring(0,24));
+                        Log.i("password1", turista.getPassword());
                         turista.setDataNascita(data_nascita.getText().toString());
                         List<Prenotazione> prenotazioni = Collections.emptyList();
                         Log.i("prenotazioni", ""+prenotazioni.isEmpty());
@@ -85,6 +85,8 @@ public class SigninActivity extends AppCompatActivity {
                                 Intent i = new Intent(context, MainActivity.class);
                                 UserDetails user = new UserDetails(turista.getEmail(), password_signin.getText().toString(), "Turista");
                                 //i.putExtra("user", user);
+                                Log.i("password2", user.getPassword());
+
 
                                 userLocalStore.storeUserData(user);
                                 userLocalStore.setUserLoggedIn(true);
@@ -97,9 +99,6 @@ public class SigninActivity extends AppCompatActivity {
 
                             }
                         });
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
 
 
                 }

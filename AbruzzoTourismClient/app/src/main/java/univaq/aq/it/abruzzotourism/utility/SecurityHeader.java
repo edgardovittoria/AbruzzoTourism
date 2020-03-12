@@ -6,6 +6,7 @@ import org.kxml2.kdom.Element;
 import org.kxml2.kdom.Node;
 
 import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
@@ -49,11 +50,11 @@ public class SecurityHeader {
 
         String nonceBase64Encoded = Base64.encodeToString(nonce,0);
 
-        //MessageDigest md = MessageDigest.getInstance("MD5");
-        //String passwordMD5 = Base64.encodeToString(md.digest(userDetails.getPassword().getBytes("UTF-8")),0);
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        String passwordMD5 = Base64.encodeToString(md.digest(userDetails.getPassword().getBytes("UTF-8")),0);
         Element action2 = new Element().createElement(WSSE_NAMESPACE, "Password");
         action2.setAttribute(null, "Type", PASSWORD_TEXT);
-        action2.addChild(Node.TEXT, userDetails.getPassword()/*passwordMD5.substring(0,24)*/);
+        action2.addChild(Node.TEXT,passwordMD5.substring(0,24));
         to.addChild(Node.ELEMENT,action2);
 
 

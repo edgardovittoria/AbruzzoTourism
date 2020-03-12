@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 list_adapter = new AttivitaListAdapter(mainActivity, attivita, user);
                 lv_attivita = (ListView) findViewById(R.id.lv_attivita_search);
                 lv_attivita.setAdapter(list_adapter);
-                Log.i(TAG,"onPostExecute: "+ result.getProperty(0));
+                Log.i(TAG,"onPostExecute");
             }
 
 

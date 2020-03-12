@@ -70,7 +70,7 @@ public class AttivitaListAdapter extends BaseAdapter {
         holder.tv_nomeattivita.setText(attivita.get(position).getNomeAttivita());
         holder.tv_descrizioneattivita.setText(attivita.get(position).getDescrizione());
         byte[] bytes = Base64.decode(attivita.get(position).getImage(),0);
-        //Log.i("bytes", "length : "+bytes.length);
+
 
         Bitmap image1 = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
         holder.im_attivita.setImageBitmap(image1);

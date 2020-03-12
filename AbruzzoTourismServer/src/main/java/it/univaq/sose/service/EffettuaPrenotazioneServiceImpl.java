@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.jws.WebParam;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import it.univaq.sose.domain.Attivita;
 import it.univaq.sose.domain.Prenotazione;
@@ -16,7 +18,7 @@ import it.univaq.sose.repository.AttivitaRepository;
 import it.univaq.sose.repository.PrenotazioneRepository;
 import it.univaq.sose.repository.TuristaRepository;
 import it.univaq.sose.repository.UtenteAttivitaRepository;
-
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class EffettuaPrenotazioneServiceImpl implements EffettuaPrenotazioneService{
 	
 	private Turista turista;
@@ -129,6 +131,11 @@ public class EffettuaPrenotazioneServiceImpl implements EffettuaPrenotazioneServ
 	@Override
 	public Attivita getAttivitaByEmail(String email) {
 		return attivitaRepository.getAttivitaEmail(email);
+	}
+
+	@Override
+	public boolean cambiaImmagine(Attivita attivita, String nomeAttivita) {
+		return attivitaRepository.setImageAttivita(attivita, nomeAttivita);
 	}
 }
 	

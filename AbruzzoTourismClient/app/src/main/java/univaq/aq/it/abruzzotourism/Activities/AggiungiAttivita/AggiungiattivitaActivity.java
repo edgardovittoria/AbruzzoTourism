@@ -93,7 +93,8 @@ public class AggiungiattivitaActivity extends AppCompatActivity implements Adapt
 
                 //viene creata l'attività e vengono settati i relativi attributi
                 Attivita attivita = new Attivita();
-                attivita.setNomeAttivita(utenteAttivita.getNomeUtenteAttivita());
+                String nomeAttivita = utenteAttivita.getNomeUtenteAttivita().replaceAll(" ", "");
+                attivita.setNomeAttivita(nomeAttivita);
                 attivita.setImage(image);
                 attivita.setCostoPerPersona(Float.parseFloat(costo.getText().toString()));
                 attivita.setNumMaxPartecipanti(Integer.parseInt(numMaxPers.getText().toString()));

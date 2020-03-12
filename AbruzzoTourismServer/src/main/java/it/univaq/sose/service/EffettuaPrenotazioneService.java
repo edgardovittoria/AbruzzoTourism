@@ -6,18 +6,16 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.cxf.interceptor.InInterceptors;
 
-import com.sun.xml.bind.v2.runtime.Name;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -189,4 +187,16 @@ public interface EffettuaPrenotazioneService {
 	public boolean login(@RequestBody(description = "Ogetto di tipo UtenteAttivita", required = true, content = {
 			@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = UtenteAttivita.class))),
 			@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = UtenteAttivita.class))) }) @WebParam(name = "utenteAttivita", targetNamespace = "http://service.sose.univaq.it/") UtenteAttivita utenteAttivita);
+	
+	@Operation(description = "metodo utilizzato per cambiare l'immagine di un'attività", responses = {
+			@ApiResponse(description = "TRUE se l'operazione si svolge correttamente, FALSE altrimenti", content = {
+					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Boolean.class))),
+					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Boolean.class))) }) })
+	@PUT
+	@Path("/cambiaImmagine/{nomeAttivita}")
+	public boolean cambiaImmagine(@RequestBody(description = "Ogetto di tipo Attivita", required = true, content = {
+			@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))),
+			@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))) }) @WebParam(name = "image", targetNamespace = "http://service.sose.univaq.it/") Attivita attivita,
+			@WebParam(name = "nomeAttivita", targetNamespace = "http://service.sose.univaq.it/") @PathParam("nomeAttivita") String nomeAttivita);
+	
 }

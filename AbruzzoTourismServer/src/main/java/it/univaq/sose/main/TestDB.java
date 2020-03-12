@@ -44,21 +44,17 @@ public class TestDB {
 		byte[] bArray = readFileToByteArray(file);
 		String image = Base64.getEncoder().encodeToString(bArray);
 		//System.out.println(image);
-		UtenteAttivita utenteAttivita = new UtenteAttivita();
-		try {
-			 utenteAttivita = (UtenteAttivita) em.createQuery("select u from UtenteAttivita u  where email LIKE :email").setParameter("email", "volo1@gmail.com").getResultList().get(0);
-
-		} catch (Exception e) {
-			
-			utenteAttivita.setEmail("pippo");
-		}
+		Attivita attivita = attivitaRepository.getAttivitaEmail("camosci");
+		//Attivita attivita2 = attivitaRepository.getAttivitaEmail("volo");
+		
 		
 		/*utenteAttivita.setIDUtenteAttivita(9);
 		utenteAttivita.setEmail("volo@gmail.com");
 		utenteAttivita.setPassword("fGoYCzaJagqMAnh+6vsOTA==");
 		utenteAttivita.setNomeUtenteAttivita("Volo del Falco");*/
 		
-        System.out.println(utenteAttivita.getEmail());
+		System.out.println(attivita.getImage().length());
+		System.out.println(attivita.getImage().substring(746788));
         
         /*Attivita attivita = new Attivita();
 		attivita.setCostoPerPersona(35);

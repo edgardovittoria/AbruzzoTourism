@@ -20,6 +20,12 @@ public class RESTClient {
         client.get(getAbsoluteUrl(url), params, asyncHttpResponseHandler);
     }
 
+    public static void put(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler){
+        client.addHeader("Accept","application/json");
+        client.addHeader("Content-Type","application/json");
+        client.put(getAbsoluteUrl(url), params, asyncHttpResponseHandler);
+    }
+
 
 
 

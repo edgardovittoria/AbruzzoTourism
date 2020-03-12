@@ -7,7 +7,7 @@
     tools:context=".Activities.AggiungiAttivita.ProfiloAttivita.ProfiloAttivitaActivity">
 
     <ImageView
-        android:id="@+id/img_profilo_attivita"
+        android:id="@+id/img_profilo_attività"
         android:layout_width="115dp"
         android:layout_height="84dp"
         android:layout_marginTop="5dp"
@@ -27,7 +27,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_profilo_attivita" />
+        app:layout_constraintTop_toBottomOf="@+id/img_profilo_attività" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -74,11 +74,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:text="Registro Prenotazioni" />
+                            android:text="Registro Prenotazioni"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textStyle="bold" />
 
                         <View
                             android:id="@+id/divider14"
-                            android:layout_width="130dp"
+                            android:layout_width="135dp"
                             android:layout_height="2dp"
                             android:layout_marginLeft="5dp"
                             android:background="@color/colorPrimary"
@@ -89,7 +91,34 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="15dp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/floatingActionButtonCambiaImmaginettivita"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:backgroundTint="@color/design_default_color_background"
+                            android:clickable="true"
+                            android:tint="@color/colorPrimary"
+                            app:backgroundTint="@color/colorPrimary"
+                            app:borderWidth="2dp"
+                            app:srcCompat="@drawable/change_image" />
+
+                        <TextView
+                            android:id="@+id/textView11"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Cambia Immagine"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="50dp"
                         android:orientation="vertical">
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -107,6 +136,7 @@
                             android:id="@+id/textView9"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:text="Logout"
                             android:textColor="@color/colorAccent"
                             android:textStyle="bold" />

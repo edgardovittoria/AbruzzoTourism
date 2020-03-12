@@ -6,11 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.hibernate.annotations.common.util.impl.Log;
 
 import it.univaq.sose.domain.Attivita;
 import it.univaq.sose.domain.TipologiaAttivita;
-import net.bytebuddy.asm.Advice.This;
+
 
 
 public class AttivitaRepository {
@@ -42,7 +41,13 @@ public class AttivitaRepository {
 	}
 	
 	public List<Attivita> getAttivtaTipologia(TipologiaAttivita tipologia) {
-		List<Attivita> attivita = this.em.createQuery("select a from Attivita a where tipologia LIKE :tipologia").setParameter("tipologia", tipologia).getResultList();
+		/*emf e em devono essere istanziati nuovamente dato che se viene effettuato un update, c'è bisogno
+		 * di creare una nuova sessione, altrimenti se degli oggetti sono stati precedentemente caricati
+		 * dopo l'update nella sessione non abbiamo oggetti aggiornati. Bisogna quindi 
+		 * creare una nuova sessione e caricarci gli oggetti aggiornati*/
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("AbruzzoTourism");
+		EntityManager em = emf.createEntityManager();
+		List<Attivita> attivita = em.createQuery("select a from Attivita a where tipologia LIKE :tipologia").setParameter("tipologia", tipologia).getResultList();
 		return attivita;
 	}
 	
@@ -52,12 +57,24 @@ public class AttivitaRepository {
 	}
 	
 	public Attivita getAttivitaEmail(String email) {
-		Attivita attivita = (Attivita) this.em.createQuery("select a from Attivita a where utenteAttivita.email LIKE :email").setParameter("email", email).getResultList().get(0);
+		/*emf e em devono essere istanziati nuovamente dato che se viene effettuato un update, c'è bisogno
+		 * di creare una nuova sessione, altrimenti se degli oggetti sono stati precedentemente caricati
+		 * dopo l'update nella sessione non abbiamo oggetti aggiornati. Bisogna quindi 
+		 * creare una nuova sessione e caricarci gli oggetti aggiornati*/
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("AbruzzoTourism");
+		EntityManager em = emf.createEntityManager();
+		Attivita attivita = (Attivita) em.createQuery("select a from Attivita a where utenteAttivita.email LIKE :email").setParameter("email", email).getResultList().get(0);
 		return attivita;
 		}
 	
 	public List<Attivita> getAttivitaHome(){
-		List<Attivita> attivita = this.em.createQuery("SELECT a FROM Attivita a").setMaxResults(100).getResultList();
+		/*emf e em devono essere istanziati nuovamente dato che se viene effettuato un update, c'è bisogno
+		 * di creare una nuova sessione, altrimenti se degli oggetti sono stati precedentemente caricati
+		 * dopo l'update nella sessione non abbiamo oggetti aggiornati. Bisogna quindi 
+		 * creare una nuova sessione e caricarci gli oggetti aggiornati*/
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("AbruzzoTourism");
+		EntityManager em = emf.createEntityManager();
+		List<Attivita> attivita = em.createQuery("SELECT a FROM Attivita a").setMaxResults(100).getResultList();
 		return attivita;
 	}
 	
@@ -70,5 +87,29 @@ public class AttivitaRepository {
 		System.out.print(email);
 		String imageString = (String) this.em.createQuery("SELECT a.image FROM Attivita a WHERE utenteAttivita.email LIKE :email").setParameter("email", email).getResultList().get(0);
 		return imageString;
+	}
+	
+	public boolean setImageAttivita(Attivita attivita, String nomeAttivita) {
+		
+		try {
+			this.em.getTransaction().begin();
+			int result = this.em.createQuery("UPDATE Attivita  SET image = :image WHERE nomeAttivita = :nomeAttivita").setParameter("image", attivita.getImage()).setParameter("nomeAttivita", nomeAttivita).executeUpdate();
+			this.em.getTransaction().commit();
+			
+			if(result == 1) {
+				return true;
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
+			if (this.em.getTransaction() != null) {
+				this.em.getTransaction().rollback();
+			}
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+		
 	}
 }

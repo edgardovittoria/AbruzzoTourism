@@ -54,21 +54,12 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                try {
-                    //viene "criptata la password per essere salvata nella sessione"
-                    MessageDigest md = MessageDigest.getInstance("MD5");
-                    String passwordMD5 = Base64.encodeToString(md.digest(passwordEditText.getText().toString().getBytes("UTF-8")),0);
-                    //viene creato l'utente da salvare nella sessione
-                    UserDetails userDetails = new UserDetails(usernameEditText.getText().toString(), passwordMD5.substring(0,24), "Turista");
-                    //viene salvato l'utente nella sessione
-                    userLocalStore.storeUserData(userDetails);
-                    userLocalStore.setUserLoggedIn(true);
 
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+                //viene creato l'utente da salvare nella sessione
+                UserDetails userDetails = new UserDetails(usernameEditText.getText().toString(), passwordEditText.getText().toString(), "Turista");
+                //viene salvato l'utente nella sessione
+                userLocalStore.storeUserData(userDetails);
+                userLocalStore.setUserLoggedIn(true);
 
                 Intent i = new Intent(context, MainActivity.class);
                 //i.putExtra("user", userDetails);
