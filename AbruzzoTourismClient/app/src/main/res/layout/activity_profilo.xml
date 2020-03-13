@@ -6,12 +6,38 @@
     android:layout_height="match_parent"
     tools:context="univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity">
 
+    <ImageView
+        android:id="@+id/img_profilo_turista"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_nome_turista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_profilo_turista" />
+
     <FrameLayout
         android:id="@+id/container2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="16dp">
+        android:layout_width="0dp"
+        android:layout_height="421dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nome_turista">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
@@ -26,9 +52,113 @@
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="432dp"
+            android:layout_height="532dp"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/floatingActionButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="45dp"
+                        android:layout_marginTop="0dp"
+                        android:backgroundTint="@android:color/background_light"
+                        android:clickable="true"
+                        android:tint="@color/colorPrimary"
+                        app:backgroundTint="@color/colorPrimary"
+                        app:borderWidth="2dp"
+                        app:srcCompat="@drawable/registropren" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Registro Prenotazioni"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/divider2"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginLeft="7dp"
+                        android:background="@color/colorPrimary"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/floatingActionButtonCambiaImmagineTurista"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:backgroundTint="@color/design_default_color_background"
+                        android:clickable="true"
+                        android:tint="@color/colorPrimary"
+                        app:backgroundTint="@color/colorPrimary"
+                        app:borderWidth="2dp"
+                        app:srcCompat="@drawable/change_image" />
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Cambia Immagine"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="55dp"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/floatingActionButtonLogout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/design_default_color_background"
+                        android:clickable="true"
+                        android:tint="@color/colorAccent"
+                        app:backgroundTint="@color/colorAccent"
+                        app:borderWidth="2dp"
+                        app:srcCompat="@drawable/logout" />
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Logout"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -39,107 +169,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="165dp"
-                        android:layout_marginTop="50dp"
-                        app:srcCompat="@mipmap/ic_launcher" />
-
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="107dp"
-                        android:layout_marginTop="20dp"
-                        android:text="Nome E Cognome"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="50dp"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                                android:id="@+id/floatingActionButton"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="35dp"
-                                android:layout_marginTop="0dp"
-                                android:backgroundTint="@android:color/background_light"
-                                android:clickable="true"
-                                android:tint="@color/colorPrimary"
-                                app:backgroundTint="@color/colorPrimary"
-                                app:borderWidth="2dp"
-                                app:srcCompat="@drawable/registropren" />
-
-                            <TextView
-                                android:id="@+id/textView4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="7dp"
-                                android:layout_marginTop="5dp"
-                                android:text="Registro Prenotazioni"
-                                android:textColor="@color/colorPrimaryDark"
-                                android:textSize="12sp" />
-
-                            <View
-                                android:id="@+id/divider2"
-                                android:layout_width="115dp"
-                                android:layout_height="2dp"
-                                android:layout_marginLeft="7dp"
-                                android:background="@color/colorPrimary"
-                                android:visibility="invisible" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:orientation="vertical">
-
-                            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                                android:id="@+id/floatingActionButtonLogout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:backgroundTint="@color/design_default_color_background"
-                                android:clickable="true"
-                                android:tint="@color/colorAccent"
-                                app:backgroundTint="@color/colorAccent"
-                                app:borderWidth="2dp"
-                                app:srcCompat="@drawable/logout" />
-
-                            <TextView
-                                android:id="@+id/textView8"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="Logout"
-                                android:textColor="@color/colorAccent"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
                     <fragment
                         android:id="@+id/fragment_prenotazioni"
                         android:name="univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.RegistroPrenotazioniFragment"
                         android:layout_width="match_parent"
-                        android:layout_height="650dp"
+                        android:layout_height="1000dp"
                         android:layout_margin="8dp"
                         android:nestedScrollingEnabled="true"
                         tools:layout="@layout/fragment_prenotazioni_list" />
+
                 </LinearLayout>
             </ScrollView>
 

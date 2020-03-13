@@ -10,13 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
-import javax.xml.crypto.Data;
 
 @Entity
 @Table(name = "prenotazione")
@@ -28,42 +23,43 @@ public class Prenotazione {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlElement(namespace = "http://service.sose.univaq.it/")
 	private int IDPrenotazione;
-	
+
 	@Column
 	@XmlElement(namespace = "http://service.sose.univaq.it/")
 	private String dataDiPrenotazione;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "turista")
 	@XmlElement(namespace = "http://service.sose.univaq.it/")
 	private Turista TuristaPrenotante;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "attivita")
 	@XmlElement(namespace = "http://service.sose.univaq.it/")
 	private Attivita Attivita;
-		
+
 	@Column
 	@XmlElement(namespace = "http://service.sose.univaq.it/")
 	private int numPartecipanti;
-	
-	@Column	
+
+	@Column
 	@XmlElement(namespace = "http://service.sose.univaq.it/")
 	private float costo;
-	
+
 	@Column
 	@XmlElement(namespace = "http://service.sose.univaq.it/")
 	private Boolean confermata;
-	
+
 	@Column
 	@XmlElement(namespace = "http://service.sose.univaq.it/")
 	private Boolean pagata;
-	
+
 	@Column
 	@XmlElement(namespace = "http://service.sose.univaq.it/")
 	private String dataSvolgimentoAttivita;
-	
-	public Prenotazione() {}
+
+	public Prenotazione() {
+	}
 
 	public Prenotazione(Turista turista) {
 		this.TuristaPrenotante = turista;
@@ -73,15 +69,9 @@ public class Prenotazione {
 		return this.IDPrenotazione;
 	}
 
-	/**
-	 * 
-	 * @param IDPrenotazione
-	 */
 	public void setIDPrenotazione(int IDPrenotazione) {
-		this.IDPrenotazione =IDPrenotazione;
+		this.IDPrenotazione = IDPrenotazione;
 	}
-	
-	
 
 	public String getDataDiPrenotazione() {
 		return dataDiPrenotazione;
@@ -111,10 +101,6 @@ public class Prenotazione {
 		return this.numPartecipanti;
 	}
 
-	/**
-	 * 
-	 * @param numPartecipanti
-	 */
 	public void setNumPartecipanti(int numPartecipanti) {
 		this.numPartecipanti = numPartecipanti;
 	}
@@ -123,10 +109,6 @@ public class Prenotazione {
 		return this.costo;
 	}
 
-	/**
-	 * 
-	 * @param costo
-	 */
 	public void setCosto(float costo) {
 		this.costo = costo;
 	}
@@ -135,10 +117,6 @@ public class Prenotazione {
 		return this.confermata;
 	}
 
-	/**
-	 * 
-	 * @param confermata
-	 */
 	public void setConfermata(Boolean confermata) {
 		this.confermata = confermata;
 	}
@@ -147,10 +125,6 @@ public class Prenotazione {
 		return this.pagata;
 	}
 
-	/**
-	 * 
-	 * @param pagata
-	 */
 	public void setPagata(Boolean pagata) {
 		this.pagata = pagata;
 	}
@@ -162,6 +136,5 @@ public class Prenotazione {
 	public void setDataSvolgimentoAttivita(String dataSvolgimentoAttivita) {
 		this.dataSvolgimentoAttivita = dataSvolgimentoAttivita;
 	}
-	
 
 }

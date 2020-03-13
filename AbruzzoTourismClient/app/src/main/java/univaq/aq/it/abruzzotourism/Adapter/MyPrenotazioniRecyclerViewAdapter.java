@@ -11,19 +11,18 @@ import java.util.List;
 
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.RegistroPrenotazioniFragment.OnListFragmentInteractionListener;
-import univaq.aq.it.abruzzotourism.dummy.DummyItem;
+import univaq.aq.it.abruzzotourism.PrenotazioneItem.PrenotazioneItem;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link PrenotazioneItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class MyPrenotazioniRecyclerViewAdapter extends RecyclerView.Adapter<MyPrenotazioniRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<PrenotazioneItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyPrenotazioniRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyPrenotazioniRecyclerViewAdapter(List<PrenotazioneItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -66,7 +65,7 @@ public class MyPrenotazioniRecyclerViewAdapter extends RecyclerView.Adapter<MyPr
         public final TextView mIdView;
         public final TextView mContentView;
         public final TextView mDetails;
-        public DummyItem mItem;
+        public PrenotazioneItem mItem;
 
         public ViewHolder(View view) {
             super(view);

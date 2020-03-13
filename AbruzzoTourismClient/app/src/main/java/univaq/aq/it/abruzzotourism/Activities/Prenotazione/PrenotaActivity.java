@@ -100,7 +100,6 @@ public class PrenotaActivity extends AppCompatActivity implements AdapterView.On
 
                     Intent i = new Intent(context, MetodoDiPagamentoActivity.class);
                     i.putExtra("attivita", attivita);
-                    //i.putExtra("user", getIntent().getParcelableExtra("user"));
                     i.putExtra("costoTotale", attivita.getCostoPerPersona()*numPersone);
                     i.putExtra("data", giornoSelezioato+"/"+meseSelezionato+"/"+annoSelezionato+"-"+oraSelezionata);
 
@@ -125,17 +124,14 @@ public class PrenotaActivity extends AppCompatActivity implements AdapterView.On
                         public void onClick(DialogInterface dialog, int which) {
                             if(which == 0){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                //i.putExtra("user", getIntent().getParcelableExtra("user"));
                                 i.putExtra("tipologia", "Sportiva");
                                 context.startActivity(i);
                             }else if(which == 1){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                //i.putExtra("user", getIntent().getParcelableExtra("user"));
                                 i.putExtra("tipologia", "Culturale");
                                 context.startActivity(i);
                             }else if(which == 2){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                //i.putExtra("user", getIntent().getParcelableExtra("user"));
                                 i.putExtra("tipologia", "FloraEFauna");
                                 context.startActivity(i);
                             }else{
@@ -149,12 +145,10 @@ public class PrenotaActivity extends AppCompatActivity implements AdapterView.On
                     return true;
                 case R.id.navigation_home:
                     Intent i = new Intent(context, MainActivity.class);
-                    //i.putExtra("user", getIntent().getParcelableExtra("user"));
                     context.startActivity(i);
                     return true;
                 case R.id.navigation_profilo:
                     Intent in = new Intent(context, ProfiloActivity.class);
-                    //in.putExtra("user", getIntent().getParcelableExtra("user"));
                     context.startActivity(in);
                     return true;
 

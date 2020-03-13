@@ -54,7 +54,6 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
             public void onClick(View v) {
                 Intent i = new Intent(context, DettagliAttivitaActivity.class);
                 i.putExtra("attivita", attivita.get(position));
-                i.putExtra("user", user);
                 context.startActivity(i);
             }
         });

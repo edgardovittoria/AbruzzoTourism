@@ -16,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.cxf.interceptor.InInterceptors;
 
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -44,7 +43,7 @@ public interface EffettuaPrenotazioneService {
 	@Path("/AttivitaByEmail/{email}")
 	public Attivita getAttivitaByEmail(
 			@WebParam(name = "email", targetNamespace = "http://service.sose.univaq.it/") @PathParam("email") String email);
-	
+
 	@Operation(description = "metodo utilizzato per recuperare un oggetto di tipo Attivita che ha un deterimanto Id", responses = {
 			@ApiResponse(description = "Oggetto di tipo Attivita", content = {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))),
@@ -187,7 +186,7 @@ public interface EffettuaPrenotazioneService {
 	public boolean login(@RequestBody(description = "Ogetto di tipo UtenteAttivita", required = true, content = {
 			@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = UtenteAttivita.class))),
 			@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = UtenteAttivita.class))) }) @WebParam(name = "utenteAttivita", targetNamespace = "http://service.sose.univaq.it/") UtenteAttivita utenteAttivita);
-	
+
 	@Operation(description = "metodo utilizzato per cambiare l'immagine di un'attività", responses = {
 			@ApiResponse(description = "TRUE se l'operazione si svolge correttamente, FALSE altrimenti", content = {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Boolean.class))),
@@ -196,7 +195,18 @@ public interface EffettuaPrenotazioneService {
 	@Path("/cambiaImmagine/{nomeAttivita}")
 	public boolean cambiaImmagine(@RequestBody(description = "Ogetto di tipo Attivita", required = true, content = {
 			@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))),
-			@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))) }) @WebParam(name = "image", targetNamespace = "http://service.sose.univaq.it/") Attivita attivita,
+			@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Attivita.class))) }) @WebParam(name = "attivita", targetNamespace = "http://service.sose.univaq.it/") Attivita attivita,
 			@WebParam(name = "nomeAttivita", targetNamespace = "http://service.sose.univaq.it/") @PathParam("nomeAttivita") String nomeAttivita);
-	
+
+	@Operation(description = "metodo utilizzato per cambiare l'immagine profilo di un Turista", responses = {
+			@ApiResponse(description = "TRUE se l'operazione si svolge correttamente, FALSE altrimenti", content = {
+					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Boolean.class))),
+					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Boolean.class))) }) })
+	@PUT
+	@Path("/cambiaImmagineTurista/{nomeTurista}")
+	public boolean cambiaImmagineTurista(
+			@RequestBody(description = "Ogetto di tipo Turista", required = true, content = {
+					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Turista.class))),
+					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Turista.class))) }) @WebParam(name = "turista", targetNamespace = "http://service.sose.univaq.it/") Turista turista,
+			@WebParam(name = "nomeTurista", targetNamespace = "http://service.sose.univaq.it/") @PathParam("nomeTurista") String nomeTurista);
 }

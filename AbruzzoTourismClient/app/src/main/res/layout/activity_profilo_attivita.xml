@@ -148,7 +148,7 @@
                     android:id="@+id/fragment_profilo_attivita"
                     android:name="univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.ProfiloAttivita.RegistroPrenotazioniProfiloAttivitaFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="456dp" />
+                    android:layout_height="1000dp" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

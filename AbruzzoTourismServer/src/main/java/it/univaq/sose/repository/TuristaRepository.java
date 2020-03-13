@@ -1,8 +1,5 @@
 package it.univaq.sose.repository;
 
-import java.security.MessageDigest;
-import java.util.Base64;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -16,15 +13,8 @@ public class TuristaRepository {
 	private EntityManager em = emf.createEntityManager();
 
 	public boolean addTurista(Turista turista) {
-		//turista.setNuovaPrenotazione(null);
-		
 
 		try {
-			/*MessageDigest md = MessageDigest.getInstance("MD5");
-			byte[] passwordbyte = md.digest(turista.getPassword().getBytes());
-			String passwordEncoded = Base64.getEncoder().encodeToString(passwordbyte);
-			turista.setPassword(passwordEncoded);*/
-			
 			this.em.getTransaction().begin();
 			this.em.persist(turista);
 			this.em.getTransaction().commit();
@@ -38,14 +28,44 @@ public class TuristaRepository {
 		}
 
 	}
-	
+
 	public Turista getTuristaFromID(int ID) {
-		Turista turista = (Turista) this.em.createQuery("select t from Turista t  where IDTurista="+ ID).getResultList().get(0);
+		Turista turista = (Turista) this.em.createQuery("select t from Turista t  where IDTurista=" + ID)
+				.getResultList().get(0);
 		return turista;
 	}
-	
+
 	public Turista getTuristaFromEmail(String email) {
-		Turista turista = (Turista) this.em.createQuery("select t from Turista t  where email LIKE :email").setParameter("email", email).getResultList().get(0);
+		/*
+		 * emf e em devono essere istanziati nuovamente dato che se viene effettuato un
+		 * update, c'è bisogno di creare una nuova sessione, altrimenti se degli oggetti
+		 * sono stati precedentemente caricati dopo l'update nella sessione non abbiamo
+		 * oggetti aggiornati. Bisogna quindi creare una nuova sessione e caricarci gli
+		 * oggetti aggiornati
+		 */
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("AbruzzoTourism");
+		EntityManager em = emf.createEntityManager();
+		Turista turista = (Turista) em.createQuery("select t from Turista t  where email LIKE :email")
+				.setParameter("email", email).getResultList().get(0);
 		return turista;
+	}
+
+	public boolean cambiaImmagineTurista(Turista turista, String nomeTurista) {
+		try {
+			this.em.getTransaction().begin();
+			int result = this.em.createQuery("UPDATE Turista SET image = :image WHERE Nome = :nomeTurista")
+					.setParameter("image", turista.getImage()).setParameter("nomeTurista", nomeTurista).executeUpdate();
+			this.em.getTransaction().commit();
+
+			if (result == 1) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

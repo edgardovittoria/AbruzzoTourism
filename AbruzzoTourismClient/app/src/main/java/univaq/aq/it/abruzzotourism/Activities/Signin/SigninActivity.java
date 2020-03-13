@@ -49,23 +49,18 @@ public class SigninActivity extends AppCompatActivity {
 
         try {
             final MessageDigest md = MessageDigest.getInstance("MD5");
-
             btn_signin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                         byte[] passwordbyte = md.digest(password_signin.getText().toString().getBytes());
-                        Log.i("password0", password_signin.getText().toString());
                         String passwordEncoded = Base64.encodeToString(passwordbyte, 0);
 
                         final Turista turista = new Turista();
                         turista.setNome(nome_cognome.getText().toString());
                         turista.setEmail(email_signin.getText().toString());
                         turista.setPassword(passwordEncoded.substring(0,24));
-                        Log.i("password1", turista.getPassword());
                         turista.setDataNascita(data_nascita.getText().toString());
                         List<Prenotazione> prenotazioni = Collections.emptyList();
-                        Log.i("prenotazioni", ""+prenotazioni.isEmpty());
-
 
                         RequestParams requestParams = new RequestParams();
                         requestParams.put("email", turista.getEmail());
@@ -73,20 +68,14 @@ public class SigninActivity extends AppCompatActivity {
                         requestParams.put("password", turista.getPassword());
                         requestParams.put("dataNascita", turista.getDataNascita());
 
-
                         requestParams.setUseJsonStreamer(true);
                         requestParams.setElapsedFieldInJsonStreamer(null);
-
-
 
                         RESTClient.post("/signinTurista", requestParams, new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                                 Intent i = new Intent(context, MainActivity.class);
                                 UserDetails user = new UserDetails(turista.getEmail(), password_signin.getText().toString(), "Turista");
-                                //i.putExtra("user", user);
-                                Log.i("password2", user.getPassword());
-
 
                                 userLocalStore.storeUserData(user);
                                 userLocalStore.setUserLoggedIn(true);
@@ -107,10 +96,6 @@ public class SigninActivity extends AppCompatActivity {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
-
-
-
 
     }
 }

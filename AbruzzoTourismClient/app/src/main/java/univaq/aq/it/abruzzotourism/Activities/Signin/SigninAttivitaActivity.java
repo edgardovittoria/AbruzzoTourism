@@ -54,25 +54,19 @@ public class SigninAttivitaActivity extends AppCompatActivity {
 
                         final UtenteAttivita utenteAttivita = new UtenteAttivita(email.getText().toString(), nome.getText().toString(), passwordMD5.substring(0,24));
 
-
-
                         RequestParams requestParams = new RequestParams();
                         requestParams.put("email", utenteAttivita.getEmail());
                         requestParams.put("nomeUtenteAttivita", utenteAttivita.getNomeUtenteAttivita());
                         requestParams.put("password", utenteAttivita.getPassword());
 
-
                         requestParams.setUseJsonStreamer(true);
                         requestParams.setElapsedFieldInJsonStreamer(null);
-
-
 
                         RESTClient.post("/signinUtenteAttivita", requestParams, new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                                 Toast.makeText(getApplicationContext(), "registrazione Avvenuta!!!", Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(context, AggiungiattivitaActivity.class);
-
                                 UserDetails userDetails = new UserDetails(utenteAttivita.getEmail(),utenteAttivita.getPassword(),"Attivita");
                                 userLocalStore.storeUserData(userDetails);
                                 userLocalStore.setUserLoggedIn(true);

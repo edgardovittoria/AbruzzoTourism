@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism.dummy;
+package univaq.aq.it.abruzzotourism.PrenotazioneItem;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -7,13 +7,13 @@ package univaq.aq.it.abruzzotourism.dummy;
  */
 
   
-  public class DummyItem {
+  public class PrenotazioneItem {
 
     private String id;
     public String content;
     private String details;
 
-    public DummyItem() {}
+    public PrenotazioneItem() {}
 
     public String getId() {
         return id;

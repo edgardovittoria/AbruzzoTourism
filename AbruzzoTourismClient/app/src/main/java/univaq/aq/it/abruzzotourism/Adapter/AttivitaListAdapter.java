@@ -81,7 +81,6 @@ public class AttivitaListAdapter extends BaseAdapter {
                 Intent i = new Intent(context, DettagliAttivitaActivity.class);
                 attivita.get(position).setImage("");
                 i.putExtra("attivita", attivita.get(position));
-                i.putExtra("user", user);
                 context.startActivity(i);
             }
         });

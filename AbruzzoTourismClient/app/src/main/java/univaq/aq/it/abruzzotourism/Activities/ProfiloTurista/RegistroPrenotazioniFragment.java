@@ -28,7 +28,7 @@ import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.Prenotazione;
 import univaq.aq.it.abruzzotourism.domain.Turista;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
-import univaq.aq.it.abruzzotourism.dummy.DummyItem;
+import univaq.aq.it.abruzzotourism.PrenotazioneItem.PrenotazioneItem;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
 
 /**
@@ -39,9 +39,8 @@ import univaq.aq.it.abruzzotourism.utility.RESTClient;
  */
 public class RegistroPrenotazioniFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
+
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private UserDetails user = MainActivity.getUser();
@@ -53,7 +52,7 @@ public class RegistroPrenotazioniFragment extends Fragment {
     public RegistroPrenotazioniFragment() {}
 
 
-    // TODO: Customize parameter initialization
+
     @SuppressWarnings("unused")
     public static RegistroPrenotazioniFragment newInstance(int columnCount) {
         RegistroPrenotazioniFragment fragment = new RegistroPrenotazioniFragment();
@@ -103,7 +102,7 @@ public class RegistroPrenotazioniFragment extends Fragment {
                                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                                     try {
                                         List<Prenotazione> prenotazioni = new ArrayList<>();
-                                        List<DummyItem> dummyItemList = new ArrayList<>();
+                                        List<PrenotazioneItem> prenotazioneItemList = new ArrayList<>();
                                         JSONArray result = new JSONArray(new String(responseBody));
                                         for(int i = 0; i<result.length();i++){
                                             Prenotazione prenotazione = new Prenotazione();
@@ -116,14 +115,14 @@ public class RegistroPrenotazioniFragment extends Fragment {
                                             prenotazione.setCosto(Float.parseFloat(result.getJSONObject(i).getString("costo")));
                                             prenotazioni.add(prenotazione);
 
-                                            DummyItem dummyItem = new DummyItem();
-                                            dummyItem.setId(String.valueOf(i+1));
-                                            dummyItem.setContent(prenotazioni.get(i).getAttivita().getNomeAttivita());
-                                            dummyItem.setDetails("data e ora : "+prenotazioni.get(i).getDataSvolgimentoAttivita()+". Prenotazione per : "+prenotazioni.get(i).getNumPartecipanti()+" Persone."+" Costo prenotazione: "+prenotazioni.get(i).getCosto()+"€");
+                                            PrenotazioneItem prenotazioneItem = new PrenotazioneItem();
+                                            prenotazioneItem.setId(String.valueOf(i+1));
+                                            prenotazioneItem.setContent(prenotazioni.get(i).getAttivita().getNomeAttivita());
+                                            prenotazioneItem.setDetails("data e ora : "+prenotazioni.get(i).getDataSvolgimentoAttivita()+". Prenotazione per : "+prenotazioni.get(i).getNumPartecipanti()+" Persone."+" Costo prenotazione: "+prenotazioni.get(i).getCosto()+"€");
 
-                                            dummyItemList.add(dummyItem);
+                                            prenotazioneItemList.add(prenotazioneItem);
                                         }
-                                        recyclerView.setAdapter(new MyPrenotazioniRecyclerViewAdapter(dummyItemList, mListener));
+                                        recyclerView.setAdapter(new MyPrenotazioniRecyclerViewAdapter(prenotazioneItemList, mListener));
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -158,7 +157,7 @@ public class RegistroPrenotazioniFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+
+        void onListFragmentInteraction(PrenotazioneItem item);
     }
 }

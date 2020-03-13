@@ -1,5 +1,7 @@
 {
-	"resourceClasses": ["it.univaq.sose.service.EffettuaPrenotazioneService"],
+	"resourceClasses": [
+		"it.univaq.sose.service.EffettuaPrenotazioneService"
+	],
 	"prettyPrint": true,
 	"cacheTTL": 0,
 	"openAPI": {
@@ -7,7 +9,9 @@
 			"version": "1.0.0",
 			"title": "The name of the API goes here!",
 			"description": "The description of the API goes here!",
-			"contact": {"email": "cxf-dev@apache.org"},
+			"contact": {
+				"email": "cxf-dev@apache.org"
+			},
 			"license": {
 				"name": "Apache 2.0",
 				"url": "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -20,5 +24,7 @@
 			}
 		]
 	},
-	"userDefinedOptions": {"support.swagger.ui": true}
+	"userDefinedOptions": {
+		"support.swagger.ui": true
+	}
 }

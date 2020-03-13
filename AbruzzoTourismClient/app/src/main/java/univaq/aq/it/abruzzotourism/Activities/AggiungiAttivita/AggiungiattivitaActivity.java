@@ -93,7 +93,7 @@ public class AggiungiattivitaActivity extends AppCompatActivity implements Adapt
 
                 //viene creata l'attività e vengono settati i relativi attributi
                 Attivita attivita = new Attivita();
-                String nomeAttivita = utenteAttivita.getNomeUtenteAttivita().replaceAll(" ", "");
+                String nomeAttivita = utenteAttivita.getNomeUtenteAttivita();
                 attivita.setNomeAttivita(nomeAttivita);
                 attivita.setImage(image);
                 attivita.setCostoPerPersona(Float.parseFloat(costo.getText().toString()));
@@ -128,7 +128,6 @@ public class AggiungiattivitaActivity extends AppCompatActivity implements Adapt
                                         public void onClick(DialogInterface dialog, int which) {
                                             dialog.dismiss();
                                             Intent i = new Intent(context, ProfiloAttivitaActivity.class);
-                                            //i.putExtra("user", utenteAttivita);
                                             context.startActivity(i);
                                             finish();
                                         }

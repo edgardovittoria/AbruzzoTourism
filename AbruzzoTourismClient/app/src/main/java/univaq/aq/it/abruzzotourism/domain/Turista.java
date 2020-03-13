@@ -12,6 +12,7 @@ public class Turista implements KvmSerializable {
     private String email;
     private String password;
     private String dataNascita;
+    private String image;
 
     public int getIDTurista() {
         return IDTurista;
@@ -53,6 +54,14 @@ public class Turista implements KvmSerializable {
         this.dataNascita = dataNascita;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public Object getProperty(int index) {
         switch (index)
@@ -62,6 +71,7 @@ public class Turista implements KvmSerializable {
             case 2: return email;
             case 3: return password;
             case 4: return dataNascita;
+            case 5: return image;
 
         }
         return null;
@@ -69,7 +79,7 @@ public class Turista implements KvmSerializable {
 
     @Override
     public int getPropertyCount() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -90,6 +100,9 @@ public class Turista implements KvmSerializable {
                 break;
             case 4:
                 dataNascita = value.toString();
+                break;
+            case 5:
+                image = value.toString();
                 break;
             default:
                 break;
@@ -118,6 +131,12 @@ public class Turista implements KvmSerializable {
             case 4:
                 info.type = PropertyInfo.STRING_CLASS;
                 info.name = "dataNascita";
+                break;
+            case 5:
+                info.type = PropertyInfo.STRING_CLASS;
+                info.name = "image";
+                break;
+            default:
                 break;
         }
     }

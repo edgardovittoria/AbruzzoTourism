@@ -1,13 +1,8 @@
 package it.univaq.sose.service;
 
-
-
 import java.util.List;
 
 import javax.jws.WebParam;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import it.univaq.sose.domain.Attivita;
 import it.univaq.sose.domain.Prenotazione;
@@ -18,34 +13,24 @@ import it.univaq.sose.repository.AttivitaRepository;
 import it.univaq.sose.repository.PrenotazioneRepository;
 import it.univaq.sose.repository.TuristaRepository;
 import it.univaq.sose.repository.UtenteAttivitaRepository;
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class EffettuaPrenotazioneServiceImpl implements EffettuaPrenotazioneService{
-	
-	private Turista turista;
-		
+
+public class EffettuaPrenotazioneServiceImpl implements EffettuaPrenotazioneService {
+
 	private AttivitaRepository attivitaRepository = new AttivitaRepository();
-	
+
 	private PrenotazioneRepository prenotazioneRepository = new PrenotazioneRepository();
-	
+
 	private TuristaRepository turistaRepository = new TuristaRepository();
-	
+
 	private UtenteAttivitaRepository utenteAttivitaRepository = new UtenteAttivitaRepository();
-	
-	public Turista getTurista() {
-		return this.turista;
-	}
-	
-	public void setTurista(Turista turista) {
-		this.turista = turista;
-	}
-	
+
 	@Override
 	public Attivita getAttivitaById(int ID) {
 		return attivitaRepository.getAttivta(ID);
 	}
 
 	@Override
-	public List<Attivita> getAttivitaByTipologia(@WebParam(name = "tipologia")TipologiaAttivita tipologia) {
+	public List<Attivita> getAttivitaByTipologia(@WebParam(name = "tipologia") TipologiaAttivita tipologia) {
 		return attivitaRepository.getAttivtaTipologia(tipologia);
 	}
 
@@ -56,15 +41,14 @@ public class EffettuaPrenotazioneServiceImpl implements EffettuaPrenotazioneServ
 
 	@Override
 	public boolean confermaPrenotazione(Prenotazione prenotazione) {
-		prenotazione.setTuristaPrenotante(turistaRepository.getTuristaFromID(prenotazione.getTuristaPrenotante().getIDTurista()));
-		if(prenotazioneRepository.addPrenotazione(prenotazione)) {
+		prenotazione.setTuristaPrenotante(
+				turistaRepository.getTuristaFromID(prenotazione.getTuristaPrenotante().getIDTurista()));
+		if (prenotazioneRepository.addPrenotazione(prenotazione)) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
-		
-		
+
 	}
 
 	@Override
@@ -137,6 +121,9 @@ public class EffettuaPrenotazioneServiceImpl implements EffettuaPrenotazioneServ
 	public boolean cambiaImmagine(Attivita attivita, String nomeAttivita) {
 		return attivitaRepository.setImageAttivita(attivita, nomeAttivita);
 	}
+
+	@Override
+	public boolean cambiaImmagineTurista(Turista turista, String nomeTurista) {
+		return turistaRepository.cambiaImmagineTurista(turista, nomeTurista);
+	}
 }
-	
-	

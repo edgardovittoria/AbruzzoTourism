@@ -9,7 +9,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -101,7 +100,7 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
                             bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
                             byte[] byteArray = stream.toByteArray();
                             String image1 = Base64.encodeToString(byteArray, 0);
-                            Log.i("image0", image1);
+
                         }
 
                         @Override
@@ -230,7 +229,6 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
                      *inoltre viene ricavato il nome dell'attivita per cui bisogna cambiare l'immagine*/
                     String image = Base64.encodeToString(byteArray, 0);
                     String nomeAttivita = textView.getText().toString();
-                    Log.i("image1", ""+image.length());
 
                     Attivita attivita = new Attivita();
                     attivita.setImage(image);
@@ -248,8 +246,14 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
                     RESTClient.put("/cambiaImmagine/" + nomeAttivita, requestParams, new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                            String avviso = "L'Immagine è stata cambiata correttamente!!!";
-                            Toast.makeText(context, avviso, avviso.length()).show();
+                            String result = new String(responseBody);
+                            if(result.equals("true")){
+                                String avviso = "L'Immagine è stata cambiata correttamente!!!";
+                                Toast.makeText(context, avviso, avviso.length()).show();
+                            }else{
+                                String avviso = "L'Immagine NOM è stata cambiata correttamente!!!";
+                                Toast.makeText(context, avviso, avviso.length()).show();
+                            }
                         }
 
                         @Override

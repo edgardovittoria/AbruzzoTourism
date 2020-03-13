@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -48,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         userLocalStore = new UserLocalStore(context);
         this.user = userLocalStore.getLoggedInUser();
-        //this.user = getIntent().getParcelableExtra("user");
         fillHomeWS task = new fillHomeWS();
         task.execute(this.user);
 
@@ -74,17 +72,14 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             if(which == 0){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                //i.putExtra("user", user);
                                 i.putExtra("tipologia", "Sportiva");
                                 context.startActivity(i);
                             }else if(which == 1){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                //i.putExtra("user", user);
                                 i.putExtra("tipologia", "Culturale");
                                 context.startActivity(i);
                             }else if(which == 2){
                                 Intent i = new Intent(context, SearchActivity.class);
-                                //i.putExtra("user", user);
                                 i.putExtra("tipologia", "FloraEFauna");
                                 context.startActivity(i);
                             }else{
@@ -98,12 +93,10 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_home:
                     Intent i = new Intent(context, MainActivity.class);
-                    //i.putExtra("user", user);
                     context.startActivity(i);
                     return true;
                 case R.id.navigation_profilo:
                     Intent in = new Intent(context, ProfiloActivity.class);
-                    //in.putExtra("user", user);
                     context.startActivity(in);
                     return true;
 
@@ -120,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected SoapObject doInBackground(UserDetails... params){
-            Log.i(TAG,"doInBackground");
             return soapClient.getAttivitaHome(params[0]);
         }
 
@@ -155,16 +147,14 @@ public class MainActivity extends AppCompatActivity {
                 list_adapter = new AttivitaListAdapter(mainActivity, attivita, user);
                 lv_attivita = (ListView) findViewById(R.id.lv_attivita_search);
                 lv_attivita.setAdapter(list_adapter);
-                Log.i(TAG,"onPostExecute");
+
             }
 
 
         }
 
         @Override
-        protected void onPreExecute(){
-            Log.i(TAG,"onPreExecute");
-        }
+        protected void onPreExecute(){}
 
     }
 
