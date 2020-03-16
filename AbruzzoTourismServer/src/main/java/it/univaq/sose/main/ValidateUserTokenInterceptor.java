@@ -5,10 +5,10 @@ import java.util.List;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
-import org.apache.ws.security.WSSecurityEngineResult;
-import org.apache.ws.security.WSUsernameTokenPrincipal;
-import org.apache.ws.security.handler.WSHandlerConstants;
-import org.apache.ws.security.handler.WSHandlerResult;
+import org.apache.wss4j.dom.handler.WSHandlerConstants;
+import org.apache.wss4j.dom.handler.WSHandlerResult;
+import org.apache.wss4j.common.principal.WSUsernameTokenPrincipalImpl;
+import org.apache.wss4j.dom.WSSecurityEngineResult;
 
 ;
 
@@ -28,7 +28,7 @@ public class ValidateUserTokenInterceptor extends AbstractPhaseInterceptor {
 			WSHandlerResult res = (WSHandlerResult) result.get(i);
 			for (int j = 0; j < res.getResults().size(); j++) {
 				WSSecurityEngineResult secRes = (WSSecurityEngineResult) res.getResults().get(j);
-				WSUsernameTokenPrincipal principal = (WSUsernameTokenPrincipal) secRes.get("principal");
+				WSUsernameTokenPrincipalImpl principal = (WSUsernameTokenPrincipalImpl) secRes.get("principal");
 
 				if (// !principal.isPasswordDigest() ||
 				principal.getNonce() == null || principal.getPassword() == null || principal.getCreatedTime() == null) {

@@ -1,5 +1,6 @@
 package it.univaq.sose.domain;
 
+
 import java.io.Serializable;
 import java.util.List;
 
