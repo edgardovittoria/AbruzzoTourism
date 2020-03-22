@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +23,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import cz.msebera.android.httpclient.Header;
-import univaq.aq.it.abruzzotourism.MainActivity;
 import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity;
+import univaq.aq.it.abruzzotourism.MainActivity;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
@@ -50,11 +51,15 @@ public class DettagliAttivitaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        final ProgressBar progressBar = findViewById(R.id.progressBarDettaggliAttivita);
+        progressBar.setIndeterminate(true);
+
         final Attivita att = getIntent().getParcelableExtra("attivita");
 
         RESTClient.get("/getImage/" + att.getIDAttivita(), null, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                progressBar.setIndeterminate(false);
                 att.setImage(new String(responseBody));
                 ImageView iv= findViewById(R.id.im_DettagliAttivita);
                 byte[] image = Base64.decode(att.getImage(), 0);

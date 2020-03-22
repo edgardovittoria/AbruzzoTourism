@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context="univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.AggiungiattivitaActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBarAggiungiAttivita"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="65dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="280dp"
+        android:indeterminateOnly="false"
+        android:indeterminateTint="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/img_take"
         android:layout_width="0dp"

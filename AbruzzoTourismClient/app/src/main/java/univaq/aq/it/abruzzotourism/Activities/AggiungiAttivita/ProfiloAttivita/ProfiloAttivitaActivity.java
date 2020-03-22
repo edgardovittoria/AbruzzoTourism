@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,9 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
 
         userLocalStore = new UserLocalStore(context);
 
+        final ProgressBar progressBar = findViewById(R.id.progressBarProfiloAttivita);
+        progressBar.setIndeterminate(true);
+
         final UserDetails userDetails = userLocalStore.getLoggedInUser();
 
         RequestParams requestParams = new RequestParams();
@@ -70,6 +74,7 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                             try {
+                                progressBar.setIndeterminate(false);
                                 //recupero l'ggetto json ricevuto come risposta
                                 JSONObject jsonObject = new JSONObject(new String(responseBody));
                                 //creo l'attività grazie all'oggetto json

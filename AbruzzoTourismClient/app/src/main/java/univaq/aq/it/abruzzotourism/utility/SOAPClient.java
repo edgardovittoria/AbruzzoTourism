@@ -28,8 +28,6 @@ public class SOAPClient {
             SoapObject Request = new SoapObject(this.NAMESPACE, "getAttivitaByTipologia");
             Request.addProperty("tipologia", tipologia);
 
-
-
             SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             soapEnvelope.dotNet = true;
             soapEnvelope.implicitTypes = false;
@@ -38,20 +36,15 @@ public class SOAPClient {
             soapEnvelope.headerOut = securityHeader.generateSecurityHeader((UserDetails) userDetails);
             soapEnvelope.setOutputSoapObject(Request);
 
-
             HttpTransportSE transport = new HttpTransportSE(this.WSDL_URL);
 
             transport.call(this.SOAP_ACTION, soapEnvelope);
 
             this.result = (SoapObject)soapEnvelope.bodyIn;
 
-
-
         } catch (Exception ex) {
             Log.e(TAG, "catch: " + ex.getMessage());
-
         }
-
 
         return this.result;
     }

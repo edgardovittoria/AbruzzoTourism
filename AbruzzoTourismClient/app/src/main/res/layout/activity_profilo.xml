@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context="univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBarProfiloTurista"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="65dp"
+        android:layout_height="72dp"
+        android:indeterminateOnly="false"
+        android:indeterminateTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/img_profilo_turista"
         android:layout_width="112dp"

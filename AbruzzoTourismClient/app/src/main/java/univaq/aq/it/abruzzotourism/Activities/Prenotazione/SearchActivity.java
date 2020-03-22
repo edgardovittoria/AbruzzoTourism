@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,8 +39,10 @@ public class SearchActivity extends AppCompatActivity {
     private ListView lv_attivita;
     private UserDetails user = new UserDetails();
     private Activity searchActivity = this;
+    ProgressBar progressBar;
     Context context = this;
     UserLocalStore userLocalStore;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        progressBar = findViewById(R.id.progressBarSearch);
+        progressBar.setIndeterminate(true);
         userLocalStore = new UserLocalStore(context);
         this.user = userLocalStore.getLoggedInUser();
         fetchAttivita(getIntent().getStringExtra("tipologia"));
@@ -109,6 +114,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
+                    progressBar.setIndeterminate(false);
                     List<Attivita> attivita = new ArrayList<Attivita>();
                     String response = new String(responseBody);
                     JSONArray jsonArray = new JSONArray(response);

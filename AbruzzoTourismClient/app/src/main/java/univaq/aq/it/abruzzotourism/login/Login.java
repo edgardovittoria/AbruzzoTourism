@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +34,18 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        userLocalStore = new UserLocalStore(context);
+        if(userLocalStore.getLoggedInUser().getTipologia().equals("Turista")){
+            Intent i = new Intent(context, MainActivity.class);
+            context.startActivity(i);
+            Log.i("userDetails","email :"+userLocalStore.getLoggedInUser().getEmail()+" password : "+userLocalStore.getLoggedInUser().getPassword()+" tipologia : "+userLocalStore.getLoggedInUser().getTipologia());
+        }else if(userLocalStore.getLoggedInUser().getTipologia().equals("Attivita")){
+            Intent i = new Intent(context, ProfiloAttivitaActivity.class);
+            context.startActivity(i);
+            Log.i("userDetails","email :"+userLocalStore.getLoggedInUser().getEmail()+" password : "+userLocalStore.getLoggedInUser().getPassword()+" tipologia : "+userLocalStore.getLoggedInUser().getTipologia());
+
+        }
 
         final EditText usernameEditText = findViewById(R.id.email);
         final EditText passwordEditText = findViewById(R.id.password);

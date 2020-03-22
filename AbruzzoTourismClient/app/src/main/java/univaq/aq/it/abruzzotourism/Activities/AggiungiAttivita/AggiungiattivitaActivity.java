@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -83,6 +84,10 @@ public class AggiungiattivitaActivity extends AppCompatActivity implements Adapt
         btn_crea_attivita.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                final ProgressBar progressBar = findViewById(R.id.progressBarAggiungiAttivita);
+                progressBar.setIndeterminate(true);
+
                 //viene presa l'immagine e convertita in stringa per poter essere salvata nel db
                 ImageView imageView = findViewById(R.id.img_take);
                 Bitmap bm = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
@@ -119,6 +124,7 @@ public class AggiungiattivitaActivity extends AppCompatActivity implements Adapt
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         String response = new String(responseBody);
                         if(response.equals("true")){
+                            progressBar.setIndeterminate(false);
                             String prenotazione_avvenuta = "La tua Attività è stata registrata con successo!!!";
                             AlertDialog alertDialog = new AlertDialog.Builder(AggiungiattivitaActivity.this).create();
                             alertDialog.setTitle("REGISTRAZIONE AVVENUTA");

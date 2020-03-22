@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class RiepilogoPrenotazioneActivity extends AppCompatActivity {
 
     Context context = this;
     UserLocalStore userLocalStore;
+    ProgressBar progressBar;
     UserDetails user = new UserDetails();
     Attivita att = new Attivita();
 
@@ -53,6 +55,7 @@ public class RiepilogoPrenotazioneActivity extends AppCompatActivity {
         setContentView(R.layout.activity_riepilogo_prenotazione);
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
 
         userLocalStore = new UserLocalStore(context);
 
@@ -209,6 +212,7 @@ public class RiepilogoPrenotazioneActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(SoapObject result){
+            progressBar.setIndeterminate(false);
             String prenotazione_avvenuta = "La tua prenotazione è stata effettuata con successo!!! Puoi visionare le prenotazioni effettuate nel registro prenotazioni.";
             AlertDialog alertDialog = new AlertDialog.Builder(RiepilogoPrenotazioneActivity.this).create();
             alertDialog.setTitle("PREANOTAZIONE AVVENUTA");
@@ -225,6 +229,13 @@ public class RiepilogoPrenotazioneActivity extends AppCompatActivity {
             alertDialog.show();
 
         }
+
+        @Override
+        protected void onPreExecute(){
+            progressBar = findViewById(R.id.progressBarRiepilogoPrenotazione);
+            progressBar.setIndeterminate(true);
+        }
+
 
     }
 

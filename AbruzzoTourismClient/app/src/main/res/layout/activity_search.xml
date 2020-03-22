@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context="univaq.aq.it.abruzzotourism.Activities.Prenotazione.SearchActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBarSearch"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="65dp"
+        android:layout_height="72dp"
+        android:indeterminateOnly="false"
+        android:indeterminateTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/container2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <FrameLayout
         android:id="@+id/container2"
         android:layout_width="match_parent"

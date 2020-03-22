@@ -13,6 +13,7 @@ import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,9 @@ public class ProfiloActivity extends AppCompatActivity {
         userLocalStore = new UserLocalStore(context);
         UserDetails userDetails = userLocalStore.getLoggedInUser();
 
+        final ProgressBar progressBar = findViewById(R.id.progressBarProfiloTurista);
+        progressBar.setIndeterminate(true);
+
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -97,6 +101,8 @@ public class ProfiloActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
+                    progressBar.setIndeterminate(false);
+
                     JSONObject jsonObject = new JSONObject(new String(responseBody));
                     Turista turista = new Turista();
                     turista.setNome(jsonObject.getString("nome"));

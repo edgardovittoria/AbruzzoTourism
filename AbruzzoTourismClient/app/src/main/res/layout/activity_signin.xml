@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     tools:context="univaq.aq.it.abruzzotourism.Activities.Signin.SigninActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBarSigninTurista"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="45dp"
+        android:layout_height="52dp"
+        android:indeterminateOnly="false"
+        android:indeterminateTint="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/signin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.898" />
+
     <EditText
         android:id="@+id/nome_signin"
         android:layout_width="0dp"

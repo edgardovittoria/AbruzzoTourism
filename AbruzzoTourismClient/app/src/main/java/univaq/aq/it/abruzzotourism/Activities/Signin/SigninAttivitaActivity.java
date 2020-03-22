@@ -7,6 +7,7 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,6 +50,9 @@ public class SigninAttivitaActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
+                    final ProgressBar progressBar = findViewById(R.id.progressBarSigninAttivita);
+                    progressBar.setIndeterminate(true);
+
                     try {
                         final String passwordMD5 = Base64.encodeToString(md.digest(password.getText().toString().getBytes("UTF-8")),0);
 
@@ -65,6 +69,7 @@ public class SigninAttivitaActivity extends AppCompatActivity {
                         RESTClient.post("/signinUtenteAttivita", requestParams, new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                progressBar.setIndeterminate(false);
                                 Toast.makeText(getApplicationContext(), "registrazione Avvenuta!!!", Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(context, AggiungiattivitaActivity.class);
                                 UserDetails userDetails = new UserDetails(utenteAttivita.getEmail(),utenteAttivita.getPassword(),"Attivita");

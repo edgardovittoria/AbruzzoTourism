@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     static UserDetails user = new UserDetails();
     Context context = this;
     UserLocalStore userLocalStore;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         userLocalStore = new UserLocalStore(context);
         this.user = userLocalStore.getLoggedInUser();
         fillHomeWS task = new fillHomeWS();
@@ -119,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(SoapObject result){
+            progressBar.setIndeterminate(false);
             if(result == null){
                 Toast.makeText(getApplicationContext(), "Email o Password ERRATI!!! ", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(context, Login.class);
@@ -154,7 +158,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPreExecute(){}
+        protected void onPreExecute(){
+            progressBar = findViewById(R.id.progressBar);
+            progressBar.setIndeterminate(true);
+        }
 
     }
 

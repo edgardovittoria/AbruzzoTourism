@@ -1,14 +1,17 @@
 package univaq.aq.it.abruzzotourism.Activities.Signin;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -45,6 +48,8 @@ public class SigninActivity extends AppCompatActivity {
         final EditText password_signin = findViewById(R.id.password_signin);
         final EditText data_nascita = findViewById(R.id.data_nascita_signin);
 
+        final ProgressBar progressBar = findViewById(R.id.progressBarSigninTurista);
+
         userLocalStore = new UserLocalStore(context);
 
         try {
@@ -52,6 +57,8 @@ public class SigninActivity extends AppCompatActivity {
             btn_signin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                        progressBar.setIndeterminate(true);
+
                         byte[] passwordbyte = md.digest(password_signin.getText().toString().getBytes());
                         String passwordEncoded = Base64.encodeToString(passwordbyte, 0);
 
@@ -74,18 +81,35 @@ public class SigninActivity extends AppCompatActivity {
                         RESTClient.post("/signinTurista", requestParams, new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                                Intent i = new Intent(context, MainActivity.class);
                                 UserDetails user = new UserDetails(turista.getEmail(), password_signin.getText().toString(), "Turista");
+
+                                progressBar.setIndeterminate(false);
 
                                 userLocalStore.storeUserData(user);
                                 userLocalStore.setUserLoggedIn(true);
 
-                                context.startActivity(i);
+                                String prenotazione_avvenuta = "La tua registrazione è stata effettuata con successo!!! Sarai reindirizzato nella home.";
+                                AlertDialog alertDialog = new AlertDialog.Builder(SigninActivity.this).create();
+                                alertDialog.setTitle("REGISTRAZIONE AVVENUTA");
+                                alertDialog.setMessage(prenotazione_avvenuta);
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                Intent i = new Intent(context, MainActivity.class);
+                                                context.startActivity(i);
+                                                finish();
+                                            }
+                                        });
+                                alertDialog.show();
                             }
 
                             @Override
                             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                                progressBar.setIndeterminate(false);
 
+                                String avviso = "REGISTRAZIONE NON AVVENUTA!!!RIPROVARE";
+                                Toast.makeText(context, avviso, avviso.length()).show();
                             }
                         });
 
