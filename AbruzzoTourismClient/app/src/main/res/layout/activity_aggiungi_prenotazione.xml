@@ -93,17 +93,19 @@
                 android:layout_height="5dp"
                 android:background="?android:attr/listDivider"
                 android:backgroundTint="@color/colorPrimaryDark" />
-
             <EditText
                 android:id="@+id/nome_e_cognome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:focusable="auto"
-                android:hint="Inserire il nome del prenoatnte"
-                android:inputType="textPersonName"
-                android:selectAllOnFocus="false"
-                android:textSize="20sp" />
+                android:focusable="true"
+                android:hint="Inserire il nome del prenotante"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         </LinearLayout>
 

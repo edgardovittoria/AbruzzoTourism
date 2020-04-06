@@ -50,8 +50,6 @@ public class AggiungiPrenotazioneActivity extends AppCompatActivity implements A
         setContentView(R.layout.activity_aggiungi_prenotazione);
 
         attivita = getIntent().getParcelableExtra("attivita");
-        Log.i("id", ""+attivita.getIDAttivita());
-        Log.i("utente", ""+attivita.getUtenteAttivita().toString());
 
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
         Spinner spin = (Spinner) findViewById(R.id.spinner_aggiungi_prenotazione);
@@ -107,8 +105,7 @@ public class AggiungiPrenotazioneActivity extends AppCompatActivity implements A
         }
         final String dataSvolgimentoAttivita = giornoSelezioato+"/"+meseSelezionato+"/"+annoSelezionato+"-"+oraSelezionata;
         Button btn_procedi = findViewById(R.id.btn_procedi_aggiungi_prenotazione);
-        EditText nome_e_cognome_prenotante = findViewById(R.id.nome_e_cognome);
-        final String turista_prenotante = nome_e_cognome_prenotante.getText().toString();
+        final EditText nome_e_cognome_prenotante = findViewById(R.id.nome_e_cognome);
         btn_procedi.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -146,7 +143,7 @@ public class AggiungiPrenotazioneActivity extends AppCompatActivity implements A
                 requestParams.put("numPartecipanti", numPartecipanti);
                 requestParams.put("dataDiPrenotazione", calendar.getTime().toString());
                 requestParams.put("dataSvolgimentoAttivita", dataSvolgimentoAttivita);
-                requestParams.put("prenotazioneANomeDi", turista_prenotante);
+                requestParams.put("prenotazioneANomeDi", nome_e_cognome_prenotante.getText().toString());
                 requestParams.setUseJsonStreamer(true);
                 requestParams.setElapsedFieldInJsonStreamer(null);
 

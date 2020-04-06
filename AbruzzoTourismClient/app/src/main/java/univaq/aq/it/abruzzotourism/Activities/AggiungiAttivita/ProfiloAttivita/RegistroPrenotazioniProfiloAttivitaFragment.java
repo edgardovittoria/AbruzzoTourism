@@ -27,6 +27,7 @@ import univaq.aq.it.abruzzotourism.PrenotazioneItem.PrenotazioneItem;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.Prenotazione;
+import univaq.aq.it.abruzzotourism.domain.Turista;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
 import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
@@ -101,6 +102,14 @@ public class RegistroPrenotazioniProfiloAttivitaFragment extends Fragment {
                             prenotazione.setAttivita(att);
                             prenotazione.setNumPartecipanti(result.getJSONObject(i).getInt("numPartecipanti"));
                             prenotazione.setCosto(Float.parseFloat(result.getJSONObject(i).getString("costo")));
+                            if(!result.getJSONObject(i).isNull("turistaPrenotante")){
+                                Turista turista = new Turista();
+                                turista.setNome(result.getJSONObject(i).getJSONObject("turistaPrenotante").getString("nome"));
+                                prenotazione.setTuristaPrenotante(turista);
+                            }
+                            if(!result.getJSONObject(i).isNull("prenotazioneANomeDi")){
+                                prenotazione.setPrenotazioneANomeDi(result.getJSONObject(i).getString("prenotazioneANomeDi"));
+                            }
                             prenotazioni.add(prenotazione);
 
                             PrenotazioneItem prenotazioneItem = new PrenotazioneItem();
@@ -110,7 +119,13 @@ public class RegistroPrenotazioniProfiloAttivitaFragment extends Fragment {
                             prenotazioneItem.setNumPartecipanti(prenotazione.getNumPartecipanti());
                             prenotazioneItem.setCosto(prenotazione.getCosto());
                             prenotazioneItem.setContent(prenotazioni.get(i).getAttivita().getNomeAttivita());
-                            prenotazioneItem.setDetails("Data e ora : "+prenotazioneItem.getDataSvolgimentoAttivita()+"\n"+"Prenotazione per : "+prenotazioneItem.getNumPartecipanti()+" Persone"+"\n"+"Costo prenotazione: "+prenotazioni.get(i).getCosto()+"€");
+                            if(prenotazione.getTuristaPrenotante() != null){
+                                prenotazioneItem.setDetails("Data e ora : "+prenotazioneItem.getDataSvolgimentoAttivita()+"\n"+"Prenotazione per : "+prenotazioneItem.getNumPartecipanti()+" Persone"+"\n"+"Costo prenotazione: "+prenotazioni.get(i).getCosto()+"€"+"\n"+"Prenotazione a nome di: "+prenotazione.getTuristaPrenotante().getNome());
+
+                            }else{
+                                prenotazioneItem.setDetails("Data e ora : "+prenotazioneItem.getDataSvolgimentoAttivita()+"\n"+"Prenotazione per : "+prenotazioneItem.getNumPartecipanti()+" Persone"+"\n"+"Costo prenotazione: "+prenotazioni.get(i).getCosto()+"€"+"\n"+"Prenotazione a nome di: "+prenotazione.getPrenotazioneANomeDi());
+
+                            }
 
                             prenotazioneItemList.add(prenotazioneItem);
                         }
