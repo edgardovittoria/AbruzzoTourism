@@ -8,7 +8,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class RESTClient {
-    private static final String BASE_URL = "http://192.168.1.3:8080/AbruzzoTourism/rest/service";
+    private static final String BASE_URL = "http://10.0.2.2:8080/AbruzzoTourism/rest/service";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
@@ -27,6 +27,10 @@ public class RESTClient {
         client.addHeader("Accept","application/json");
         client.addHeader("Content-Type","application/json");
         client.put(getAbsoluteUrl(url), params, asyncHttpResponseHandler);
+    }
+
+    public static void delete(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler){
+        client.delete(getAbsoluteUrl(url), params, asyncHttpResponseHandler);
     }
 
 

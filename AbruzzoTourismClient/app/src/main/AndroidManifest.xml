@@ -12,6 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activities.AggiungiAttivita.ProfiloAttivita.AggiungiPrenotazioneActivity"></activity>
+        <activity android:name=".Activities.AggiungiAttivita.ProfiloAttivita.ModificaPrenotazioneActivity" />
         <activity android:name=".Activities.AggiungiAttivita.AggiungiattivitaActivity" />
         <activity android:name=".Activities.AggiungiAttivita.ProfiloAttivita.ProfiloAttivitaActivity" />
         <activity android:name=".Activities.Signin.SigninAttivitaActivity" />

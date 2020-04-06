@@ -41,8 +41,14 @@ public class EffettuaPrenotazioneServiceImpl implements EffettuaPrenotazioneServ
 
 	@Override
 	public boolean confermaPrenotazione(Prenotazione prenotazione) {
-		prenotazione.setTuristaPrenotante(
-				turistaRepository.getTuristaFromID(prenotazione.getTuristaPrenotante().getIDTurista()));
+		if(prenotazione.getTuristaPrenotante() != null) {
+			prenotazione.setTuristaPrenotante(
+					turistaRepository.getTuristaFromID(prenotazione.getTuristaPrenotante().getIDTurista()));
+		}
+		else {
+			prenotazione.setTuristaPrenotante(null);
+		}
+		
 		if (prenotazioneRepository.addPrenotazione(prenotazione)) {
 			return true;
 		} else {
@@ -125,5 +131,15 @@ public class EffettuaPrenotazioneServiceImpl implements EffettuaPrenotazioneServ
 	@Override
 	public boolean cambiaImmagineTurista(Turista turista, String nomeTurista) {
 		return turistaRepository.cambiaImmagineTurista(turista, nomeTurista);
+	}
+
+	@Override
+	public void deletePrenotazione(int IDPrenotazione) {
+		prenotazioneRepository.deletePrenotazione(IDPrenotazione);
+	}
+
+	@Override
+	public void updatePrenotazione(int IDPrenotazione, Prenotazione prenotazione) {
+		prenotazioneRepository.updatePrenotazione(IDPrenotazione, prenotazione);
 	}
 }

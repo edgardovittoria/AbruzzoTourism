@@ -21,7 +21,7 @@ public class Attivita implements KvmSerializable, Parcelable {
 
     public Attivita(){}
 
-    public Attivita(int IDAttivita, String nomeAttivita, String descrizione, float CostoPerPersona, int numMaxPartecipanti, String image, String tipologia){
+    public Attivita(int IDAttivita, String nomeAttivita, String descrizione, float CostoPerPersona, int numMaxPartecipanti, String image, String tipologia, UtenteAttivita utenteAttivita){
         this.IDAttivita = IDAttivita;
         this.nomeAttivita = nomeAttivita;
         this.descrizione = descrizione;
@@ -29,6 +29,7 @@ public class Attivita implements KvmSerializable, Parcelable {
         this.NumMaxPartecipanti = numMaxPartecipanti;
         this.image = image;
         this.tipologia = tipologia;
+        this.utenteAttivita = utenteAttivita;
     }
 
     protected Attivita(Parcel in) {
@@ -39,6 +40,7 @@ public class Attivita implements KvmSerializable, Parcelable {
         NumMaxPartecipanti = in.readInt();
         image = in.readString();
         tipologia = in.readString();
+        utenteAttivita = in.readTypedObject(UtenteAttivita.CREATOR);
     }
 
     public static final Creator<Attivita> CREATOR = new Creator<Attivita>() {
@@ -226,5 +228,6 @@ public class Attivita implements KvmSerializable, Parcelable {
         dest.writeInt(NumMaxPartecipanti);
         dest.writeString(image);
         dest.writeString(tipologia);
+        dest.writeParcelable(utenteAttivita, flags);
     }
 }

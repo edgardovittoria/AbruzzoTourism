@@ -22,12 +22,12 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.RegistroPrenotazioniFragment;
-import univaq.aq.it.abruzzotourism.Adapter.MyPrenotazioniRecyclerViewAdapter;
+import univaq.aq.it.abruzzotourism.Adapter.MyPrenotazioniAttivitaRecyclerViewAdapter;
+import univaq.aq.it.abruzzotourism.PrenotazioneItem.PrenotazioneItem;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.Prenotazione;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
-import univaq.aq.it.abruzzotourism.PrenotazioneItem.PrenotazioneItem;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
 import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 
@@ -74,7 +74,7 @@ public class RegistroPrenotazioniProfiloAttivitaFragment extends Fragment {
 
         // Set the adapter
         if (view instanceof RecyclerView) {
-            Context context = view.getContext();
+            final Context context = view.getContext();
             userLocalStore = new UserLocalStore(context);
             final RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
@@ -96,6 +96,7 @@ public class RegistroPrenotazioniProfiloAttivitaFragment extends Fragment {
                             Attivita att = new Attivita();
                             JSONObject attivita = result.getJSONObject(i).getJSONObject("attivita");
                             att.setNomeAttivita(attivita.getString("nomeAttivita"));
+                            prenotazione.setIDPrenotazione(result.getJSONObject(i).getInt("idprenotazione"));
                             prenotazione.setDataSvolgimentoAttivita(result.getJSONObject(i).getString("dataSvolgimentoAttivita"));
                             prenotazione.setAttivita(att);
                             prenotazione.setNumPartecipanti(result.getJSONObject(i).getInt("numPartecipanti"));
@@ -104,12 +105,17 @@ public class RegistroPrenotazioniProfiloAttivitaFragment extends Fragment {
 
                             PrenotazioneItem prenotazioneItem = new PrenotazioneItem();
                             prenotazioneItem.setId(String.valueOf(i+1));
+                            prenotazioneItem.setIDPrenotazione(prenotazione.getIDPrenotazione());
+                            prenotazioneItem.setDataSvolgimentoAttivita(prenotazione.getDataSvolgimentoAttivita());
+                            prenotazioneItem.setNumPartecipanti(prenotazione.getNumPartecipanti());
+                            prenotazioneItem.setCosto(prenotazione.getCosto());
                             prenotazioneItem.setContent(prenotazioni.get(i).getAttivita().getNomeAttivita());
-                            prenotazioneItem.setDetails("data e ora : "+prenotazioni.get(i).getDataSvolgimentoAttivita()+". Prenotazione per : "+prenotazioni.get(i).getNumPartecipanti()+" Persone."+" Costo prenotazione: "+prenotazioni.get(i).getCosto()+"€");
+                            prenotazioneItem.setDetails("Data e ora : "+prenotazioneItem.getDataSvolgimentoAttivita()+"\n"+"Prenotazione per : "+prenotazioneItem.getNumPartecipanti()+" Persone"+"\n"+"Costo prenotazione: "+prenotazioni.get(i).getCosto()+"€");
 
                             prenotazioneItemList.add(prenotazioneItem);
                         }
-                        recyclerView.setAdapter(new MyPrenotazioniRecyclerViewAdapter(prenotazioneItemList, mListener));
+                        recyclerView.setAdapter(new MyPrenotazioniAttivitaRecyclerViewAdapter(prenotazioneItemList, mListener, context));
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -41,6 +41,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_profilo_attività" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonAggiungiPrenotazione"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp"
+        android:layout_marginRight="277dp"
+        android:backgroundTint="@color/design_default_color_background"
+        android:clickable="true"
+        android:tint="@color/colorPrimary"
+        app:backgroundTint="@color/colorPrimary"
+        app:borderWidth="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="533dp"
@@ -50,6 +67,103 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_nome_profilo_attivita">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingActionButton_profilo_attivita"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:backgroundTint="@color/design_default_color_background"
+                    android:clickable="true"
+                    android:tint="@color/colorPrimary"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:borderWidth="2dp"
+                    app:srcCompat="@drawable/registropren" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Registro Prenotazioni"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/divider14"
+                    android:layout_width="135dp"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@color/colorPrimary"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingActionButtonCambiaImmaginettivita"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:backgroundTint="@color/design_default_color_background"
+                    android:clickable="true"
+                    android:tint="@color/colorPrimary"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:borderWidth="2dp"
+                    app:srcCompat="@drawable/change_image" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cambia Immagine"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingActionButtonLogoutAttivita"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/design_default_color_background"
+                    android:clickable="true"
+                    android:tint="@color/colorAccent"
+                    app:backgroundTint="@color/colorAccent"
+                    app:borderWidth="2dp"
+                    app:srcCompat="@drawable/logout" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Logout"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -58,103 +172,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/floatingActionButton_profilo_attivita"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="40dp"
-                            android:backgroundTint="@color/design_default_color_background"
-                            android:clickable="true"
-                            android:tint="@color/colorPrimary"
-                            app:backgroundTint="@color/colorPrimary"
-                            app:borderWidth="2dp"
-                            app:srcCompat="@drawable/registropren" />
-
-                        <TextView
-                            android:id="@+id/textView10"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="Registro Prenotazioni"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:id="@+id/divider14"
-                            android:layout_width="135dp"
-                            android:layout_height="2dp"
-                            android:layout_marginLeft="5dp"
-                            android:background="@color/colorPrimary"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:visibility="invisible" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
-
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/floatingActionButtonCambiaImmaginettivita"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:backgroundTint="@color/design_default_color_background"
-                            android:clickable="true"
-                            android:tint="@color/colorPrimary"
-                            app:backgroundTint="@color/colorPrimary"
-                            app:borderWidth="2dp"
-                            app:srcCompat="@drawable/change_image" />
-
-                        <TextView
-                            android:id="@+id/textView11"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Cambia Immagine"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="50dp"
-                        android:orientation="vertical">
-
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/floatingActionButtonLogoutAttivita"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/design_default_color_background"
-                            android:clickable="true"
-                            android:tint="@color/colorAccent"
-                            app:backgroundTint="@color/colorAccent"
-                            app:borderWidth="2dp"
-                            app:srcCompat="@drawable/logout" />
-
-                        <TextView
-                            android:id="@+id/textView9"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="Logout"
-                            android:textColor="@color/colorAccent"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                </LinearLayout>
 
                 <fragment
                     android:id="@+id/fragment_profilo_attivita"

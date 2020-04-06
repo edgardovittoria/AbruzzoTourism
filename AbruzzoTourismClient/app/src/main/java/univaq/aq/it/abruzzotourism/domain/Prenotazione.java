@@ -8,6 +8,7 @@ import java.util.Hashtable;
 public class Prenotazione implements KvmSerializable {
 
 
+    private int IDPrenotazione;
     private String dataDiPrenotazione;
     private Turista TuristaPrenotante;
     private Attivita Attivita;
@@ -16,8 +17,17 @@ public class Prenotazione implements KvmSerializable {
     private Boolean confermata;
     private Boolean pagata;
     private String dataSvolgimentoAttivita;
+    private String prenotazioneANomeDi;
 
     public Prenotazione() {}
+
+    public int getIDPrenotazione() {
+        return IDPrenotazione;
+    }
+
+    public void setIDPrenotazione(int IDPrenotazione) {
+        this.IDPrenotazione = IDPrenotazione;
+    }
 
     public Prenotazione(Turista turista) {
         this.TuristaPrenotante = turista;
@@ -83,54 +93,70 @@ public class Prenotazione implements KvmSerializable {
         this.dataSvolgimentoAttivita = dataSvolgimentoAttivita;
     }
 
+    public String getPrenotazioneANomeDi() {
+        return prenotazioneANomeDi;
+    }
+
+    public void setPrenotazioneANomeDi(String prenotazioneANomeDi) {
+        this.prenotazioneANomeDi = prenotazioneANomeDi;
+    }
+
     @Override
     public Object getProperty(int index) {
         switch (index)
         {
 
-            case 0: return dataDiPrenotazione;
-            case 1: return TuristaPrenotante;
-            case 2: return Attivita;
-            case 3: return numPartecipanti;
-            case 4: return costo;
-            case 5: return confermata;
-            case 6: return pagata;
-            case 7: return dataSvolgimentoAttivita;
+            case 0: return IDPrenotazione;
+            case 1: return dataDiPrenotazione;
+            case 2: return TuristaPrenotante;
+            case 3: return Attivita;
+            case 4: return numPartecipanti;
+            case 5: return costo;
+            case 6: return confermata;
+            case 7: return pagata;
+            case 8: return dataSvolgimentoAttivita;
+            case 9: return prenotazioneANomeDi;
         }
         return null;
     }
 
     @Override
     public int getPropertyCount() {
-        return 8;
+        return 10;
     }
 
     @Override
     public void setProperty(int index, Object value) {
         switch (index) {
             case 0:
-                dataDiPrenotazione = value.toString();
+                IDPrenotazione = Integer.parseInt(value.toString());
                 break;
             case 1:
-                TuristaPrenotante = (Turista) value;
+                dataDiPrenotazione = value.toString();
                 break;
             case 2:
-                Attivita = (Attivita) value;
+                TuristaPrenotante = (Turista) value;
                 break;
             case 3:
-                numPartecipanti = Integer.parseInt(value.toString());
+                Attivita = (Attivita) value;
                 break;
             case 4:
-                costo = Float.parseFloat(value.toString());
+                numPartecipanti = Integer.parseInt(value.toString());
                 break;
             case 5:
-                confermata = Boolean.parseBoolean(value.toString());
+                costo = Float.parseFloat(value.toString());
                 break;
             case 6:
-                pagata = Boolean.parseBoolean(value.toString());
+                confermata = Boolean.parseBoolean(value.toString());
                 break;
             case 7:
+                pagata = Boolean.parseBoolean(value.toString());
+                break;
+            case 8:
                 dataSvolgimentoAttivita = value.toString();
+                break;
+            case 9:
+                prenotazioneANomeDi = value.toString();
                 break;
             default:
                 break;
@@ -142,36 +168,44 @@ public class Prenotazione implements KvmSerializable {
         switch (index)
         {
             case 0:
+                info.type = PropertyInfo.INTEGER_CLASS;
+                info.name = "IDPrenotazione";
+                break;
+            case 1:
                 info.type = PropertyInfo.STRING_CLASS;
                 info.name = "dataDiPrenotazione";
                 break;
-            case 1:
+            case 2:
                 info.type = PropertyInfo.OBJECT_CLASS;
                 info.name = "TuristaPrenotante";
                 break;
-            case 2:
+            case 3:
                 info.type = PropertyInfo.OBJECT_CLASS;
                 info.name = "Attivita";
                 break;
-            case 3:
+            case 4:
                 info.type = PropertyInfo.INTEGER_CLASS;
                 info.name = "numPartecipanti";
                 break;
-            case 4:
+            case 5:
                 info.type = Float.class;
                 info.name = "costo";
                 break;
-            case 5:
+            case 6:
                 info.type = PropertyInfo.BOOLEAN_CLASS;
                 info.name = "confermata";
                 break;
-            case 6:
+            case 7:
                 info.type = PropertyInfo.BOOLEAN_CLASS;
                 info.name = "pagata";
                 break;
-            case 7:
+            case 8:
                 info.type = PropertyInfo.STRING_CLASS;
                 info.name = "dataSvolgimentoAttivita";
+                break;
+            case 9:
+                info.type = PropertyInfo.STRING_CLASS;
+                info.name = "prenotazioneANomeDi";
                 break;
             default:
                 break;

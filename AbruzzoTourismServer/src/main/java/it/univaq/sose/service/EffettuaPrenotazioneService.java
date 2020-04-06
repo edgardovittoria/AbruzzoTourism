@@ -6,12 +6,14 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.cxf.interceptor.InInterceptors;
@@ -209,4 +211,18 @@ public interface EffettuaPrenotazioneService {
 					@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Turista.class))),
 					@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Turista.class))) }) @WebParam(name = "turista", targetNamespace = "http://service.sose.univaq.it/") Turista turista,
 			@WebParam(name = "nomeTurista", targetNamespace = "http://service.sose.univaq.it/") @PathParam("nomeTurista") String nomeTurista);
+	
+	@Operation(description = "metodo utilizzato per eliminare una prenotazione", responses = {
+			@ApiResponse(responseCode = "204", description = "la risorsa è stata cancellata con successo!")})
+	@DELETE
+	@Path("/prenotazioni")
+	public void deletePrenotazione(@QueryParam("IDPrenotazione") int IDPrenotazione);
+
+	@Operation(description = "metodo utilizzato per modificare una prenotazione", responses = {
+			@ApiResponse(responseCode = "204", description = "la risorsa è stata modificata con successo!")})
+	@PUT
+	@Path("/prenotazioni/{IDPrenotazione}")
+	public void updatePrenotazione(@PathParam("IDPrenotazione") int IDPrenotazione, @RequestBody(description = "Ogetto di tipo Prenotazione", required = true, content = {
+			@Content(mediaType = MediaType.APPLICATION_JSON, array = @ArraySchema(schema = @Schema(implementation = Prenotazione.class))),
+			@Content(mediaType = MediaType.APPLICATION_XML, array = @ArraySchema(schema = @Schema(implementation = Prenotazione.class))) }) Prenotazione prenotazione);
 }

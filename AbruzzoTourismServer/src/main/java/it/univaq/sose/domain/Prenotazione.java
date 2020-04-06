@@ -57,6 +57,10 @@ public class Prenotazione {
 	@Column
 	@XmlElement(namespace = "http://service.sose.univaq.it/")
 	private String dataSvolgimentoAttivita;
+	
+	@Column
+	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	private String prenotazioneANomeDi;
 
 	public Prenotazione() {
 	}
@@ -136,5 +140,15 @@ public class Prenotazione {
 	public void setDataSvolgimentoAttivita(String dataSvolgimentoAttivita) {
 		this.dataSvolgimentoAttivita = dataSvolgimentoAttivita;
 	}
+
+	public String getPrenotazioneANomeDi() {
+		return prenotazioneANomeDi;
+	}
+
+	public void setPrenotazioneANomeDi(String prenotazioneANomeDi) {
+		this.prenotazioneANomeDi = prenotazioneANomeDi;
+	}
+	
+	
 
 }

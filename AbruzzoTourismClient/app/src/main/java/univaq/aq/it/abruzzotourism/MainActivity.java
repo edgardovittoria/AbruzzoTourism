@@ -26,6 +26,7 @@ import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity;
 import univaq.aq.it.abruzzotourism.Adapter.AttivitaListAdapter;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
+import univaq.aq.it.abruzzotourism.domain.UtenteAttivita;
 import univaq.aq.it.abruzzotourism.login.Login;
 import univaq.aq.it.abruzzotourism.utility.SOAPClient;
 import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
@@ -125,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             progressBar.setIndeterminate(false);
             if(result == null){
                 Toast.makeText(getApplicationContext(), "Email o Password ERRATI!!! ", Toast.LENGTH_LONG).show();
+                userLocalStore.clearUserData();
                 Intent i = new Intent(context, Login.class);
                 context.startActivity(i);
             }
@@ -143,7 +145,17 @@ public class MainActivity extends AppCompatActivity {
                     String image = soapObjects.get(i).getProperty("image").toString();
                     String tipologia = soapObjects.get(i).getProperty("tipologia").toString();
 
-                    Attivita att = new Attivita(ID, nome, descrizione, costo, numMaxPar, image, tipologia);
+                    SoapObject soapObject2 = (SoapObject) soapObjects.get(i).getProperty("utenteAttivita");
+
+                    int IDUtenteAttivita = Integer.parseInt(soapObject2.getProperty("IDUtenteAttivita").toString());
+                    String nomeUtenteAttivita = soapObject2.getProperty("nomeUtenteAttivita").toString();
+                    String email = soapObject2.getProperty("email").toString();
+                    String password = soapObject2.getProperty("password").toString();
+
+                    UtenteAttivita utenteAttivita = new UtenteAttivita(email, nomeUtenteAttivita, password);
+                    utenteAttivita.setIDUtenteAttivita(IDUtenteAttivita);
+
+                    Attivita att = new Attivita(ID, nome, descrizione, costo, numMaxPar, image, tipologia, utenteAttivita);
                     attivita.add(att);
 
                 }

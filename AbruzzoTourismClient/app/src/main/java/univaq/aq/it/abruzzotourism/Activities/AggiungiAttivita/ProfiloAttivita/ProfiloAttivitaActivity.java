@@ -33,6 +33,7 @@ import cz.msebera.android.httpclient.Header;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
+import univaq.aq.it.abruzzotourism.domain.UtenteAttivita;
 import univaq.aq.it.abruzzotourism.login.Login;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
 import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
@@ -41,6 +42,8 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
 
     Context context = this;
     UserLocalStore userLocalStore;
+    Attivita attivita = new Attivita();
+    UtenteAttivita utenteAttivita = new UtenteAttivita();
 
     private static final int GALLERY_REQUEST_CODE = 1;
 
@@ -57,7 +60,7 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
 
         final UserDetails userDetails = userLocalStore.getLoggedInUser();
 
-        RequestParams requestParams = new RequestParams();
+        final RequestParams requestParams = new RequestParams();
         requestParams.put("email", userDetails.getEmail());
         requestParams.put("password", userDetails.getPassword());
         requestParams.setUseJsonStreamer(true);
@@ -78,7 +81,7 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
                                 //recupero l'ggetto json ricevuto come risposta
                                 JSONObject jsonObject = new JSONObject(new String(responseBody));
                                 //creo l'attività grazie all'oggetto json
-                                final Attivita attivita = new Attivita();
+                                //final Attivita attivita = new Attivita();
                                 attivita.setIDAttivita(jsonObject.getInt("idattività"));
                                 attivita.setNomeAttivita(jsonObject.getString("nomeAttivita"));
                                 attivita.setTipologia(jsonObject.getString("tipologia"));
@@ -86,6 +89,16 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
                                 attivita.setNumMaxPartecipanti(jsonObject.getInt("numMaxPartecipanti"));
                                 attivita.setCostoPerPersona(Float.parseFloat(jsonObject.get("costoPerPersona").toString()));
                                 attivita.setImage(jsonObject.getString("image"));
+
+                                JSONObject jsonObject2 = (JSONObject) jsonObject.get("utenteAttivita");
+
+                                utenteAttivita.setIDUtenteAttivita(jsonObject2.getInt("idutenteAttivita"));
+                                utenteAttivita.setNomeUtenteAttivita(jsonObject2.getString("nomeUtenteAttivita"));
+                                utenteAttivita.setEmail(jsonObject2.getString("email"));
+                                utenteAttivita.setPassword(jsonObject2.getString("password"));
+
+                                attivita.setUtenteAttivita(utenteAttivita);
+
                                 //viene settata l'immagine
 
                                 byte[] imagebyte = Base64.decode(attivita.getImage(), 0);
@@ -117,6 +130,7 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
 
                     String errore = "Email o Password ERRATI!!!Riprovare.";
                     Toast.makeText(context, errore, errore.length()).show();
+                    userLocalStore.clearUserData();
                     Intent i = new Intent(context, Login.class);
                     context.startActivity(i);
                 }
@@ -172,7 +186,15 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
             }
         });
 
-
+        FloatingActionButton floatingActionButtonAggiungiPrenotazione = findViewById(R.id.floatingActionButtonAggiungiPrenotazione);
+        floatingActionButtonAggiungiPrenotazione.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, AggiungiPrenotazioneActivity.class);
+                i.putExtra("attivita", attivita);
+                context.startActivity(i);
+            }
+        });
 
     }
 
@@ -241,8 +263,6 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
                     /*l'immagine viene inserita nel corpo della richiesta http*/
                     RequestParams requestParams = new RequestParams();
                     requestParams.put("image", attivita.getImage());
-
-
                     requestParams.setUseJsonStreamer(true);
                     requestParams.setElapsedFieldInJsonStreamer(null);
 
@@ -256,7 +276,7 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
                                 String avviso = "L'Immagine è stata cambiata correttamente!!!";
                                 Toast.makeText(context, avviso, avviso.length()).show();
                             }else{
-                                String avviso = "L'Immagine NOM è stata cambiata correttamente!!!";
+                                String avviso = "L'Immagine NON è stata cambiata correttamente!!!";
                                 Toast.makeText(context, avviso, avviso.length()).show();
                             }
                         }

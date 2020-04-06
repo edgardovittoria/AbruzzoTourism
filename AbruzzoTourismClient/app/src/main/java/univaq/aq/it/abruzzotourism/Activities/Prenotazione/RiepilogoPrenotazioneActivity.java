@@ -125,6 +125,7 @@ public class RiepilogoPrenotazioneActivity extends AppCompatActivity {
                         Calendar calendar = Calendar.getInstance();
                         prenotazione.setDataDiPrenotazione(calendar.getTime().toString());
                         prenotazione.setDataSvolgimentoAttivita(getIntent().getStringExtra("data"));
+                        prenotazione.setPrenotazioneANomeDi(turistaPrenotante.getNome());
 
                         ConfermaPrenotazioneWS task = new ConfermaPrenotazioneWS();
                         task.execute(prenotazione, user);

@@ -10,6 +10,10 @@ package univaq.aq.it.abruzzotourism.PrenotazioneItem;
   public class PrenotazioneItem {
 
     private String id;
+    private int IDPrenotazione;
+    private String dataSvolgimentoAttivita;
+    private int numPartecipanti;
+    private float costo;
     public String content;
     private String details;
 
@@ -17,6 +21,20 @@ package univaq.aq.it.abruzzotourism.PrenotazioneItem;
 
     public String getId() {
         return id;
+    }
+
+    public int getIDPrenotazione(){ return IDPrenotazione; }
+
+    public String getDataSvolgimentoAttivita() {
+        return dataSvolgimentoAttivita;
+    }
+
+    public int getNumPartecipanti() {
+        return numPartecipanti;
+    }
+
+    public float getCosto() {
+        return costo;
     }
 
     public String getContent() {
@@ -29,6 +47,20 @@ package univaq.aq.it.abruzzotourism.PrenotazioneItem;
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setIDPrenotazione(int IDPrenotazione) { this.IDPrenotazione = IDPrenotazione; }
+
+    public void setDataSvolgimentoAttivita(String dataSvolgimentoAttivita) {
+        this.dataSvolgimentoAttivita = dataSvolgimentoAttivita;
+    }
+
+    public void setNumPartecipanti(int numPartecipanti) {
+        this.numPartecipanti = numPartecipanti;
+    }
+
+    public void setCosto(float costo) {
+        this.costo = costo;
     }
 
     public void setContent(String content) {

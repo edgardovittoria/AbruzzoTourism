@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.ProfiloAttivita.AggiungiPrenotazioneActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Indicare il numero di persone per cui si intende prenotare"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/spinner_aggiungi_prenotazione"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:contextClickable="true"
+            android:spinnerMode="dropdown" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/colorPrimaryDark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="380dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_data_aggiungi_prenotazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Indicare la Data in cui svolgere l'attività"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="159dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CalendarView
+                        android:id="@+id/calendarView_aggiungi_prenotazione"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </ScrollView>
+
+            <TextView
+                android:id="@+id/tv_ora_aggiungi_prenotazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Inserire L'ora in cui svolgere l'attività"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spinner2_aggiungi_prenotazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:contextClickable="true"
+                android:spinnerMode="dialog" />
+
+            <View
+                android:id="@+id/divider15"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="?android:attr/listDivider"
+                android:backgroundTint="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/nome_e_cognome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:focusable="auto"
+                android:hint="Inserire il nome del prenoatnte"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="false"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="112dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="18dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_annulla_aggiungi_prenotazione"
+                android:layout_width="180dp"
+                android:layout_height="66dp"
+                android:layout_marginStart="16dp"
+                android:backgroundTint="@color/colorAccent"
+                android:text="Annulla"
+                android:textColor="@android:color/background_light"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_procedi_aggiungi_prenotazione"
+                android:layout_width="180dp"
+                android:layout_height="66dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Procedi"
+                android:textColor="@android:color/background_light" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

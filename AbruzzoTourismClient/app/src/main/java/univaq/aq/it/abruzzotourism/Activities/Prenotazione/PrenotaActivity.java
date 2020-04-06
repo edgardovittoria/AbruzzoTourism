@@ -20,6 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import univaq.aq.it.abruzzotourism.MainActivity;
 import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity;
 import univaq.aq.it.abruzzotourism.R;
@@ -28,7 +31,7 @@ import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 
 public class PrenotaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    Integer[] values = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+    List<Integer> values = new ArrayList<>();
     int numPersone = 1;
     int annoSelezionato;
     int meseSelezionato;
@@ -50,6 +53,10 @@ public class PrenotaActivity extends AppCompatActivity implements AdapterView.On
 
         this.attivita = getIntent().getParcelableExtra("attivita");
 
+        for(int i = 1;i<attivita.getNumMaxPartecipanti()+1;i++){
+            values.add(i);
+        }
+
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
         Spinner spin = (Spinner) findViewById(R.id.spinner);
         spin.setOnItemSelectedListener(this);
@@ -63,7 +70,7 @@ public class PrenotaActivity extends AppCompatActivity implements AdapterView.On
         Spinner spin2 = (Spinner) findViewById(R.id.spinner2);
         spin2.setOnItemSelectedListener(this);
 
-        String[] ore = new String[]{"8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00"};
+        String[] ore = new String[]{"9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00"};
 
         ArrayAdapter aa2 = new ArrayAdapter(this, R.layout.spinner_item, ore);
         aa2.setDropDownViewResource(android.R.layout.simple_spinner_item);

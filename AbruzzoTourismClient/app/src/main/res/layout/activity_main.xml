@@ -31,7 +31,7 @@
             android:id="@+id/lv_attivita_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark" />
+            android:background="@color/design_default_color_background" />
 
     </FrameLayout>
 

@@ -23,12 +23,12 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 import univaq.aq.it.abruzzotourism.Adapter.MyPrenotazioniRecyclerViewAdapter;
 import univaq.aq.it.abruzzotourism.MainActivity;
+import univaq.aq.it.abruzzotourism.PrenotazioneItem.PrenotazioneItem;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.Prenotazione;
 import univaq.aq.it.abruzzotourism.domain.Turista;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
-import univaq.aq.it.abruzzotourism.PrenotazioneItem.PrenotazioneItem;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
 
 /**
@@ -44,6 +44,7 @@ public class RegistroPrenotazioniFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private UserDetails user = MainActivity.getUser();
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -75,6 +76,7 @@ public class RegistroPrenotazioniFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_prenotazioni_list, container, false);
+
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -118,7 +120,8 @@ public class RegistroPrenotazioniFragment extends Fragment {
                                             PrenotazioneItem prenotazioneItem = new PrenotazioneItem();
                                             prenotazioneItem.setId(String.valueOf(i+1));
                                             prenotazioneItem.setContent(prenotazioni.get(i).getAttivita().getNomeAttivita());
-                                            prenotazioneItem.setDetails("data e ora : "+prenotazioni.get(i).getDataSvolgimentoAttivita()+". Prenotazione per : "+prenotazioni.get(i).getNumPartecipanti()+" Persone."+" Costo prenotazione: "+prenotazioni.get(i).getCosto()+"€");
+                                            prenotazioneItem.setDetails("Data e ora : "+prenotazioni.get(i).getDataSvolgimentoAttivita()+"\n"+"Prenotazione per : "+prenotazioni.get(i).getNumPartecipanti()+" Persone"+"\n"+"Costo prenotazione: "+prenotazioni.get(i).getCosto()+"€");
+
 
                                             prenotazioneItemList.add(prenotazioneItem);
                                         }

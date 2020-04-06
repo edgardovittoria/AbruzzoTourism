@@ -18,7 +18,7 @@ public class SOAPClient {
 
     private String SOAP_ACTION = "";
     private String NAMESPACE = "http://service.sose.univaq.it/";
-    private String WSDL_URL = "http://192.168.1.3:8080/AbruzzoTourism/soap/service";
+    private String WSDL_URL = "http://10.0.2.2:8080/AbruzzoTourism/soap/service";
     private SoapObject result;
 
     public SoapObject getAttivita(Object tipologia, Object userDetails) {
