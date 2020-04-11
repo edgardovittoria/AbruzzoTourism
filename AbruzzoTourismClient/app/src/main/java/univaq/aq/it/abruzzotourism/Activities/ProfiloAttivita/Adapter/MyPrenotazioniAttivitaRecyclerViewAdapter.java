@@ -1,6 +1,7 @@
-package univaq.aq.it.abruzzotourism.Adapter;
+package univaq.aq.it.abruzzotourism.Activities.ProfiloAttivita.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -17,8 +19,8 @@ import com.loopj.android.http.RequestParams;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.ProfiloAttivita.ModificaPrenotazioneActivity;
-import univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.ProfiloAttivita.ProfiloAttivitaActivity;
+import univaq.aq.it.abruzzotourism.Activities.ProfiloAttivita.ModificaPrenotazioneActivity;
+import univaq.aq.it.abruzzotourism.Activities.ProfiloAttivita.ProfiloAttivitaActivity;
 import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.RegistroPrenotazioniFragment.OnListFragmentInteractionListener;
 import univaq.aq.it.abruzzotourism.PrenotazioneItem.PrenotazioneItem;
 import univaq.aq.it.abruzzotourism.R;
@@ -68,21 +70,41 @@ public class MyPrenotazioniAttivitaRecyclerViewAdapter extends RecyclerView.Adap
         holder.mBtnElimina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RequestParams requestParams = new RequestParams();
-                requestParams.put("IDPrenotazione", mValues.get(position).getIDPrenotazione());
-                RESTClient.delete("/prenotazioni", requestParams, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        Intent i = new Intent(mContext, ProfiloAttivitaActivity.class);
-                        mContext.startActivity(i);
-                    }
+                String elimina = "Sei Sicuro di voler eliminare la prenotazione?!!";
+                AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+                alertDialog.setTitle("ELIMINA");
+                alertDialog.setMessage(elimina);
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                RequestParams requestParams = new RequestParams();
+                                requestParams.put("IDPrenotazione", mValues.get(position).getIDPrenotazione());
+                                RESTClient.delete("/ProfiloAttivitaService/prenotazioni", requestParams, new AsyncHttpResponseHandler() {
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                        String successo = "La cancellazione è stata effettuata con successo!!!";
+                                        Toast.makeText(mContext, successo, successo.length()).show();
+                                        Intent i = new Intent(mContext, ProfiloAttivitaActivity.class);
+                                        mContext.startActivity(i);
+                                    }
 
+                                    @Override
+                                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                                        String errore = "La cancellazione NON è stata effettuata!!!RIPROVARE";
+                                        Toast.makeText(mContext, errore, errore.length()).show();
+                                    }
+                                });
+                            }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "ANNULLA", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        String errore = "La cancellazione NON è stata effettuata!!!RIPROVARE";
-                        Toast.makeText(mContext, errore, errore.length()).show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
                 });
+                alertDialog.show();
+
             }
         });
 

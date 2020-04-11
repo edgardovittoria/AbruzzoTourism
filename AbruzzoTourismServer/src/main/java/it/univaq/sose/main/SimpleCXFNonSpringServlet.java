@@ -8,7 +8,8 @@ import org.apache.cxf.BusFactory;
 
 import org.apache.cxf.transport.servlet.CXFNonSpringServlet;
 
-import it.univaq.sose.service.EffettuaPrenotazioneServiceImpl;
+import it.univaq.sose.service.soap.HomeAndSearchServiceImpl;
+import it.univaq.sose.service.soap.PrenotazioneServiceImpl;
 
 public class SimpleCXFNonSpringServlet extends CXFNonSpringServlet {
 
@@ -19,7 +20,9 @@ public class SimpleCXFNonSpringServlet extends CXFNonSpringServlet {
 		super.loadBus(servletConfig);
 		Bus bus = getBus();
 		BusFactory.setDefaultBus(bus);
-		Endpoint.publish("/soap/service", new EffettuaPrenotazioneServiceImpl());
+		Endpoint.publish("/HomeAndSearchService", new HomeAndSearchServiceImpl());
+		Endpoint.publish("/PrenotazioneService", new PrenotazioneServiceImpl());
+
 	}
 
 }

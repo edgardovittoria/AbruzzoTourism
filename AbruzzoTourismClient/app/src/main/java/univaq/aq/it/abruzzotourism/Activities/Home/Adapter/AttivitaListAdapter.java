@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism.Adapter;
+package univaq.aq.it.abruzzotourism.Activities.Home.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -79,7 +79,7 @@ public class AttivitaListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, DettagliAttivitaActivity.class);
-                attivita.get(position).setImage("");
+                attivita.get(position).setImage("");//evita l'errore parcel size
                 i.putExtra("attivita", attivita.get(position));
                 context.startActivity(i);
             }

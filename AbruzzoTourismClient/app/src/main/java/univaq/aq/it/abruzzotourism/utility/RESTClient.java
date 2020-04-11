@@ -8,7 +8,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class RESTClient {
-    private static final String BASE_URL = "http://10.0.2.2:8080/AbruzzoTourism/rest/service";
+    private static final String BASE_URL = "http://10.0.2.2:8080/AbruzzoTourism/rest";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 

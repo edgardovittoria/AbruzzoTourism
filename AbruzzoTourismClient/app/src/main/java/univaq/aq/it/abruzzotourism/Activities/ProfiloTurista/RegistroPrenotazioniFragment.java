@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,8 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import univaq.aq.it.abruzzotourism.Adapter.MyPrenotazioniRecyclerViewAdapter;
-import univaq.aq.it.abruzzotourism.MainActivity;
+import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.Adapter.MyPrenotazioniRecyclerViewAdapter;
+import univaq.aq.it.abruzzotourism.Activities.Home.MainActivity;
 import univaq.aq.it.abruzzotourism.PrenotazioneItem.PrenotazioneItem;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
@@ -88,21 +89,25 @@ public class RegistroPrenotazioniFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-                RESTClient.get("/TuristaByEmail/" + user.getEmail(), null, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(new String(responseBody));
-                            Turista turista = new Turista();
-                            turista.setIDTurista(jsonObject.getInt("idturista"));
-                            turista.setEmail(jsonObject.getString("email"));
-                            turista.setPassword(jsonObject.getString("password"));
-                            turista.setNome(jsonObject.getString("nome"));
-                            turista.setDataNascita(jsonObject.getString("dataNascita"));
-                            RESTClient.get("/getPrenotazioniByIdTurista/" + turista.getIDTurista(), null, new AsyncHttpResponseHandler() {
-                                @Override
-                                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                                    try {
+            RequestParams requestParams = new RequestParams();
+            requestParams.put("email", user.getEmail());
+            RESTClient.get("/ProfiloTuristaService/turisti/", requestParams, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(new String(responseBody));
+                        Turista turista = new Turista();
+                        turista.setIDTurista(jsonObject.getInt("idturista"));
+                        turista.setEmail(jsonObject.getString("email"));
+                        turista.setPassword(jsonObject.getString("password"));
+                        turista.setNome(jsonObject.getString("nome"));
+                        turista.setDataNascita(jsonObject.getString("dataNascita"));
+                        RequestParams requestParams = new RequestParams();
+                        requestParams.put("IDTurista", turista.getIDTurista());
+                        RESTClient.get("/ProfiloTuristaService/prenotazioni/", requestParams, new AsyncHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                try {
                                         List<Prenotazione> prenotazioni = new ArrayList<>();
                                         List<PrenotazioneItem> prenotazioneItemList = new ArrayList<>();
                                         JSONArray result = new JSONArray(new String(responseBody));

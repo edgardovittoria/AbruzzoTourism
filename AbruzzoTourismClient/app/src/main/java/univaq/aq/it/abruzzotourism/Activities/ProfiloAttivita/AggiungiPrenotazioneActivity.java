@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.ProfiloAttivita;
+package univaq.aq.it.abruzzotourism.Activities.ProfiloAttivita;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -40,6 +40,7 @@ public class AggiungiPrenotazioneActivity extends AppCompatActivity implements A
     int annoSelezionato;
     int meseSelezionato;
     int giornoSelezioato;
+    String dataSvolgimentoAttivita = "";
     String oraSelezionata;
     Attivita attivita = new Attivita();
     Context context = this;
@@ -87,8 +88,9 @@ public class AggiungiPrenotazioneActivity extends AppCompatActivity implements A
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 annoSelezionato = year;
-                meseSelezionato = month;
+                meseSelezionato = month+1;
                 giornoSelezioato = dayOfMonth;
+                dataSvolgimentoAttivita = giornoSelezioato+"/"+meseSelezionato+"/"+annoSelezionato+"-"+oraSelezionata;
             }
         });
     }
@@ -102,8 +104,9 @@ public class AggiungiPrenotazioneActivity extends AppCompatActivity implements A
             numPartecipanti = position + numPartecipanti ;
         }else if (spinner.getId() == R.id.spinner2_aggiungi_prenotazione){
             oraSelezionata = (String) arg0.getItemAtPosition(position);
+            dataSvolgimentoAttivita = giornoSelezioato+"/"+meseSelezionato+"/"+annoSelezionato+"-"+oraSelezionata;
+            Log.i("ora :", oraSelezionata);
         }
-        final String dataSvolgimentoAttivita = giornoSelezioato+"/"+meseSelezionato+"/"+annoSelezionato+"-"+oraSelezionata;
         Button btn_procedi = findViewById(R.id.btn_procedi_aggiungi_prenotazione);
         final EditText nome_e_cognome_prenotante = findViewById(R.id.nome_e_cognome);
         btn_procedi.setOnClickListener(new View.OnClickListener(){
@@ -147,7 +150,7 @@ public class AggiungiPrenotazioneActivity extends AppCompatActivity implements A
                 requestParams.setUseJsonStreamer(true);
                 requestParams.setElapsedFieldInJsonStreamer(null);
 
-                RESTClient.post("/confermaPrenotazione", requestParams, new AsyncHttpResponseHandler() {
+                RESTClient.post("/ProfiloAttivitaService/prenotazioni", requestParams, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         String prenotazione_avvenuta = "La tua prenotazione è stata effettuata con successo!!!";

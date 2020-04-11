@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism;
+package univaq.aq.it.abruzzotourism.Activities.Home;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,13 +21,14 @@ import org.ksoap2.serialization.SoapObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import univaq.aq.it.abruzzotourism.Activities.Prenotazione.SearchActivity;
+import univaq.aq.it.abruzzotourism.Activities.Search.SearchActivity;
 import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity;
-import univaq.aq.it.abruzzotourism.Adapter.AttivitaListAdapter;
+import univaq.aq.it.abruzzotourism.Activities.Home.Adapter.AttivitaListAdapter;
+import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
 import univaq.aq.it.abruzzotourism.domain.UtenteAttivita;
-import univaq.aq.it.abruzzotourism.login.Login;
+import univaq.aq.it.abruzzotourism.Activities.login.Login;
 import univaq.aq.it.abruzzotourism.utility.SOAPClient;
 import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 

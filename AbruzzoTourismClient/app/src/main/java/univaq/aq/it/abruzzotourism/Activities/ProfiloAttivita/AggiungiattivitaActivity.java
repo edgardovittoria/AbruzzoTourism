@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita;
+package univaq.aq.it.abruzzotourism.Activities.ProfiloAttivita;
 
 import android.app.Activity;
 import android.content.Context;
@@ -28,7 +28,6 @@ import com.loopj.android.http.RequestParams;
 import java.io.ByteArrayOutputStream;
 
 import cz.msebera.android.httpclient.Header;
-import univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.ProfiloAttivita.ProfiloAttivitaActivity;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UtenteAttivita;
@@ -119,7 +118,7 @@ public class AggiungiattivitaActivity extends AppCompatActivity implements Adapt
                 requestParams.setElapsedFieldInJsonStreamer(null);
 
                 //invocazione del metodo REST creaAttivita
-                RESTClient.post("/creaAttivita/"+utenteAttivita.getEmail(), requestParams, new AsyncHttpResponseHandler() {
+                RESTClient.post("/ProfiloAttivitaService/attivita/"+utenteAttivita.getEmail(), requestParams, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         String response = new String(responseBody);

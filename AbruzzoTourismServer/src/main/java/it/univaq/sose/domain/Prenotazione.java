@@ -21,45 +21,45 @@ public class Prenotazione {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private int IDPrenotazione;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private String dataDiPrenotazione;
 
 	@ManyToOne
 	@JoinColumn(name = "turista")
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private Turista TuristaPrenotante;
 
 	@ManyToOne
 	@JoinColumn(name = "attivita")
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private Attivita Attivita;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private int numPartecipanti;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private float costo;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private Boolean confermata;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private Boolean pagata;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private String dataSvolgimentoAttivita;
 	
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private String prenotazioneANomeDi;
 
 	public Prenotazione() {

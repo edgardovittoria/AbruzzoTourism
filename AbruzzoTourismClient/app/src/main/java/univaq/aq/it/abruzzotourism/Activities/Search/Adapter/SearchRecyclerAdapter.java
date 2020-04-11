@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism.Adapter;
+package univaq.aq.it.abruzzotourism.Activities.Search.Adapter;
 
 import android.content.Context;
 import android.content.Intent;

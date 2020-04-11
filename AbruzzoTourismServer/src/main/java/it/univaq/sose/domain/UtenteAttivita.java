@@ -23,19 +23,19 @@ public class UtenteAttivita implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private int IDUtenteAttivita;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private String email;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private String nomeUtenteAttivita;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private String password;
 
 	public int getIDUtenteAttivita() {

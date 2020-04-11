@@ -23,7 +23,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
-import univaq.aq.it.abruzzotourism.MainActivity;
+import univaq.aq.it.abruzzotourism.Activities.Search.SearchActivity;
+import univaq.aq.it.abruzzotourism.Activities.Home.MainActivity;
 import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
@@ -93,7 +94,7 @@ public class PrenotaActivity extends AppCompatActivity implements AdapterView.On
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 annoSelezionato = year;
-                meseSelezionato = month;
+                meseSelezionato = month+1;
                 giornoSelezioato = dayOfMonth;
             }
         });

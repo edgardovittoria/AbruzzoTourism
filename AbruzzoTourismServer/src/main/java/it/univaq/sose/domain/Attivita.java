@@ -32,28 +32,28 @@ public class Attivita implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private int IDAttività;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private String nomeAttivita;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private float CostoPerPersona;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private int NumMaxPartecipanti;
 
 	@Column
 	@Lob
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private String image;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private String descrizione;
 
 	@OneToMany(mappedBy = "Attivita")
@@ -61,11 +61,11 @@ public class Attivita implements Serializable {
 	private List<Prenotazione> prenotazioni;
 
 	@Enumerated(EnumType.STRING)
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private TipologiaAttivita tipologia;
 
 	@OneToOne
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private UtenteAttivita utenteAttivita;
 
 	public int getIDAttività() {

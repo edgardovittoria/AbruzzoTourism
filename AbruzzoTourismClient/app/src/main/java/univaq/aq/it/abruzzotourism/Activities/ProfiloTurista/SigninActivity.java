@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism.Activities.Signin;
+package univaq.aq.it.abruzzotourism.Activities.ProfiloTurista;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import univaq.aq.it.abruzzotourism.MainActivity;
+import univaq.aq.it.abruzzotourism.Activities.Home.MainActivity;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Prenotazione;
 import univaq.aq.it.abruzzotourism.domain.Turista;
@@ -78,7 +78,7 @@ public class SigninActivity extends AppCompatActivity {
                         requestParams.setUseJsonStreamer(true);
                         requestParams.setElapsedFieldInJsonStreamer(null);
 
-                        RESTClient.post("/signinTurista", requestParams, new AsyncHttpResponseHandler() {
+                        RESTClient.post("/ProfiloTuristaService/turisti", requestParams, new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                                 UserDetails user = new UserDetails(turista.getEmail(), password_signin.getText().toString(), "Turista");

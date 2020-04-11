@@ -1,6 +1,6 @@
 {
 	"resourceClasses": [
-		"it.univaq.sose.service.EffettuaPrenotazioneService"
+		"it.univaq.sose.service.rest.ProfiloTuristaService"
 	],
 	"prettyPrint": true,
 	"cacheTTL": 0,
@@ -19,7 +19,7 @@
 		},
 		"servers": [
 			{
-				"url": "http://localhost:8080/AbruzzoTourism/rest/service",
+				"url": "http://localhost:8080/AbruzzoTourism/rest/ProfiloTuristaService",
 				"description": "The description of the Server goes here!"
 			}
 		]

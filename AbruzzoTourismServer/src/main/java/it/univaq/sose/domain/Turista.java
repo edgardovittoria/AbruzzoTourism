@@ -22,28 +22,28 @@ public class Turista {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private int IDTurista;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private String Nome;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private String email;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private String password;
 
 	@Column
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private Date dataNascita;
 
 	@Column
 	@Lob
-	@XmlElement(namespace = "http://service.sose.univaq.it/")
+	@XmlElement(namespace = "http://soap.service.sose.univaq.it/")
 	private String image;
 
 	public int getIDTurista() {

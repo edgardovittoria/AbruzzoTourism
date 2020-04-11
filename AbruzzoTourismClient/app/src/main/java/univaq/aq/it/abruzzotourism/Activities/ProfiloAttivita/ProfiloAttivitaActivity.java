@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.ProfiloAttivita;
+package univaq.aq.it.abruzzotourism.Activities.ProfiloAttivita;
 
 import android.app.Activity;
 import android.content.Context;
@@ -34,7 +34,7 @@ import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
 import univaq.aq.it.abruzzotourism.domain.UtenteAttivita;
-import univaq.aq.it.abruzzotourism.login.Login;
+import univaq.aq.it.abruzzotourism.Activities.login.Login;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
 import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 
@@ -66,14 +66,16 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
         requestParams.setUseJsonStreamer(true);
         requestParams.setElapsedFieldInJsonStreamer(null);
 
-        RESTClient.post("/loginUtenteAttivita", requestParams, new AsyncHttpResponseHandler() {
+        RESTClient.post("/ProfiloAttivitaService/loginUtenteAttivita", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String result = new String(responseBody);
                 if (result.equals("true")){
                     /*se il login va a buon fine allora viene fatta la chiamata rest per recuperare l'attività
                     * che ci servirà per settare tutti i parametri riguardant l'interfaccia(Immagine e NomeAttivita)*/
-                    RESTClient.get("/AttivitaByEmail/" + userDetails.getEmail(), null, new AsyncHttpResponseHandler() {
+                    RequestParams requestParams1 = new RequestParams();
+                    requestParams1.put("email", userDetails.getEmail());
+                    RESTClient.get("/ProfiloAttivitaService/attivita/", requestParams1, new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                             try {
@@ -191,6 +193,7 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, AggiungiPrenotazioneActivity.class);
+                attivita.setImage("");//per evitare l'errore parcel size
                 i.putExtra("attivita", attivita);
                 context.startActivity(i);
             }
@@ -268,7 +271,7 @@ public class ProfiloAttivitaActivity extends AppCompatActivity {
 
                     /*viene effattuata la chiamata REST al metodo put http per cambiare l'immagine
                     * il nome dell'attivita viene passato come parametro nell'url*/
-                    RESTClient.put("/cambiaImmagine/" + nomeAttivita, requestParams, new AsyncHttpResponseHandler() {
+                    RESTClient.put("/ProfiloAttivitaService/attivita/" + nomeAttivita, requestParams, new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                             String result = new String(responseBody);

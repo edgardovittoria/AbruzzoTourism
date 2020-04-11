@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism.Adapter;
+package univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

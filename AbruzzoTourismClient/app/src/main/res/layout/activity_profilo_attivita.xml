@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.AggiungiAttivita.ProfiloAttivita.ProfiloAttivitaActivity">
+    tools:context=".Activities.ProfiloAttivita.ProfiloAttivitaActivity">
 
     <ProgressBar
         android:id="@+id/progressBarProfiloAttivita"
@@ -175,7 +175,7 @@
 
                 <fragment
                     android:id="@+id/fragment_profilo_attivita"
-                    android:name="univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.ProfiloAttivita.RegistroPrenotazioniProfiloAttivitaFragment"
+                    android:name="univaq.aq.it.abruzzotourism.Activities.ProfiloAttivita.RegistroPrenotazioniProfiloAttivitaFragment"
                     android:layout_width="match_parent"
                     android:layout_height="2000dp" />
             </LinearLayout>

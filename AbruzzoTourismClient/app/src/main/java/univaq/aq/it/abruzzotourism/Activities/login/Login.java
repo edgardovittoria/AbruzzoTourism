@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism.login;
+package univaq.aq.it.abruzzotourism.Activities.login;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,10 +16,10 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.ProfiloAttivita.ProfiloAttivitaActivity;
-import univaq.aq.it.abruzzotourism.Activities.Signin.SigninActivity;
-import univaq.aq.it.abruzzotourism.Activities.Signin.SigninAttivitaActivity;
-import univaq.aq.it.abruzzotourism.MainActivity;
+import univaq.aq.it.abruzzotourism.Activities.ProfiloAttivita.ProfiloAttivitaActivity;
+import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.SigninActivity;
+import univaq.aq.it.abruzzotourism.Activities.ProfiloAttivita.SigninAttivitaActivity;
+import univaq.aq.it.abruzzotourism.Activities.Home.MainActivity;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
 import univaq.aq.it.abruzzotourism.utility.UserLocalStore;

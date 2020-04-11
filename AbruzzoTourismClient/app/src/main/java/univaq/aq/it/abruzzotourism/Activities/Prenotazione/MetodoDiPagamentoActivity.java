@@ -17,7 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import univaq.aq.it.abruzzotourism.MainActivity;
+import univaq.aq.it.abruzzotourism.Activities.Search.SearchActivity;
+import univaq.aq.it.abruzzotourism.Activities.Home.MainActivity;
 import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.utility.UserLocalStore;

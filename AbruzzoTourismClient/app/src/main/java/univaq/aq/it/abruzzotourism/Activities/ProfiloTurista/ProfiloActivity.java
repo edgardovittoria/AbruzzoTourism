@@ -35,12 +35,12 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 
 import cz.msebera.android.httpclient.Header;
-import univaq.aq.it.abruzzotourism.Activities.Prenotazione.SearchActivity;
-import univaq.aq.it.abruzzotourism.MainActivity;
+import univaq.aq.it.abruzzotourism.Activities.Search.SearchActivity;
+import univaq.aq.it.abruzzotourism.Activities.Home.MainActivity;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Turista;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
-import univaq.aq.it.abruzzotourism.login.Login;
+import univaq.aq.it.abruzzotourism.Activities.login.Login;
 import univaq.aq.it.abruzzotourism.utility.RESTClient;
 import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 
@@ -97,7 +97,9 @@ public class ProfiloActivity extends AppCompatActivity {
             }
         });
 
-        RESTClient.get("/TuristaByEmail/" + userDetails.getEmail(), null, new AsyncHttpResponseHandler() {
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("email", userDetails.getEmail());
+        RESTClient.get("/ProfiloTuristaService/turisti/", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
@@ -191,9 +193,10 @@ public class ProfiloActivity extends AppCompatActivity {
                     requestParams.setUseJsonStreamer(true);
                     requestParams.setElapsedFieldInJsonStreamer(null);
 
+
                     /*viene effattuata la chiamata REST al metodo put http per cambiare l'immagine
-                     * il nome dell'attivita viene passato come parametro nell'url*/
-                    RESTClient.put("/cambiaImmagineTurista/" +turista.getNome() , requestParams, new AsyncHttpResponseHandler() {
+                     * il nome dell'attivita viene passato come parametro*/
+                    RESTClient.put("/ProfiloTuristaService/turisti/"+turista.getNome(), requestParams, new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                             String result = new String(responseBody);

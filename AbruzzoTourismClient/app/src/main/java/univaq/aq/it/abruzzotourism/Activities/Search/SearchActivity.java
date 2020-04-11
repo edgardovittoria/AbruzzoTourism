@@ -1,9 +1,10 @@
-package univaq.aq.it.abruzzotourism.Activities.Prenotazione;
+package univaq.aq.it.abruzzotourism.Activities.Search;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -15,22 +16,19 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
-import org.json.JSONArray;
-import org.json.JSONException;
+import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
 import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity;
-import univaq.aq.it.abruzzotourism.Adapter.AttivitaListAdapter;
-import univaq.aq.it.abruzzotourism.MainActivity;
+import univaq.aq.it.abruzzotourism.Activities.Home.Adapter.AttivitaListAdapter;
+import univaq.aq.it.abruzzotourism.Activities.Home.MainActivity;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
-import univaq.aq.it.abruzzotourism.utility.RESTClient;
+import univaq.aq.it.abruzzotourism.utility.SOAPClient;
 import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 
 public class SearchActivity extends AppCompatActivity {
@@ -42,6 +40,7 @@ public class SearchActivity extends AppCompatActivity {
     ProgressBar progressBar;
     Context context = this;
     UserLocalStore userLocalStore;
+    String tipologia;
 
 
     @Override
@@ -53,8 +52,11 @@ public class SearchActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBarSearch);
         progressBar.setIndeterminate(true);
         userLocalStore = new UserLocalStore(context);
-        this.user = userLocalStore.getLoggedInUser();
-        fetchAttivita(getIntent().getStringExtra("tipologia"));
+        user = userLocalStore.getLoggedInUser();
+        tipologia = getIntent().getStringExtra("tipologia");
+
+        SearchAttivita task = new SearchAttivita();
+        task.execute(tipologia, user);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -109,48 +111,6 @@ public class SearchActivity extends AppCompatActivity {
         }
     };
 
-    public void fetchAttivita(final String tipologia){
-        RESTClient.get("/Attivita/" + tipologia, null, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    progressBar.setIndeterminate(false);
-                    List<Attivita> attivita = new ArrayList<Attivita>();
-                    String response = new String(responseBody);
-                    JSONArray jsonArray = new JSONArray(response);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        Attivita att = new Attivita();
-                        att.setNomeAttivita(jsonArray.getJSONObject(i).getString("nomeAttivita"));
-                        att.setDescrizione(jsonArray.getJSONObject(i).getString("descrizione"));
-                        att.setIDAttivita(jsonArray.getJSONObject(i).getInt("idattività"));
-                        att.setCostoPerPersona(Float.parseFloat(jsonArray.getJSONObject(i).getString("costoPerPersona")));
-                        att.setNumMaxPartecipanti(jsonArray.getJSONObject(i).getInt("numMaxPartecipanti"));
-                        att.setImage(jsonArray.getJSONObject(i).getString("image"));
-                        attivita.add(att);
-                    }
-                    if(!attivita.isEmpty()){
-                        list_adapter = new AttivitaListAdapter(searchActivity, attivita, user);
-                        lv_attivita = (ListView) findViewById(R.id.lv_attivita_search);
-                        lv_attivita.setAdapter(list_adapter);
-                    }else {
-                        Toast.makeText(searchActivity, "Non sono state trovate attivita relative alla categoria : "+tipologia+"!!!", Toast.LENGTH_LONG).show();
-                        finish();
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(searchActivity, "ERRORE!!! Riprovare", Toast.LENGTH_LONG).show();
-            }
-
-        });
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
@@ -158,5 +118,47 @@ public class SearchActivity extends AppCompatActivity {
             this.finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public class SearchAttivita extends AsyncTask<Object, Void, SoapObject>{
+
+        private String TAG = "SoapClient";
+        private SOAPClient soapClient = new SOAPClient();
+
+
+        @Override
+        protected SoapObject doInBackground(Object... params){
+            return soapClient.getAttivitaByTipologia(params[0], params[1]);
+        }
+
+        @Override
+        protected void onPostExecute(SoapObject result){
+            progressBar.setIndeterminate(false);
+            List<Attivita> attivita = new ArrayList<Attivita>();
+            for (int i = 0; i < result.getPropertyCount(); i++) {
+                Attivita att = new Attivita();
+                SoapObject soapObject = (SoapObject) result.getProperty(i);
+                att.setNomeAttivita(soapObject.getPropertyAsString("nomeAttivita"));
+                att.setDescrizione(String.valueOf(soapObject.getProperty("descrizione")));
+                att.setIDAttivita(Integer.parseInt(soapObject.getPropertyAsString("IDAttività")));
+                att.setCostoPerPersona(Float.parseFloat(soapObject.getPropertyAsString("CostoPerPersona")));
+                att.setNumMaxPartecipanti(Integer.parseInt(soapObject.getPropertyAsString("NumMaxPartecipanti")));
+                att.setImage(soapObject.getPropertyAsString("image"));
+                attivita.add(att);
+            }
+            if(!attivita.isEmpty()){
+                list_adapter = new AttivitaListAdapter(searchActivity, attivita, user);
+                lv_attivita = (ListView) findViewById(R.id.lv_attivita_search);
+                lv_attivita.setAdapter(list_adapter);
+            }else {
+                Toast.makeText(searchActivity, "Non sono state trovate attivita relative alla categoria : "+tipologia+"!!!", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }
+
+        @Override
+        protected void onPreExecute(){
+            progressBar.setIndeterminate(false);
+        }
     }
 }

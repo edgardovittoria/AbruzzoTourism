@@ -17,11 +17,12 @@ import static android.content.ContentValues.TAG;
 public class SOAPClient {
 
     private String SOAP_ACTION = "";
-    private String NAMESPACE = "http://service.sose.univaq.it/";
-    private String WSDL_URL = "http://10.0.2.2:8080/AbruzzoTourism/soap/service";
+    private String NAMESPACE = "http://soap.service.sose.univaq.it/";
+    private String WSDL_URL_HOMEANDSEARCH_SERVICE = "http://10.0.2.2:8080/AbruzzoTourism/soap/HomeAndSearchService";
+    private String WSDL_URL_PRENOTAZIONE_SERVICE = "http://10.0.2.2:8080/AbruzzoTourism/soap/PrenotazioneService";
     private SoapObject result;
 
-    public SoapObject getAttivita(Object tipologia, Object userDetails) {
+    public SoapObject getAttivitaByTipologia(Object tipologia, Object userDetails) {
         
         try {
 
@@ -36,7 +37,7 @@ public class SOAPClient {
             soapEnvelope.headerOut = securityHeader.generateSecurityHeader((UserDetails) userDetails);
             soapEnvelope.setOutputSoapObject(Request);
 
-            HttpTransportSE transport = new HttpTransportSE(this.WSDL_URL);
+            HttpTransportSE transport = new HttpTransportSE(this.WSDL_URL_HOMEANDSEARCH_SERVICE);
 
             transport.call(this.SOAP_ACTION, soapEnvelope);
 
@@ -67,41 +68,7 @@ public class SOAPClient {
             soapEnvelope.setOutputSoapObject(Request);
 
 
-            HttpTransportSE transport = new HttpTransportSE(this.WSDL_URL);
-
-            transport.call(this.SOAP_ACTION, soapEnvelope);
-
-            this.result = (SoapObject)soapEnvelope.bodyIn;
-
-
-
-        } catch (Exception ex) {
-            Log.e(TAG, "catch: " + ex.getMessage());
-
-        }
-
-
-        return this.result;
-    }
-
-    public SoapObject getAttivitaByID(int ID, UserDetails userDetails) {
-
-        try {
-
-
-            SoapObject Request = new SoapObject(this.NAMESPACE, "getAttivitaById");
-            Request.addProperty("ID", ID);
-
-            SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-            soapEnvelope.dotNet = true;
-            soapEnvelope.implicitTypes = false;
-            // add securityheader to envelope
-            SecurityHeader securityHeader = new SecurityHeader();
-            soapEnvelope.headerOut = securityHeader.generateSecurityHeader(userDetails);
-            soapEnvelope.setOutputSoapObject(Request);
-
-
-            HttpTransportSE transport = new HttpTransportSE(this.WSDL_URL);
+            HttpTransportSE transport = new HttpTransportSE(this.WSDL_URL_HOMEANDSEARCH_SERVICE);
 
             transport.call(this.SOAP_ACTION, soapEnvelope);
 
@@ -149,7 +116,7 @@ public class SOAPClient {
 
 
 
-            HttpTransportSE transport = new HttpTransportSE(this.WSDL_URL);
+            HttpTransportSE transport = new HttpTransportSE(this.WSDL_URL_PRENOTAZIONE_SERVICE);
 
             transport.call(this.SOAP_ACTION, soapEnvelope);
 
@@ -162,4 +129,71 @@ public class SOAPClient {
         return this.result;
     }
 
+    public SoapObject getImageAttivita(Object ID, Object userDetails) {
+
+        try {
+
+
+            SoapObject Request = new SoapObject(this.NAMESPACE, "getImageAttivita");
+            Request.addProperty("ID", ID);
+
+            SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            soapEnvelope.dotNet = true;
+            soapEnvelope.implicitTypes = false;
+            // add securityheader to envelope
+            SecurityHeader securityHeader = new SecurityHeader();
+            soapEnvelope.headerOut = securityHeader.generateSecurityHeader((UserDetails) userDetails);
+            soapEnvelope.setOutputSoapObject(Request);
+
+
+            HttpTransportSE transport = new HttpTransportSE(this.WSDL_URL_PRENOTAZIONE_SERVICE);
+
+            transport.call(this.SOAP_ACTION, soapEnvelope);
+
+            this.result = (SoapObject)soapEnvelope.bodyIn;
+
+
+
+        } catch (Exception ex) {
+            Log.e(TAG, "catch: " + ex.getMessage());
+
+        }
+
+
+        return this.result;
+    }
+
+    public SoapObject getTuristaByEmail(UserDetails userDetails) {
+
+        try {
+
+
+            SoapObject Request = new SoapObject(this.NAMESPACE, "getTuristaByEmail");
+            Request.addProperty("email", userDetails.getEmail());
+
+            SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            soapEnvelope.dotNet = true;
+            soapEnvelope.implicitTypes = false;
+            // add securityheader to envelope
+            SecurityHeader securityHeader = new SecurityHeader();
+            soapEnvelope.headerOut = securityHeader.generateSecurityHeader((UserDetails) userDetails);
+            soapEnvelope.setOutputSoapObject(Request);
+
+
+            HttpTransportSE transport = new HttpTransportSE(this.WSDL_URL_PRENOTAZIONE_SERVICE);
+
+            transport.call(this.SOAP_ACTION, soapEnvelope);
+
+            this.result = (SoapObject)soapEnvelope.bodyIn;
+
+
+
+        } catch (Exception ex) {
+            Log.e(TAG, "catch: " + ex.getMessage());
+
+        }
+
+
+        return this.result;
+    }
 }

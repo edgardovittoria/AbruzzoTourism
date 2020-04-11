@@ -12,16 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.AggiungiAttivita.ProfiloAttivita.AggiungiPrenotazioneActivity"></activity>
-        <activity android:name=".Activities.AggiungiAttivita.ProfiloAttivita.ModificaPrenotazioneActivity" />
-        <activity android:name=".Activities.AggiungiAttivita.AggiungiattivitaActivity" />
-        <activity android:name=".Activities.AggiungiAttivita.ProfiloAttivita.ProfiloAttivitaActivity" />
-        <activity android:name=".Activities.Signin.SigninAttivitaActivity" />
+        <activity android:name=".Activities.ProfiloAttivita.AggiungiPrenotazioneActivity"></activity>
+        <activity android:name=".Activities.ProfiloAttivita.ModificaPrenotazioneActivity" />
+        <activity android:name=".Activities.ProfiloAttivita.AggiungiattivitaActivity" />
+        <activity android:name=".Activities.ProfiloAttivita.ProfiloAttivitaActivity" />
+        <activity android:name=".Activities.ProfiloAttivita.SigninAttivitaActivity" />
         <activity android:name=".Activities.ProfiloTurista.ProfiloActivity" />
-        <activity android:name=".Activities.Prenotazione.SearchActivity" />
-        <activity android:name=".Activities.Signin.SigninActivity" />
+        <activity android:name=".Activities.Search.SearchActivity" />
+        <activity android:name=".Activities.ProfiloTurista.SigninActivity" />
         <activity
-            android:name=".login.Login"
+            android:name=".Activities.login.Login"
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +33,7 @@
         <activity android:name=".Activities.Prenotazione.RiepilogoPrenotazioneActivity" />
         <activity android:name=".Activities.Prenotazione.PrenotaActivity" />
         <activity android:name=".Activities.Prenotazione.DettagliAttivitaActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.Home.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

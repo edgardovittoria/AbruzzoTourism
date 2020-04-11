@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.MenuItem;
@@ -20,15 +21,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
-import cz.msebera.android.httpclient.Header;
+import org.ksoap2.serialization.SoapObject;
+
 import univaq.aq.it.abruzzotourism.Activities.ProfiloTurista.ProfiloActivity;
-import univaq.aq.it.abruzzotourism.MainActivity;
+import univaq.aq.it.abruzzotourism.Activities.Search.SearchActivity;
+import univaq.aq.it.abruzzotourism.Activities.Home.MainActivity;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.Attivita;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
-import univaq.aq.it.abruzzotourism.utility.RESTClient;
+import univaq.aq.it.abruzzotourism.utility.SOAPClient;
 import univaq.aq.it.abruzzotourism.utility.UserLocalStore;
 
 public class DettagliAttivitaActivity extends AppCompatActivity {
@@ -36,6 +38,9 @@ public class DettagliAttivitaActivity extends AppCompatActivity {
     Context context = this;
     UserDetails user = new UserDetails();
     UserLocalStore userLocalStore;
+    Attivita attivita = new Attivita();
+    ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,40 +52,24 @@ public class DettagliAttivitaActivity extends AppCompatActivity {
         userLocalStore = new UserLocalStore(context);
         user = userLocalStore.getLoggedInUser();
 
-
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final ProgressBar progressBar = findViewById(R.id.progressBarDettaggliAttivita);
+        progressBar = findViewById(R.id.progressBarDettaggliAttivita);
         progressBar.setIndeterminate(true);
 
-        final Attivita att = getIntent().getParcelableExtra("attivita");
+        attivita = getIntent().getParcelableExtra("attivita");
 
-        RESTClient.get("/getImage/" + att.getIDAttivita(), null, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                progressBar.setIndeterminate(false);
-                att.setImage(new String(responseBody));
-                ImageView iv= findViewById(R.id.im_DettagliAttivita);
-                byte[] image = Base64.decode(att.getImage(), 0);
-                Bitmap image1 = BitmapFactory.decodeByteArray(image,0,image.length);
-                iv.setImageBitmap(image1);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-            }
-        });
-
+        getImage task = new getImage();
+        task.execute(attivita.getIDAttivita(), user);
 
 
         TextView tv = findViewById(R.id.tv_nomeAttivitaDettaglio);
-        tv.setText(att.getNomeAttivita());
+        tv.setText(attivita.getNomeAttivita());
         TextView tv2 = findViewById(R.id.tv_descrizioneAttivitaDettaglio);
-        tv2.setText(att.getDescrizione());
+        tv2.setText(attivita.getDescrizione());
         TextView tv3 = findViewById(R.id.costoPersona);
-        tv3.setText("Il costo per persona è : "+att.getCostoPerPersona()+"€");
+        tv3.setText("Il costo per persona è : "+attivita.getCostoPerPersona()+"€");
 
         Button btn = findViewById(R.id.btn_prenota);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -88,8 +77,8 @@ public class DettagliAttivitaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, PrenotaActivity.class);
-                att.setImage("");
-                i.putExtra("attivita", att);
+                attivita.setImage("");
+                i.putExtra("attivita", attivita);
                 context.startActivity(i);
             }
         });
@@ -153,6 +142,38 @@ public class DettagliAttivitaActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public class getImage extends AsyncTask<Object, Void, SoapObject> {
+        private String TAG = "SoapClient";
+        private SOAPClient soapClient = new SOAPClient();
+
+
+        @Override
+        protected SoapObject doInBackground(Object... params){
+            return soapClient.getImageAttivita(params[0], params[1]);
+        }
+
+        @Override
+        protected void onPostExecute(SoapObject result){
+            progressBar.setIndeterminate(false);
+            attivita.setImage(String.valueOf(result.getProperty(0)));
+            ImageView iv= findViewById(R.id.im_DettagliAttivita);
+            byte[] image = Base64.decode(attivita.getImage(), 0);
+            Bitmap image1 = BitmapFactory.decodeByteArray(image,0,image.length);
+            iv.setImageBitmap(image1);
+
+        }
+
+        @Override
+        protected void onPreExecute(){
+            //progressBar = findViewById(R.id.progressBarRiepilogoPrenotazione);
+            progressBar.setIndeterminate(true);
+        }
+
+
+    }
+
+
 
 }
 

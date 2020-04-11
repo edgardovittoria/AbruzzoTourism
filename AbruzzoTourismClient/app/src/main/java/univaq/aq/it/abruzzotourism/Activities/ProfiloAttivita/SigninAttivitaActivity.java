@@ -1,4 +1,4 @@
-package univaq.aq.it.abruzzotourism.Activities.Signin;
+package univaq.aq.it.abruzzotourism.Activities.ProfiloAttivita;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +20,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import cz.msebera.android.httpclient.Header;
-import univaq.aq.it.abruzzotourism.Activities.AggiungiAttivita.AggiungiattivitaActivity;
 import univaq.aq.it.abruzzotourism.R;
 import univaq.aq.it.abruzzotourism.domain.UserDetails;
 import univaq.aq.it.abruzzotourism.domain.UtenteAttivita;
@@ -66,7 +65,7 @@ public class SigninAttivitaActivity extends AppCompatActivity {
                         requestParams.setUseJsonStreamer(true);
                         requestParams.setElapsedFieldInJsonStreamer(null);
 
-                        RESTClient.post("/signinUtenteAttivita", requestParams, new AsyncHttpResponseHandler() {
+                        RESTClient.post("/ProfiloAttivitaService/utenteAttivita", requestParams, new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                                 progressBar.setIndeterminate(false);
